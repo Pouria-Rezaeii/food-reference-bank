@@ -60,7 +60,7 @@
     "typescript": "~3.7.2",
     "yup": "^0.29.1"
   },
-  "proxy": "http://185.206.92.24",
+  "proxy": "http://bank.sheroganj.ir",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
