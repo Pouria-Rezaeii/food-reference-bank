@@ -1,13 +1,11 @@
 // Render Prop
+import { Field, Form, Formik } from "formik";
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { IFormikLoginState } from "./models";
-import CustomeInputComponent from "../CustomeInputComponent";
-import GotoForgotPassword from "./GotoForgotPassword";
 import * as Yup from "yup";
 import api from "../../services/api";
-import {axiosInstance} from "../../services/axios/axios";
-import axios from 'axios'
+import CustomeInputComponent from "../CustomeInputComponent";
+import GotoForgotPassword from "./GotoForgotPassword";
+import { IFormikLoginState } from "./models";
 
 const FormLogin = () => (
   <div>
@@ -21,17 +19,17 @@ const FormLogin = () => (
         password: Yup.string().required("لطفا رمز عبور خود را وارد کنید"),
       })}
       onSubmit={async (values, { setSubmitting }) => {
-		const res = await api.apiAuth.login(values)
-		window.location.href = 'http://185.206.92.24/pannel'
-		
-		//   fetch("/api/auth/login/", {
+        const res = await api.apiAuth.login(values);
+        window.location.href = "http://localhost:3000/pannel";
+
+        //   fetch("/api/auth/login/", {
         //   method: "POST",
         //   body: JSON.stringify(values),
         //   headers: {
         //     "Content-Type": "application/json",
         //   },
         // }).then((res) => console.log(res.json()));
-		  // axiosInstance.post('/auth/login/',values).then((res)=>console.log(res))
+        // axiosInstance.post('/auth/login/',values).then((res)=>console.log(res))
       }}
     >
       {({ isSubmitting }) => (

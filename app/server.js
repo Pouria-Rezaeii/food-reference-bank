@@ -4,8 +4,8 @@ const next = require('next')
 
 const devProxy = {
   '/api': {
-    target: 'http://bank.pythonanywhere.com',
-    pathRewrite: { '^/api': '/' },
+    target: 'http://bank.sheroganj.ir',
+    // pathRewrite: { '^/api': '/' },
     changeOrigin: true,
   },
 }
