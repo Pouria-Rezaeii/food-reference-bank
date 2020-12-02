@@ -41,7 +41,7 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title" id="myModalLabel">
-                اییجاد دسته بندی
+                ایجاد دسته بندی
               </h4>
               <CloseModalIcon handleCloseModal={handleCloseModal} />
             </div>
@@ -53,6 +53,7 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
               })}
               onSubmit={async (values, { setSubmitting }) => {
                 await api.adminApi.createCategory(values);
+                console.log("success");
                 mutate();
                 setSubmitting(false);
               }}
