@@ -14,7 +14,7 @@ import {renameProp, Tree} from "../../../../services/utils/treeTravers";
 import CreateCategoryModal from "./components/CategoryModal/CreateCategoryModal";
 import EditCategoryModal from "./components/CategoryModal/EditCategoryModal";
 import {TCategoryTableData} from "./models";
-import {useQuery} from "react-query";
+import {useQuery,useQueryCache} from "react-query";
 import {fetcher} from "../../../../React-Query/Categories/GetCategories/fetcher";
 const hooks = [
   useColumnOrder,
@@ -30,7 +30,8 @@ const hooks = [
 
 const Index = () => {
   const modalDispatch = useModalDispatch();
-  const {data}=useQuery("Categories",fetcher)
+  const {data}=useQuery("Categories",fetcher);
+  
   // const { data } = useSWR<ICategoryRes[]>(`${baseAdminUrl}/category/`);
   const rows = useMemo(() => {
     if (data) {

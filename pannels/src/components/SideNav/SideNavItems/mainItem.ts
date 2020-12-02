@@ -26,7 +26,7 @@ const calcOrChildPermission = (childIitem: IMenuItem[]): TPermissions[] => {
   const childPermArray = childIitem
     .map((item) => item.toHavePermissions)
     .filter((item) => item !== undefined);
-  console.log(childPermArray, " in calc or child permission");
+  // console.log(childPermArray, " in calc or child permission");
 
   return childPermArray.some((item) => isEmpty(item))
     ? []

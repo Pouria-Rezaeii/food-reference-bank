@@ -16,7 +16,7 @@ import useSWR from "swr";
 import { baseAdminUrl } from "../../../../../../services/utils/api/Admin";
 import * as Yup from "yup";
 import {fetcher} from "../../../../../../React-Query/Categories/CreateCategories/fetcher";
-import {useMutation} from "react-query";
+import {useMutation, useQueryCache} from "react-query";
 //-----------------------------------------------------------------
 
 interface IProps {
@@ -30,7 +30,13 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
 
   // const { mutate } = useSWR<ICategoryRes[]>(`${baseAdminUrl}/category/`);
   //----------------form states----------------------//
-  const [mutate,{error}] = useMutation(fetcher);
+  const cache=useQueryCache();
+  const [mutate,{error}] = useMutation(fetcher,{
+    onSuccess:()=>{
+      cache.invalidateQueries("Categories")
+    }
+  });
+
   return (
     <>
       <div className="modal-backdrop show"></div>

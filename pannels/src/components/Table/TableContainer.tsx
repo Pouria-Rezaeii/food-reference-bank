@@ -13,7 +13,6 @@ const TableContainer = <T extends object>({
   children,
   ...tableProps
 }: PropsWithChildren<TableInstance<T>>) => {
-  console.log(tableProps)
   return (
     <>
       <div className="table-responsive m-t-40">
