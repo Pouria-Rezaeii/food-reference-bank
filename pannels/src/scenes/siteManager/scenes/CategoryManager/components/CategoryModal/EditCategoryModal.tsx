@@ -19,10 +19,11 @@ import { fetcherWithParam } from "../../../../../../services/axios/fetchers";
 import { baseAdminUrl } from "../../../../../../services/utils/api/Admin";
 import Spinner from "../../../../../../components/Spinner";
 import CategoryIdProvider from "../../../../../../services/contexts/CategoryIdContext/CategoryIdProvider";
-import api from "../../../../../../services/utils/api";
 import Button from "../../../../../../components/Button";
 import Centerise from "../../../../../../components/Centerise";
 import { toast } from "react-toastify";
+import {useMutation,useQueryCache} from "react-query";
+import {fetcher} from "../../../../../../React-Query/Categories/EditCategory/fetcher";
 //-----------------------------------------------------------------
 
 interface IProps {
@@ -34,7 +35,12 @@ const EditCategoryModal: React.FC<IProps & TCategoryTableData> = ({
   id,
   title,
 }) => {
-  const { mutate } = useSWR<ICategoryRes[]>(`${baseAdminUrl}/category/`);
+  const cache=useQueryCache();
+  const [mutate,{error}] = useMutation(fetcher,{
+    onSuccess:()=>{
+      cache.invalidateQueries("Categories")
+    }
+  });
   const { data } = useSWR<ICategorySlider[]>(
     [`${baseAdminUrl}/category_slider/`, "category", id],
     fetcherWithParam
@@ -58,13 +64,14 @@ const EditCategoryModal: React.FC<IProps & TCategoryTableData> = ({
 
   const handleSubmit = async () => {
     setLoading(true);
-    try {
-      await api.adminApi.editCategory({ id, title: categoryName });
+    try{
+      await mutate( {id, title: categoryName })
       toast.info('با موفقیت تغییر یافت')
-      mutate();
-    } finally {
-      setLoading(false);
-    }
+  }catch{
+      console.log(error,"error2");
+  }finally{
+    setLoading(false);
+  }
   };
 
   return (

@@ -7,15 +7,15 @@ import {ReactTable} from "../../../../components/Table/ReactTable";
 import TableContainer from "../../../../components/Table/TableContainer";
 import {useModalDispatch} from "../../../../services/contexts/ModalContext/ModalContext";
 import {EModalActionTypes} from "../../../../services/contexts/ModalContext/models";
-import api from "../../../../services/utils/api";
-import {baseAdminUrl} from "../../../../services/utils/api/Admin";
 import {ICategoryRes} from "../../../../services/utils/api/Admin/models";
 import {renameProp, Tree} from "../../../../services/utils/treeTravers";
 import CreateCategoryModal from "./components/CategoryModal/CreateCategoryModal";
 import EditCategoryModal from "./components/CategoryModal/EditCategoryModal";
 import {TCategoryTableData} from "./models";
-import {useQuery,useQueryCache} from "react-query";
-import {fetcher} from "../../../../React-Query/Categories/GetCategories/fetcher";
+import {useQuery,useMutation,useQueryCache} from "react-query";
+import {GetFetcher} from "../../../../React-Query/Categories/GetCategories/fetcher";
+import {DeleteFetcher} from "../../../../React-Query/Categories/DeleteCategory/fetcher";
+import { toast } from "react-toastify";
 const hooks = [
   useColumnOrder,
   useFilters,
@@ -30,9 +30,13 @@ const hooks = [
 
 const Index = () => {
   const modalDispatch = useModalDispatch();
-  const {data}=useQuery("Categories",fetcher);
-  
-  // const { data } = useSWR<ICategoryRes[]>(`${baseAdminUrl}/category/`);
+  const cache=useQueryCache();
+  const {data}=useQuery("Categories",GetFetcher);
+  const [mutate,{error}] = useMutation(DeleteFetcher,{
+    onSuccess:()=>{
+      cache.invalidateQueries("Categories")
+    }
+  });
   const rows = useMemo(() => {
     if (data) {
       const newData = data.map((d) => {
@@ -51,10 +55,6 @@ const Index = () => {
           component: EditCategoryModal,
           props: {
             ...modalProps,
-            // id: 1,
-            // name: "فلان",
-            // picture: "bla",
-            // slider: ["khar", "olaq"],
           },
         },
       });
@@ -73,13 +73,17 @@ const Index = () => {
   const handleCreateCategory = () => {
     openCreateCategoryModal();
   };
-  const handleDeleteCategory = async (id: number) => {
-    try {
+  const handleDeleteCategory = async (id: Pick<ICategoryRes,"id">) => {
+
+    try{
       const toDelete = window.confirm("آیا این دسته بندی حذف شود؟");
       if (toDelete) {
-        await api.adminApi.deleteCategory(id);
-      }
-    } catch (e) {}
+            await mutate(id);
+            toast.warning("با موفقیت حذف شد")
+        }
+  }catch{
+      console.log(error,"error2");
+  }
   };
   const handleEditCategory = useCallback(
     (data: TCategoryTableData) => {

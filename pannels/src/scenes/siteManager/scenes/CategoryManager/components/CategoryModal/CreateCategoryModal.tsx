@@ -11,12 +11,10 @@ import {
   ICategoryRes,
 } from "../../../../../../services/utils/api/Admin/models";
 import { calculateFlatten } from "../../../../../../services/utils/calculateOptions";
-import api from "../../../../../../services/utils/api";
-import useSWR from "swr";
-import { baseAdminUrl } from "../../../../../../services/utils/api/Admin";
 import * as Yup from "yup";
 import {fetcher} from "../../../../../../React-Query/Categories/CreateCategories/fetcher";
 import {useMutation, useQueryCache} from "react-query";
+import { toast } from "react-toastify";
 //-----------------------------------------------------------------
 
 interface IProps {
@@ -27,8 +25,6 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
   const handleCloseModal = () => {
     modalDispatcher({ type: EModalActionTypes.HIDE_MODAL });
   };
-
-  // const { mutate } = useSWR<ICategoryRes[]>(`${baseAdminUrl}/category/`);
   //----------------form states----------------------//
   const cache=useQueryCache();
   const [mutate,{error}] = useMutation(fetcher,{
@@ -36,7 +32,6 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
       cache.invalidateQueries("Categories")
     }
   });
-
   return (
     <>
       <div className="modal-backdrop show"></div>
@@ -60,14 +55,12 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
                 title: Yup.string().required("عنوان دسته بندی الزامی است"),
               })}
               onSubmit={async (values, { setSubmitting }) => {
-                // await api.adminApi.createCategory(values);
-                // await CreateCategories(values)
                 try{
                     await mutate(values)
+                    toast.success("با موفقیت اضافه شد")
                 }catch{
                     console.log(error,"error2");
                 }
-                // mutate();  
                 setSubmitting(false);
               }}
             >
