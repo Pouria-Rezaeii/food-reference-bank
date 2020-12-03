@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import { useQuery } from 'react-query'
 
 interface IProps {
   isShow: boolean;
+  categories?: any
 }
-const Category: React.FC<IProps> = ({ isShow }) => {
+
+
+// bookmark by pouria 
+// should be changed => categories type, axiosInstance, url variable, userAuthentication
+
+
+const Category: React.FC<IProps> = ({ isShow, categories }) => {
   const [showMore, setShowMore] = useState(false);
+
+  const { data } = useQuery('categories', fetchData, { initialData: categories })
+  console.log(data);
+
   const handleToggleShowMore = () => {
     setShowMore(!showMore);
   };
@@ -38,8 +51,8 @@ const Category: React.FC<IProps> = ({ isShow }) => {
             href="#"
             data-toggle="dropdown"
           >
-			  {/* <i className="flaticon-woman"></i> */}
-			  <span>زنانه</span>
+            {/* <i className="flaticon-woman"></i> */}
+            <span>زنانه</span>
           </a>
           <div className="dropdown-menu">
             <ul className="mega-menu d-lg-flex">
@@ -170,8 +183,8 @@ const Category: React.FC<IProps> = ({ isShow }) => {
             href="#"
             data-toggle="dropdown"
           >
-			  {/* <i className="flaticon-friendship"></i> */}
-			  <span>بچگانه</span>
+            {/* <i className="flaticon-friendship"></i> */}
+            <span>بچگانه</span>
           </a>
           <div className="dropdown-menu">
             <ul className="mega-menu d-lg-flex">
@@ -278,8 +291,8 @@ const Category: React.FC<IProps> = ({ isShow }) => {
             href="#"
             data-toggle="dropdown"
           >
-			  {/* <i className="flaticon-sunglasses"></i> */}
-			  <span>تجهیزات جانبی</span>
+            {/* <i className="flaticon-sunglasses"></i> */}
+            <span>تجهیزات جانبی</span>
           </a>
           <div className="dropdown-menu">
             <ul className="mega-menu d-lg-flex">
@@ -426,26 +439,26 @@ const Category: React.FC<IProps> = ({ isShow }) => {
             className="dropdown-item nav-link nav_item"
             href="coming-soon.html"
           >
-			  {/* <i className="flaticon-jacket"></i> */}
-			  <span>تن پوش</span>
+            {/* <i className="flaticon-jacket"></i> */}
+            <span>تن پوش</span>
           </a>
         </li>
         <li>
           <a className="dropdown-item nav-link nav_item" href="404.html">
-			  {/* <i className="flaticon-sneakers"></i> */}
-			  <span>کفش</span>
+            {/* <i className="flaticon-sneakers"></i> */}
+            <span>کفش</span>
           </a>
         </li>
         <li>
           <a className="dropdown-item nav-link nav_item" href="login.html">
-			  {/* <i className="flaticon-watch"></i> */}
-			  <span>ساعت</span>
+            {/* <i className="flaticon-watch"></i> */}
+            <span>ساعت</span>
           </a>
         </li>
         <li>
           <a className="dropdown-item nav-link nav_item" href="register.html">
-			  {/* <i className="flaticon-necklace"></i> */}
-			  <span>جواهرات</span>
+            {/* <i className="flaticon-necklace"></i> */}
+            <span>جواهرات</span>
           </a>
         </li>
         <li>
@@ -453,14 +466,14 @@ const Category: React.FC<IProps> = ({ isShow }) => {
             className="dropdown-item nav-link nav_item"
             href="coming-soon.html"
           >
-			  {/* <i className="flaticon-herbal"></i> */}
-			  <span>سلامت و زیبایی</span>
+            {/* <i className="flaticon-herbal"></i> */}
+            <span>سلامت و زیبایی</span>
           </a>
         </li>
         <li>
           <a className="dropdown-item nav-link nav_item" href="404.html">
-			  {/* <i className="flaticon-ball"></i> */}
-			  <span>ورزشی</span>
+            {/* <i className="flaticon-ball"></i> */}
+            <span>ورزشی</span>
           </a>
         </li>
         <li>
@@ -512,3 +525,13 @@ const Category: React.FC<IProps> = ({ isShow }) => {
 };
 
 export default Category;
+
+const fetchData = async () => {
+  const res = await axios.get('http://bank.sheroganj.ir/api/data_bank/category_tree/')
+  return res.data
+}
+
+export async function getStaticProps() {
+  const categories = await fetchData()
+  return { props: { categories } }
+}
