@@ -1,3 +1,82 @@
-.aaa {
-  color:cyan
+.listBox {
+  direction: ltr;
+}
+
+.list {
+  direction: rtl;
+}
+
+.more {
+  color: #fff;
+  background-color: rgb(247, 74, 74);
+  padding: 1.35rem 20px;
+}
+
+@media (max-width: 480px) {
+  .more {
+    padding: 1.4rem 20px;
+  }
+}
+
+.listItem {
+  padding: 0 14px 0 01px;
+  margin: 1px 0;
+  cursor: pointer;
+}
+
+.listItem:hover > .listItemContent > a,
+.listItem:hover > .listItemContent > span {
+  color: red !important;
+}
+
+.listItemContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow {
+  font-size: 25px;
+  margin-left: 10px;
+  padding-bottom: 3px;
+  transition: all ease 0.3s;
+}
+
+.listItem:hover > .listItemContent > .arrow {
+  transform: rotate(-90deg);
+}
+
+.innerList {
+  padding-right: 8px;
+  padding-bottom: 0px;
+  transition: all 0.3s;
+  max-height: 0;
+  opacity: 0;
+}
+
+.innerList .listItem {
+  display: none;
+}
+
+.listItem:hover > .innerList {
+  max-height: 800px;
+  opacity: 1;
+  padding-bottom: 10px;
+}
+
+.listItem:hover > .innerList > .listItem {
+  display: block;
+}
+
+/* restartin styles for first level categories */
+
+.list div > .innerList {
+  padding-bottom: 10px;
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.list div > .innerList > .listItem {
+  display: block;
+
 }

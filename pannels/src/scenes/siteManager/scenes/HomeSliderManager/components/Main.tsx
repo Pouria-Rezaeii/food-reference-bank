@@ -9,7 +9,7 @@ import { useMutation, useQueryCache, useQuery } from 'react-query'
 import { axiosInstance as axios } from '../../../../../services/axios/axios'
 // import axios from 'axios';
 
-// bookmark by pouria
+// bookmarked by pouria
 // should be changed => delete method should be added
 
 export const Main = () => {
