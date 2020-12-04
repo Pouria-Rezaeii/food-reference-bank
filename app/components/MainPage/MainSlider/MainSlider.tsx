@@ -30,9 +30,10 @@ const MainSlider = (props) => {
       className="banner_section slide_medium shop_banner_slider staggered-animation-wrap"
       style={{ marginBottom: "30px" }}
     >
-      <div className="container">
+      <div className="container-fluid">
         <div className="row px-5">
-          <div className="col offset-lg-2">
+          <div className="col-lg-3 col-md-4 col-sm-6 col-3">0</div>
+          <div className="col-lg-9 col-12 col-12">
             <Slider {...settings}>
               {/* {images?.map((image, index) => (
                 <div
@@ -52,22 +53,26 @@ const MainSlider = (props) => {
                     background: "url('images/mainslider/5.jpg')",
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: 'bottom'
+                    backgroundPosition: 'bottom',
+                    borderRadius:"8px",
+                    overflow:"hidden",
                   }}
                   className="carousel-item active background_bg"
                 >
                 </div>
               </div>
               <div>
-                <div
+                <img src="url('images/mainslider/2.jpg')"
                   style={{
                     background: "url('images/mainslider/2.jpg')",
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: 'center'
+                    backgroundPosition: 'center',
+                    borderRadius:"8px",
+                    overflow:"hidden",
                   }}
-                  className="carousel-item active background_bg"
-                ></div>
+                  className="carousel-item active background_bg">
+                </img>
               </div>
             </Slider>
           </div>
