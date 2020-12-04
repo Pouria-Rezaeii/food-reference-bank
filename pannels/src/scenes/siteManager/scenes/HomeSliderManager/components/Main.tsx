@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import SliderLoaders from "../../../../../components/SliderLoaders";
 import AddImage from "../../../../../components/AddImage";
 import SliderCard from "../../../../../components/SliderCard";
@@ -7,18 +7,25 @@ import { baseAdminUrl } from "../../../../../services/utils/api/Admin";
 import { ICategorySlider } from "../../../../../services/utils/api/Admin/models";
 import { useMutation, useQueryCache, useQuery } from 'react-query'
 import { axiosInstance as axios } from '../../../../../services/axios/axios'
+// import axios from 'axios';
 
 // bookmark by pouria
 // should be changed => delete method should be added
 
 export const Main = () => {
 
+  // useEffect(() => {
+  //   axios.get('http://bank.sheroganj.ir/api/data_bank/admin/category/').then(res => res.data)
+  // })
+
+
   const queryCache = useQueryCache()
 
   //  - - - - - - - - - fetching images
 
   const fetchData = async () => {
-    const res = await axios.get(`${baseAdminUrl}/category_slider/`)
+    const res = await axios.get(`${baseAdminUrl}/category/`)
+    console.log(res.data);
     return res.data
   }
 
@@ -44,7 +51,7 @@ export const Main = () => {
     const reader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onload = () => {
-      
+
       try {
         const stringImage = btoa(reader.result as string)
         mutate(stringImage)
