@@ -1,16 +1,24 @@
 import React from "react";
 import Slider from "react-slick";
 import { axiosInstance as axios } from '../../../services/axios/axios';
-// import axios from 'axios'
 import { useQuery } from 'react-query';
-
 
 
 // bookmark by pouria
 // should be changed => url variable
 
+type FetchedImages = {
+  id: number;
+  category: null;
+  image: string;
+}[]
 
-const MainSlider = ({ images }) => {
+interface IProps {
+  images: FetchedImages
+}
+
+
+const MainSlider: React.FC<IProps> = (props) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,10 +27,9 @@ const MainSlider = ({ images }) => {
     slidesToScroll: 1,
   };
 
-  const { data } = useQuery('landigSliderImages', fetchData, { initialData: images })
+  const { data } = useQuery('landigSliderImages', fetchData, { initialData: props.images })
   console.log('data', data);
 
-  const fetchedImages = data ? data : null
 
   return (
     <div
@@ -34,23 +41,22 @@ const MainSlider = ({ images }) => {
           <div className="col-lg-3 col-md-4 col-sm-6 col-3"></div>
           <div className="col-lg-9 col-12 col-12">
             <Slider {...settings}>
-              {fetchedImages?.map((image, index) => (
-                 <div key = {index}>
-                <div
-                  style={{
-                    background: `url('${image.image}')`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: 'center',
-                    borderRadius: "8px",
-                    overflow: "hidden",
-                  }}
-                  className="carousel-item active background_bg"
-                >
+              {data?.map((image, index) => (
+                <div key={index}>
+                  <div
+                    style={{
+                      background: `url('${image.image}')`,
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: 'center',
+                      borderRadius: "8px",
+                      overflow: "hidden",
+                    }}
+                    className="carousel-item active background_bg"
+                  >
+                  </div>
                 </div>
-              </div>
               ))}
-
             </Slider>
           </div>
         </div>

@@ -4,20 +4,26 @@ import styles from './Category.module.css';
 import Link from 'next/link';
 import { axiosInstance as axios } from '../../../services/axios/axios'
 
+type Categories = {
+  id: number;
+  children: any[] | [];
+  title: string;
+  type: string;
+  parent: null
+}[]
+
 interface IProps {
   isShow: boolean;
-  categories?: any
+  categories: Categories
 }
 
-
 // bookmarked by pouria 
-// should be changed => categories type, axiosInstance, url variable, userAuthentication
+// should be changed => categories type optimization, url variable
 // qestions => are all categories a link too ?
 
 
 const Category: React.FC<IProps> = ({ isShow, categories }) => {
   const [showMore, setShowMore] = useState(false);
-
 
   const { data } = useQuery('categories', fetchData, { initialData: categories })
 
@@ -43,7 +49,7 @@ const Category: React.FC<IProps> = ({ isShow, categories }) => {
 
   // a recursive function to extract all nested categories
 
-  const extractCategoriesHandle = (arr: any) => {
+  const extractCategoriesHandle = (arr: Categories) => {
     return <ul className={styles.innerList}>
       {arr.map((element, index) => (
         <li className={styles.listItem} key={index}>
@@ -71,7 +77,7 @@ const Category: React.FC<IProps> = ({ isShow, categories }) => {
       >
         <ul className={styles.list}>
           {smallScreen && <li className={styles.more} >همه دسته بندی ها </li>}
-          <div style = {{padding: "0 1px 0 12px"}}>
+          <div style={{ padding: "0 1px 0 12px" }}>
             {extractedCategories}
           </div>
         </ul>
