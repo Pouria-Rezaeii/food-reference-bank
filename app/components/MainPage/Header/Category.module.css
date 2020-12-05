@@ -1,11 +1,9 @@
-
 .listBox {
   direction: ltr;
 }
 
 .list {
   direction: rtl;
-  padding: 0 8px
 }
 
 .more {
@@ -29,7 +27,6 @@
 .listItem :not(:last-of-type) {
   border-bottom: 1px solid #eee;
 }
-
 
 .listItem:hover > .listItemContent > a,
 .listItem:hover > .listItemContent > span {
@@ -76,18 +73,18 @@
 
 /* first layer list styles separately */
 
-.list > .innerList {
+.list div > .innerList {
   max-height: 1000px;
   opacity: 1;
 }
 
-.list > .innerList > .listItem {
+.list div > .innerList > .listItem {
   display: block;
   padding: 6.4px 2px;
   margin: 1px 0;
   cursor: pointer;
 }
 
-.list > .innerList > .listItem:not(:last-of-type)  {
+.list div > .innerList > .listItem:not(:last-of-type) {
   border-bottom: 1px solid #eee;
 }

@@ -71,7 +71,9 @@ const Category: React.FC<IProps> = ({ isShow, categories }) => {
       >
         <ul className={styles.list}>
           {smallScreen && <li className={styles.more} >همه دسته بندی ها </li>}
+          <div style = {{padding: "0 1px 0 12px"}}>
             {extractedCategories}
+          </div>
         </ul>
         <div
           className={`more_categories ${showMore ? "show" : ""}`}
