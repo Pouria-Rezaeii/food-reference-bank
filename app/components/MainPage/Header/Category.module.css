@@ -1,9 +1,11 @@
+
 .listBox {
   direction: ltr;
 }
 
 .list {
   direction: rtl;
+  padding: 0 8px
 }
 
 .more {
@@ -19,10 +21,15 @@
 }
 
 .listItem {
-  padding: 3.5px 14px 3.5px 01px;
+  padding: 6px 2px;
   margin: 1px 0;
   cursor: pointer;
 }
+
+.listItem :not(:last-of-type) {
+  border-bottom: 1px solid #eee;
+}
+
 
 .listItem:hover > .listItemContent > a,
 .listItem:hover > .listItemContent > span {
@@ -37,8 +44,7 @@
 
 .arrow {
   font-size: 25px;
-  margin-left: 10px;
-  padding-bottom: 3px;
+  margin-left: 5px;
   transition: all ease 0.3s;
 }
 
@@ -47,9 +53,10 @@
 }
 
 .innerList {
-  padding-right: 8px;
+  box-sizing: border-box;
+  padding-right: 12px;
   padding-bottom: 0px;
-  transition: all 0.4s;
+  transition: all 0.5s;
   max-height: 0;
   opacity: 0;
 }
@@ -59,24 +66,28 @@
 }
 
 .listItem:hover > .innerList {
-  max-height: 800px;
+  max-height: 1000px;
   opacity: 1;
-  padding-bottom: 10px;
 }
 
 .listItem:hover > .innerList > .listItem {
   display: block;
 }
 
-/* restartin styles for first level categories */
+/* first layer list styles separately */
 
-.list div > .innerList {
-  padding-bottom: 10px;
+.list > .innerList {
   max-height: 1000px;
   opacity: 1;
 }
 
-.list div > .innerList > .listItem {
+.list > .innerList > .listItem {
   display: block;
+  padding: 6.4px 2px;
+  margin: 1px 0;
+  cursor: pointer;
+}
 
+.list > .innerList > .listItem:not(:last-of-type)  {
+  border-bottom: 1px solid #eee;
 }

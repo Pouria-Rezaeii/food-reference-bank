@@ -1,16 +1,16 @@
 import React from "react";
 import Slider from "react-slick";
-// import { axiosInstance as axios } from '../../../services/axios/axios';
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../services/axios/axios';
+// import axios from 'axios'
 import { useQuery } from 'react-query';
 
 
 
 // bookmark by pouria
-// should be changed => url variable, axios instance
+// should be changed => url variable
 
 
-const MainSlider = (props) => {
+const MainSlider = ({ images }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,11 +19,10 @@ const MainSlider = (props) => {
     slidesToScroll: 1,
   };
 
-  const { data } = useQuery('landigSliderImages', fetchData, { initialData: props.images })
-  // console.log(props);
-  // console.log('data', data);
+  const { data } = useQuery('landigSliderImages', fetchData, { initialData: images })
+  console.log('data', data);
 
-  const images = []
+  const fetchedImages = data ? data : null
 
   return (
     <div
@@ -32,48 +31,26 @@ const MainSlider = (props) => {
     >
       <div className="container-fluid">
         <div className="row px-5">
-          <div className="col-lg-3 col-md-4 col-sm-6 col-3">0</div>
+          <div className="col-lg-3 col-md-4 col-sm-6 col-3"></div>
           <div className="col-lg-9 col-12 col-12">
             <Slider {...settings}>
-              {/* {images?.map((image, index) => (
-                <div
-                  key={index}
-                  className="carousel-item active background_bg"
-                  style={{
-                    background: image,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: 'bottom'
-                  }}
-                ></div>
-              ))} */}
-              <div>
+              {fetchedImages?.map((image, index) => (
+                 <div key = {index}>
                 <div
                   style={{
-                    background: "url('images/mainslider/5.jpg')",
+                    background: `url('${image.image}')`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: 'bottom',
-                    borderRadius:"8px",
-                    overflow:"hidden",
+                    backgroundPosition: 'center',
+                    borderRadius: "8px",
+                    overflow: "hidden",
                   }}
                   className="carousel-item active background_bg"
                 >
                 </div>
               </div>
-              <div>
-                <img src="url('images/mainslider/2.jpg')"
-                  style={{
-                    background: "url('images/mainslider/2.jpg')",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: 'center',
-                    borderRadius:"8px",
-                    overflow:"hidden",
-                  }}
-                  className="carousel-item active background_bg">
-                </img>
-              </div>
+              ))}
+
             </Slider>
           </div>
         </div>
@@ -81,17 +58,11 @@ const MainSlider = (props) => {
     </div>
   );
 };
-{
 
-  /* <div className="carousel-item background_bg">
-    <img src="/images/banner4.jpg" alt="" />
-  </div> */
-
-}
 export default MainSlider;
 
 const fetchData = async () => {
-  const res = await axios.get(`https://jsonplaceholder.typicode.com/users`)  // url should be changed
+  const res = await axios.get(`/data_bank/admin/category_slider/`)
   return res.data
 }
 
@@ -99,3 +70,6 @@ export async function getStaticProps() {
   const images = await fetchData()
   return { props: { images } }
 }
+
+
+// background: "url('images/mainslider/5.jpg')",
