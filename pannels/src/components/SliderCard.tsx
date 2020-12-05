@@ -14,7 +14,7 @@ interface IProps {
   isSureState?: boolean;
   onIgnoreSureDelete?: () => void;
 }
-const SliderCard: React.FC<IProps> = ({
+const SliderCard: React.FC<IProps> = ({ 
   image,
   id,
   onDelete,

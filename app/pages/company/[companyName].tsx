@@ -27,7 +27,6 @@ export const Company = () => {
       <header className="header_wrap fixed-top header_with_topbar">
         <BottomHeader />
       </header>
-
       <BreadCrumsCompany companyName={query.companyName as string} />
       <div className="main_content">
         <div className="section">
@@ -35,7 +34,7 @@ export const Company = () => {
             <div className="row">
               <div className="col-xl-9">
                 <div className="single_post">
-                  <h2 className="blog_title">شرکت کاله</h2>
+                    <h2 className="blog_title">{query.companyName}</h2>
                   <ul className="list_none blog_meta">
                     <li>
                       <a href="#">

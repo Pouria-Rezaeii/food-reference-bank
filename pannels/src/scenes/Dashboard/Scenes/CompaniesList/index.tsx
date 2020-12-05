@@ -13,14 +13,14 @@ import {
   useTable,
 } from "react-table";
 import { toast } from "react-toastify";
-import useSWR from "swr";
 import Button from "../../../../components/Button";
 import { ReactTable } from "../../../../components/Table/ReactTable";
 import TableContainer from "../../../../components/Table/TableContainer";
 import api from "../../../../services/utils/api";
-import { baseAdminUrl } from "../../../../services/utils/api/Admin";
 import { ICompanyRes } from "../../../../services/utils/api/models";
 import { TCompanyTableData } from "./components/models";
+import { useQuery } from "react-query";
+import { GetFetcher } from "../../../../React-Query/Companies/GetCompanies/fetcher";
 const hooks = [
   useColumnOrder,
   useFilters,
@@ -34,7 +34,8 @@ const hooks = [
 ];
 
 const Index = () => {
-  const { data, revalidate } = useSWR(baseAdminUrl + "/companies");
+  const { data, refetch } = useQuery("CompaniesList", GetFetcher);
+  // const { data, revalidate } = useSWR(baseAdminUrl + "/companies");
   const [loading, setLoading] = useState(false);
   const [clicked, setClicked] = useState(-1);
   const handleStatusClick = useCallback(
@@ -48,7 +49,7 @@ const Index = () => {
               id: original.id!,
               status: "a",
             });
-            await revalidate();
+            await refetch();
             toast.success("وضعیت شرکت فعال شد");
             setLoading(false);
           }
@@ -60,8 +61,8 @@ const Index = () => {
               id: original.id!,
               status: "s",
             });
-            await revalidate();
-            toast.success("وضعیت شرکت غیر فعال شد");
+            await refetch();
+            toast.warning("وضعیت شرکت غیر فعال شد");
             setLoading(false);
           }
           setLoading(false);
@@ -72,7 +73,7 @@ const Index = () => {
         setClicked(-1);
       }
     },
-    [revalidate]
+    [refetch]
   );
   const columns = React.useMemo(
     () => [

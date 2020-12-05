@@ -23,7 +23,7 @@ import {ReactQueryCacheProvider,QueryCache} from "react-query";
 import {ReactQueryDevtools} from "react-query-devtools";
 const queryCache=new QueryCache();
 ReactDOM.render(
-  <>
+  <>   
   <ReactQueryCacheProvider queryCache={queryCache}>
   <ModalProvider>
     <Router history={browserHistory}>
