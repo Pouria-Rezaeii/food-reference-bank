@@ -49,7 +49,7 @@ const MainSlider: React.FC<IProps> = (props) => {
                       backgroundSize: "cover",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: 'center',
-                      borderRadius: "8px",
+                      borderRadius: "5px",
                       overflow: "hidden",
                     }}
                     className="carousel-item active background_bg"

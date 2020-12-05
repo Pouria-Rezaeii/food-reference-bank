@@ -2,24 +2,47 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 import styles from './Category.module.css';
 import Link from 'next/link';
-import { axiosInstance as axios } from '../../../services/axios/axios'
+import { axiosInstance as axios } from '../../../services/axios/axios';
+
+
+// bookmarked by pouria 
+// should be changed => url variable, parrent property should be added
+// qestions => are all categories a link too ?
+
+// - - - - - containing 2 components
+
+
+const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
+  const [show, setShow] = React.useState(false);
+
+  return (
+    <li className={`${styles.listItem} ${show ? styles.listItemToggle : ""}`}>
+      <div className={styles.listItemContent} onClick={() => setShow(prev => !prev)}>
+        <div className = {styles.ListItemTitle}>{props.title}</div>
+        {props.children.length ? <span className={styles.arrow}>&rsaquo;</span> : null}
+      </div>
+      <ul className={styles.innerList}>
+        {props.children.map((value, index) => (
+          <ListItem children={value.children} key={index} id={value.id} title={value.title} />
+        ))}
+      </ul>
+    </li>
+  );
+}
+
 
 type Categories = {
   id: number;
-  children: any[] | [];
+  children: Categories[];
   title: string;
   type: string;
   parent: null
-}[]
+}
 
 interface IProps {
   isShow: boolean;
-  categories: Categories
+  categories: Categories[]
 }
-
-// bookmarked by pouria 
-// should be changed => categories type optimization, url variable
-// qestions => are all categories a link too ?
 
 
 const Category: React.FC<IProps> = ({ isShow, categories }) => {
@@ -47,18 +70,12 @@ const Category: React.FC<IProps> = ({ isShow, categories }) => {
     };
   }, []);
 
-  // a recursive function to extract all nested categories
+  // - - -  calling a recursive Cmp extract all nested categories
 
-  const extractCategoriesHandle = (arr: Categories) => {
+  const extractCategoriesHandle = (arr: Categories[]) => {
     return <ul className={styles.innerList}>
-      {arr.map((element, index) => (
-        <li className={styles.listItem} key={index}>
-          <div className={styles.listItemContent}>
-            <Link href={element.title}><a>{element.title}</a></Link>
-            {element.children.length ? <span className={styles.arrow}>&rsaquo;</span> : null}
-          </div>
-          {element.children.length ? extractCategoriesHandle(element.children) : null}
-        </li>
+      {arr.map((element) => (
+        <ListItem key={element.id} children={element.children} id={element.id} title={element.title} />
       ))}
     </ul>
   }
@@ -77,7 +94,7 @@ const Category: React.FC<IProps> = ({ isShow, categories }) => {
       >
         <ul className={styles.list}>
           {smallScreen && <li className={styles.more} >همه دسته بندی ها </li>}
-          <div style={{ padding: "0 1px 0 12px" }}>
+          <div style={{ margin: "0 3px", overflow:"hidden"}}>
             {extractedCategories}
           </div>
         </ul>
@@ -93,6 +110,8 @@ const Category: React.FC<IProps> = ({ isShow, categories }) => {
 };
 
 export default Category;
+
+  // - - - - - - - - serverSide rendering
 
 const fetchData = async () => {
   const res = await axios.get('/data_bank/admin/category/')

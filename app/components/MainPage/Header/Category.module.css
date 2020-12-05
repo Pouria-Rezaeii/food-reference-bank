@@ -1,5 +1,7 @@
 .listBox {
   direction: ltr;
+  max-height: 33rem;
+  overflow-y: scroll;
 }
 
 .list {
@@ -19,7 +21,6 @@
 }
 
 .listItem {
-  padding: 6px 2px;
   margin: 1px 0;
   cursor: pointer;
 }
@@ -28,21 +29,22 @@
   border-bottom: 1px solid #eee;
 }
 
-.listItem:hover > .listItemContent > a,
-.listItem:hover > .listItemContent > span {
-  color: red !important;
+.listItem:hover > .listItemContent > .ListItemTitle,
+.listItem:hover > .listItemContent > .arrow {
 }
 
 .listItemContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  padding:4.5px
 }
 
 .arrow {
   font-size: 25px;
-  margin-left: 5px;
   transition: all ease 0.3s;
+  margin-left: 5px;
 }
 
 .listItem:hover > .listItemContent > .arrow {
@@ -51,23 +53,43 @@
 
 .innerList {
   box-sizing: border-box;
-  padding-right: 12px;
-  padding-bottom: 0px;
   transition: all 0.5s;
   max-height: 0;
   opacity: 0;
+  padding-right: 23px;
 }
 
 .innerList .listItem {
   display: none;
 }
 
-.listItem:hover > .innerList {
+.listItemToggle > .listItemContent .ListItemTitle,
+.listItemToggle > .listItemContent .arrow {
+  color:#fff;
+}
+
+.listItemToggle > .innerList {
   max-height: 1000px;
   opacity: 1;
 }
 
-.listItem:hover > .innerList > .listItem {
+.listItemToggle > .listItemContent::after {
+  content: '';
+  position: absolute;
+  background-color: #777;
+  top: 0;
+  left: 0;
+  width: 160%;
+  height: 100%
+}
+
+.listItemContent .ListItemTitle,
+.listItemContent .arrow{
+  position: relative;
+  z-index: 10
+}
+
+.listItemToggle > .innerList > .listItem {
   display: block;
 }
 
@@ -75,16 +97,35 @@
 
 .list div > .innerList {
   max-height: 1000px;
+  padding-right: 3px;
   opacity: 1;
 }
 
 .list div > .innerList > .listItem {
   display: block;
-  padding: 6.4px 2px;
   margin: 1px 0;
   cursor: pointer;
 }
 
+.list div > .innerList > .listItem > .listItemContent {
+  padding: 6px
+}
+
 .list div > .innerList > .listItem:not(:last-of-type) {
   border-bottom: 1px solid #eee;
+}
+
+/* scrollbar styles */
+
+.listBox::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listBox::-webkit-scrollbar-thumb {
+  background-color:#999 ;
+  border-radius: 2px;
+}
+
+.listBox::-webkit-scrollbar-track {
+  background-color: #eee;
 }
