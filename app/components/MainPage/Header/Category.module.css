@@ -1,0 +1,131 @@
+.listBox {
+  direction: ltr;
+  max-height: 33rem;
+  overflow-y: scroll;
+}
+
+.list {
+  direction: rtl;
+}
+
+.more {
+  color: #fff;
+  background-color: rgb(247, 74, 74);
+  padding: 1.35rem 20px;
+}
+
+@media (max-width: 480px) {
+  .more {
+    padding: 1.4rem 20px;
+  }
+}
+
+.listItem {
+  margin: 1px 0;
+  cursor: pointer;
+}
+
+.listItem :not(:last-of-type) {
+  border-bottom: 1px solid #eee;
+}
+
+.listItem:hover > .listItemContent > .ListItemTitle,
+.listItem:hover > .listItemContent > .arrow {
+}
+
+.listItemContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding:4.5px
+}
+
+.arrow {
+  font-size: 25px;
+  transition: all ease 0.3s;
+  margin-left: 5px;
+}
+
+.listItem:hover > .listItemContent > .arrow {
+  transform: rotate(-90deg);
+}
+
+.innerList {
+  box-sizing: border-box;
+  transition: all 0.5s;
+  max-height: 0;
+  opacity: 0;
+  padding-right: 23px;
+}
+
+.innerList .listItem {
+  display: none;
+}
+
+.listItemToggle > .listItemContent .ListItemTitle,
+.listItemToggle > .listItemContent .arrow {
+  color:#fff;
+}
+
+.listItemToggle > .innerList {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.listItemToggle > .listItemContent::after {
+  content: '';
+  position: absolute;
+  background-color: #777;
+  top: 0;
+  left: 0;
+  width: 160%;
+  height: 100%
+}
+
+.listItemContent .ListItemTitle,
+.listItemContent .arrow{
+  position: relative;
+  z-index: 10
+}
+
+.listItemToggle > .innerList > .listItem {
+  display: block;
+}
+
+/* first layer list styles separately */
+
+.list div > .innerList {
+  max-height: 1000px;
+  padding-right: 3px;
+  opacity: 1;
+}
+
+.list div > .innerList > .listItem {
+  display: block;
+  margin: 1px 0;
+  cursor: pointer;
+}
+
+.list div > .innerList > .listItem > .listItemContent {
+  padding: 6px
+}
+
+.list div > .innerList > .listItem:not(:last-of-type) {
+  border-bottom: 1px solid #eee;
+}
+
+/* scrollbar styles */
+
+.listBox::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listBox::-webkit-scrollbar-thumb {
+  background-color:#999 ;
+  border-radius: 2px;
+}
+
+.listBox::-webkit-scrollbar-track {
+  background-color: #eee;
+}

@@ -3,6 +3,10 @@ import Category from "./Category";
 import Navbar from "./Navbar";
 import { useOutsideClicker } from "../../../services/Hooks/useOutSideClicker";
 
+
+//bookmarked by pouria
+
+
 export const HeaderNav = () => {
   const [showCategories, setShowCategories] = useState(false);
   const handleToggleCategories = () => {
