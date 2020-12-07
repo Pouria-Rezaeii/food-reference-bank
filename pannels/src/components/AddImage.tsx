@@ -15,6 +15,7 @@ interface IFileWithPreview extends File {
 }
 const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [showImage, setshowImage]= useState(true)
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png",
     onDrop: (acceptedFiles) => {
@@ -34,14 +35,17 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
   const handleSend = async (file: File) => {
     try {
       await onSubmit(file);
+      setFiles([]);
     } catch (e) {}
   };
-
   const thumbs = (files as Array<IFileWithPreview>).map((file, index) => (
-    <React.Fragment key={file.size}>
-      <PicCart image={file.preview} />
+   <React.Fragment key={file.size}>
+     <PicCart image={file.preview} />
       <Button
-        onClick={() => handleSend(file)}
+        onClick={() => {
+          setshowImage(false)
+          handleSend(file)
+        }}
         className="ml-2 "
         type="success"
         text="ارسال"

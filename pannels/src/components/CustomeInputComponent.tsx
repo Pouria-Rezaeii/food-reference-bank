@@ -6,10 +6,11 @@ const CustomInputComponent: React.FC<
 > = ({
   label,
   field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  form: { touched, errors, ...restForm }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
   const isError = touched[field.name] && errors[field.name];
+  
   return (
     <div
       className={`form-group  ${props.className ? props.className : ""} ${
@@ -20,7 +21,7 @@ const CustomInputComponent: React.FC<
       <input
         {...field}
         {...props}
-        className={`${isError ? "form-control-danger" : ""} form-control`}
+        className={`${isError ? "form-control-danger" : ""} form-control `}
       />
       {}
       {isError && (

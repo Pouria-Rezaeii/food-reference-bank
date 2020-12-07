@@ -9,6 +9,7 @@ const rules: IRules = {
   },
   admin: {
     static: [
+      "company:edit", ///********havasm bashe in vas admin nist  */
       "main-site:edit",
       "company:create",
 	  "company:companylist",

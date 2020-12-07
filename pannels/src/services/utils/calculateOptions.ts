@@ -20,7 +20,6 @@ export const calculateFlatten = (data: ICategoryRes[]) => {
   if (data) {
     const flattenTree = data.map((d) => Tree.reduce(flattenToArray, [], d));
     const flattenVersion = _.flatten(flattenTree);
-    console.log(flattenVersion);
     const options = flattenVersion.map((item) => ({
       value: item.id,
       label: item.title,
@@ -28,5 +27,36 @@ export const calculateFlatten = (data: ICategoryRes[]) => {
     }));
     return options;
     // return flattenTree
+  }
+};
+type resCityData={
+id:number, 
+city: string,
+province: string
+}
+
+export const calculateCityOptions  = (data: resCityData[]) => {
+
+  if (data) {
+    
+    const options = data.map((item) => ({
+      value: item.id,
+      label: item.city,
+    }));
+    return options;
+  }
+};
+
+interface  resProvinceData {
+  provinces:string[]    ///what type ?
+}
+
+export const calculateProvinceOptions  = (data: resProvinceData) => {
+  if (data) {
+    const options = data.provinces.map((item ) => ({
+      value: item,
+      label: item,
+    }));
+    return options;
   }
 };
