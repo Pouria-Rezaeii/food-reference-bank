@@ -13,6 +13,7 @@ import axios from 'axios';
 import {useQuery} from "react-query";
 import { QueryCache } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
+import moment from "moment-jalaali";
 const CompanyMap = dynamic(
   () => import("../../components/Company/CompanyMap"),
   {
@@ -40,9 +41,15 @@ interface CompanyProps{
   date:string,
   sliders:string[]
 }
+interface CompanySliders{
+  company: number
+  company_name: string
+  id: number
+  image:string
+}
 const getCompaniesServerSide=async(_: never, companyName: string)=>{
-  const {data:compantInformation} = await axios.get<CompanyProps[]>(`http://bank.sheroganj.ir/api/data_bank/companies/?search=${companyName}`)
-  const {data:companySliders} = await axiosInstance.get(`http://bank.sheroganj.ir/api/data_bank/companies/slider/?company___name=${companyName}`)
+  const {data:compantInformation} = await axios.get<CompanyProps[]>(`http://techdoon.ir/api/data_bank/companies/?search=${companyName}`)
+  const {data:companySliders} = await axiosInstance.get<CompanySliders[]>(`http://techdoon.ir/api/data_bank/companies/slider/?company___name=${companyName}`)
   const sliders=[]
   companySliders.map(slider=>{
     sliders.push(slider.image)
@@ -51,7 +58,7 @@ const getCompaniesServerSide=async(_: never, companyName: string)=>{
 }
 const getCompaniesClientSide=async(_: never, companyName: string)=>{
   const {data:compantInformation} = await axiosInstance.get<CompanyProps[]>(`/data_bank/companies/?search=${companyName}`)
-  const {data:companySliders} = await axiosInstance.get(`/data_bank/companies/slider/?company___name=${companyName}`)
+  const {data:companySliders} = await axiosInstance.get<CompanySliders[]>(`/data_bank/companies/slider/?company___name=${companyName}`)
   const sliders=[]
   companySliders.map(slider=>{
     sliders.push(slider.image)
@@ -61,8 +68,7 @@ const getCompaniesClientSide=async(_: never, companyName: string)=>{
 export const Company = () => {
   const { query } = useRouter();
   const { data } = useQuery(['companies', query.companyName], getCompaniesClientSide);
-  console.log(data);
-  
+
   return (
     <>
       <div
@@ -84,7 +90,7 @@ export const Company = () => {
                     <li>
                       <a href="#">
                         <i className="ti-calendar"></i> ثبت شده در تاریخ
-                        {data.date}
+                        {moment(data.date, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
                       </a>
                     </li>
                   </ul>
@@ -184,7 +190,7 @@ export const Company = () => {
 };
 export default Company;
 export const getStaticPaths:GetStaticPaths=async()=> {
-  const {data} = await axios.get<CompanyProps[]>('http://bank.sheroganj.ir/api/data_bank/companies/')
+  const {data} = await axios.get<CompanyProps[]>('http://techdoon.ir/api/data_bank/companies/')
   const paths = data.map((post) => ({
     params: { companyName: post.name },
   }))

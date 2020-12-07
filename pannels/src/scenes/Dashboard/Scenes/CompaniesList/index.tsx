@@ -82,7 +82,7 @@ const Index = () => {
         accessor: "identifier",
       },
       {
-        Header: "نام شرک",
+        Header: "نام شرکت",
         accessor: "name",
       },
       {
@@ -99,7 +99,7 @@ const Index = () => {
       },
 
       {
-        Header: "وضعیت",
+        Header: "وضعیت (فعال /معلق )",
         accessor: "status",
         Cell: ({ row: { original } }: CellProps<TCompanyTableData>) => {
           const buttonText = original.status === "s" ? "معلق" : "فعال";
@@ -110,6 +110,8 @@ const Index = () => {
               onClick={() => handleStatusClick(original)}
               text={buttonText}
               type={buttonClass}
+              data-bs-toggle="tooltip" 
+              data-bs-placement="bottom"
             />
           );
         },

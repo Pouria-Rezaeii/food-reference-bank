@@ -17,13 +17,13 @@ const CompanySlider:React.FC<Props> = ({sliders}) => {
   return (
     <Slider {...settings}>
         {sliders.map(slider=>(
-          <div>
+          <div key={slider}>
           <div style={{
             background: `url(${slider})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition:'center',
-            height :'400px'
+            height :'400px',
           }}>
           </div>
             </div>

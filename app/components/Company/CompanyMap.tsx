@@ -21,8 +21,7 @@ L.Icon.Default.imagePath = "/images/";
 interface Porps{
     position:string[]
 }
-export const CompanyMap: React.FC<Porps> = ({position}) => {
-  
+export const CompanyMap: React.FC<Porps> = ({position }) => {
   // React.useEffect(() => {
 
   //   const L = require("leaflet");

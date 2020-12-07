@@ -61,7 +61,7 @@
     "typescript": "~3.7.2",
     "yup": "^0.29.1"
   },
-  "proxy": "http://bank.sheroganj.ir",
+  "proxy": "http://techdoon.ir",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
