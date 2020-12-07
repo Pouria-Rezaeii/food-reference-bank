@@ -1,15 +1,16 @@
 import React from "react";
 interface IProps {
   companyName: string;
+  logo:string
 }
-export const BreadCrumsCompany: React.FC<IProps> = ({ companyName }) => {
+export const BreadCrumsCompany: React.FC<IProps> = ({ companyName,logo }) => {
   return (
     <div className="breadcrumb_section bg_gray page-title-mini">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-md-6">
             <div className="page-title">
-              <h1>{companyName}</h1>
+              <img src={logo} className="w-25 rounded"/>
             </div>
           </div>
           <div className="col-md-6">

@@ -4,7 +4,7 @@ const next = require('next')
 
 const devProxy = {
   '/api': {
-    target: 'http://techdoon.ir/',
+    target: 'http://techdoon.ir',
     // pathRewrite: { '^/api': '/' },
     changeOrigin: true,
   },

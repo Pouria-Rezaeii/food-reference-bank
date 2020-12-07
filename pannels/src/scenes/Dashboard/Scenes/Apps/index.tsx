@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { axiosInstance } from "../../../../services/axios/axios";
 import axios from "axios";
 import Post from "./Post";
+import BaseLayout from "../../../../components/BaseLayout";
 
 
 
@@ -14,12 +15,23 @@ const Index = () => {
   const handleLogin = () => {};
 
   return (
-    <div>
-      <button onClick={handleLogin}>Login</button>
-      {!data && <p>Loading ... </p>}
-      <pre>{JSON.stringify(data, null, 4)}</pre>
-      <Post />
-    </div>
+    <BaseLayout  />
+    // <div>
+    //   <BaseLayout.right>
+
+      
+    //   </BaseLayout.right>
+    //   <BaseLayout.left>
+      
+      
+    //   </BaseLayout.left>
+    //   {/* <button onClick={handleLogin}>Login</button>
+    //   {!data && <p>Loading ... </p>}
+    //   <pre>{JSON.stringify(data, null, 4)}</pre>
+    //   <Post /> */}
+
+    // </div>
+    <div/>
   );
 };
 
