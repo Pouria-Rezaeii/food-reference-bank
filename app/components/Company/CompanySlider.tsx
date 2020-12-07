@@ -1,7 +1,9 @@
 import React from "react";
 import Slider from "react-slick";
-
-const CompanySlider = () => {
+interface Props{
+  sliders:string[]
+}
+const CompanySlider:React.FC<Props> = ({sliders}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -14,27 +16,18 @@ const CompanySlider = () => {
   };
   return (
     <Slider {...settings}>
-      <div>
-        <div
-          style={{
-            background: "url('/images/kaleh1.png')",
+        {sliders.map(slider=>(
+          <div>
+          <div style={{
+            background: `url(${slider})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition:'center',
             height :'400px'
-          }}
-        ></div>
-      </div>
-      <div>
-        <div
-          style={{
-            background: "url('/images/kaleh2.jpg')",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            height :'400px'
-          }}
-        ></div>
-      </div>
+          }}>
+          </div>
+            </div>
+        ))}
     </Slider>
   );
 };

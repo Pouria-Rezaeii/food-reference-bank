@@ -3,17 +3,18 @@ import { HeaderNav } from '../components/MainPage/Header/HeaderNav';
 import MainContent from '../components/MainPage/MainContent';
 import Footer from '../components/MainPage/Footer/Footer';
 import MainSlider from '../components/MainPage/MainSlider/MainSlider';
-
-export const index = () => (
+import {axiosInstance} from "../services/axios/axios"
+export const index = () => {
+  return(
   <>
     <HeaderNav />
     <MainSlider />
     <MainContent />
     <Footer />
   </>
-);
+  )
+  }
 export default index;
-
 // import Head from "next/head";
 // import { wrapper } from "../redux";
 // import axios from "axios";

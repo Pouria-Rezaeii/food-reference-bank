@@ -18,8 +18,11 @@ import L from "leaflet";
 // });
 // L.Marker.prototype.options.icon = DefaultIcon;
 L.Icon.Default.imagePath = "/images/";
-const position = [35.64961, 51.166359];
-export const CompanyMap: React.FC = () => {
+interface Porps{
+    position:string[]
+}
+export const CompanyMap: React.FC<Porps> = ({position}) => {
+  
   // React.useEffect(() => {
 
   //   const L = require("leaflet");
