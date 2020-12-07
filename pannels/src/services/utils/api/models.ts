@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from "axios";
+import { axiosInstance } from "../../axios/axios";
 
 export type IReqFunction<U, T = void, Y = void> = (
   t: T,
@@ -11,6 +12,7 @@ export type IReqFunction<U, T = void, Y = void> = (
   config: AxiosRequestConfig;
   request?: any;
 }>;
+
 
 export interface ICompanyRes {
   id: number;
@@ -30,6 +32,12 @@ export interface ICompanyRes {
   description: string;
   status: "s" | "a";
   [index: string]: string | number | null | [number, number];
+}
+
+export interface ICityRes{
+  id: number,
+  city: string,
+  province: string
 }
 
 //     fetch('http://bank.pythonanywhere.com/auth/login/', {

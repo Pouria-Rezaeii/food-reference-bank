@@ -4,6 +4,7 @@ import useSWR, { mutate, trigger } from "swr";
 
 const Post = () => {
   const { data } = useSWR("https://jsonplaceholder.typicode.com/users");
+console.log('ddd'+data);
 
   const handleNewPost = async () => {
     // mutate(

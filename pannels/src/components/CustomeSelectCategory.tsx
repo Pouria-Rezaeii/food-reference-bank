@@ -57,7 +57,7 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
   // console.log(defaultValue , 'defaulttttttttt');
 
   return (
-    <>
+    <div style = {{marginBottom:"25px"}}>
       <label>{label}</label>
       <AsyncSelect
         defaultValue={defaultValue}
@@ -81,7 +81,7 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
           {errors[field.name]}
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default CustomeSelectCategory;

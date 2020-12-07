@@ -9,7 +9,9 @@ interface IProps {
 
 
 const EditCategoryPicture:React.FC<IProps> = ({image}) => {
-	const handleSubmitSend = () => new Promise(res=>res)
+	const handleSubmitSend = () =>{ 
+    new Promise(res=>res)
+  }
   return (
     <div className="tab-pane active">
       <div className="p-20 container">

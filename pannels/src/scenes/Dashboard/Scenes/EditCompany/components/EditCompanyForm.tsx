@@ -1,65 +1,127 @@
 // Render Prop
-import { Field, Form, Formik } from "formik";
+import { useField, Field, Form, Formik } from "formik";
 import React from "react";
 import CustomInputComponent from "../../../../../components/CustomeInputComponent";
 import CustomeSelectCategory from "../../../../../components/CustomeSelectCategory";
+import CustomSelectCity from "../../../../../components/CustomSelectCity";
+import CustomSelectProvince from "../../../../../components/CustomSelectProvince";
 import CustomeTextAreaComponent from "../../../../../components/CustomeTextAreaComponent";
-import CustomSelectCity from "../../../../../components/CustomSelectCity"
-import CustomSelectProvince from "../../../../../components/CustomSelectProvince"
-import { calculateLeafs , calculateCityOptions, calculateProvinceOptions} from "../../../../../services/utils/calculateOptions";
+import {
+  calculateLeafs,
+  calculateFlatten,
+  calculateCityOptions,
+  calculateProvinceOptions,
+} from "../../../../../services/utils/calculateOptions";
 import { adminCreatevalidationSchema } from "../constants";
-import { IAdminCreateCompanyFormikState } from "../models";
+import { IAdminEditCompanyFormikState } from "../models";
 import CompanyMap from "./CompanyMap";
+import { axiosInstance as axios } from "../../../../../services/axios/axios";
+import { Object } from "ts-toolbelt";
+import { useQuery } from "react-query";
 
 interface IProps {
-  initialValue: IAdminCreateCompanyFormikState;
+  initialValue: IAdminEditCompanyFormikState;
+  id: number
 }
 
-const CreateCompanyForm = ({ initialValue }: IProps) => {
+interface postValue {
+  name: string;
+  manager_name: string;
+  phone_number: string;
+  website: string;
+  address: string;
+  location: string;
+  logo: string;
+  category: number;
+  description: string;
+  city: number;
+  postal_code: string;
+}
+ ///////////////inja bayad avaz beshe
+const updateCompanyData = (sendForm: postValue ,id :number) => { 
+  axios.put(`/data_bank/my_company/${id}/`, sendForm);
+};
+
+const getCityData = async () => {
+  const response = await axios.get("/cities/");
+  // console.log(response.data);
+  return response.data;
+};
+
+
+
+const EditCompanyForm = ({ initialValue , id }: IProps) => {
+  const { status, data: CityData, error } = useQuery("CityData", getCityData);
   return (
     <div>
-      <Formik<IAdminCreateCompanyFormikState, {}>
+      <Formik<IAdminEditCompanyFormikState, {}>
         initialValues={initialValue}
         enableReinitialize
-        validationSchema={adminCreatevalidationSchema}
-        onSubmit={async (values, { setSubmitting }) => {
-          console.log('send data');
-          setSubmitting(false)
+        // validationSchema={adminCreatevalidationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          let {
+            name,
+            manager_name,
+            // phone_number,
+            website,
+            address,
+            location,
+            logo,
+            category,
+            description,
+            city,
+            postal_code,
+          } = values;
+
+          let sendForm :postValue= {
+              name: name,
+              manager_name: manager_name,
+              // phone_number: phone_number,
+              website: website,
+              address: address,
+              location: location.toString(),
+              logo: logo,
+              category: category,
+              description: description,
+              city: 3,
+              postal_code: postal_code.toString(),
+          }
+          console.log(sendForm  , 'sendForm');
+          updateCompanyData(sendForm , id);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting, values }) => (
-          <Form className="form-horizontal mt-4">
+          <Form className="form-horizontal mt-5">
             <div className="row">
-            <div className="col-md-4">
+              <div className="col-md-4">
                 <Field
                   label="نام کاربری"
                   type="text"
                   name="username"
+                  disabled={true}
                   component={CustomInputComponent}
                 />
                 <Field
-                    label="استان"
-                    calculateOptions={calculateProvinceOptions}
-                    type="text"
-                    name="province"
-                    component={CustomSelectProvince}
+                  label="استان"
+                  calculateOptions={calculateProvinceOptions}
+                  type="text"
+                  name="province"
+                  component={CustomSelectProvince}
                 />
                 <Field
                   label="کد پستی"
                   type="text"
                   name="postal_code"
                   component={CustomInputComponent}
-                 
                 />
                 <Field
-                  label="شماره همراه"
-                  type="text"
-                  name="mobile_number"
+                  label="لوگو"
+                  type="select"
+                  name="logo"
                   component={CustomInputComponent}
                 />
-                
               </div>
-              
               <div className="col-md-4">
                 <Field
                   label="نام شرکت"
@@ -73,18 +135,11 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
                   type="text"
                   name="city"
                   component={CustomSelectCity}
-                  />
-                 
+                />
                 <Field
                   label="نام مدیر عامل"
                   type="text"
                   name="manager_name"
-                  component={CustomInputComponent}
-                />
-                <Field
-                  label="لوگو"
-                  type="file"
-                  name="logo"
                   component={CustomInputComponent}
                 />
               </div>
@@ -95,14 +150,13 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
                   name="phone_number"
                   component={CustomInputComponent}
                 />
-                 <Field
+                <Field
                   label="آدرس ایمیل"
                   type="text"
                   name="email"
                   component={CustomInputComponent}
                 />
-                
-               <Field
+                <Field
                   label="آدرس سایت"
                   type="text"
                   name="website"
@@ -112,12 +166,10 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
                   label="فیلد کاری"
                   calculateOptions={calculateLeafs}
                   type="text"
-                  name="category"
+                  name="category_title"
                   component={CustomeSelectCategory}
                 />
-                 
               </div>
-             
             </div>
 
             <div className="row">
@@ -143,11 +195,11 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
               </div>
             </div>
 
-            <button type="submit"  className="btn btn-success">
-              <i className="fa fa-check" /> ثبت شرکت
+            <button type="submit" className="btn btn-success">
+              <i className="fa fa-check" /> ویرایش شرکت
             </button>
 
-            {/* {JSON.stringify(values, null, 4)} */}
+            {JSON.stringify(values, null, 4)}
           </Form>
         )}
       </Formik>
@@ -155,4 +207,4 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
   );
 };
 
-export default CreateCompanyForm;
+export default EditCompanyForm;

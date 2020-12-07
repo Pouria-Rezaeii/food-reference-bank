@@ -34,8 +34,13 @@ const hooks = [
 ];
 
 const Index = () => {
+<<<<<<< HEAD
   const { data, refetch } = useQuery("CompaniesList", GetFetcher);
   // const { data, revalidate } = useSWR(baseAdminUrl + "/companies");
+=======
+  const { data, revalidate } = useSWR(baseAdminUrl + "/companies");
+  
+>>>>>>> CompanySliderCrud-CompanyCrud
   const [loading, setLoading] = useState(false);
   const [clicked, setClicked] = useState(-1);
   const handleStatusClick = useCallback(
@@ -43,6 +48,8 @@ const Index = () => {
       setClicked(original.identifier!);
       setLoading(true);
       try {
+        console.log(original);
+        
         if (original.status === "s") {
           if (window.confirm("آیا وضعیت شرکت فعال شود؟")) {
             await api.adminApi.editCompany({

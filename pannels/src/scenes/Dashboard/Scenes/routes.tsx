@@ -4,6 +4,7 @@ import CompaniesList from "./CompaniesList";
 
 const Apps = lazy(() => import("./Apps"));
 const CreateCompany = lazy(() => import("./CreateCompany"));
+const EditCompany = lazy(() => import("./EditCompany"));
 export const dashboardRoutes: IRoute[] = [
   {
     path: "/dashboard/apps",
@@ -15,6 +16,12 @@ export const dashboardRoutes: IRoute[] = [
     component: CreateCompany,
     private: true,
     toHavePermissions: ["company:create"],
+  },
+  {
+    path: "/dashboard/edit-company",
+    component: EditCompany,
+    private: true,
+    toHavePermissions: ["company:edit"],
   },
   {
 	  path:"/dashboard/companies-list",

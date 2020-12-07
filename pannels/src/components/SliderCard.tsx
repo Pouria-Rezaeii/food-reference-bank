@@ -30,12 +30,15 @@ const SliderCard: React.FC<IProps> = ({
       <CardBody>
         {isSure ? (
           <>
-            <CardText>آیامیخواهید تصویر را حذف کنید؟</CardText>
+            <CardText>آیا میخواهید تصویر را حذف کنید؟</CardText>
             <Button
               type="success"
               text="بلی"
               className="ml-2"
-              onClick={() => onDelete(id)}
+              onClick={() => {
+                onDelete(id)
+                setIsSure(false)
+              }}
             />
             <Button type="danger" text="خیر" onClick={handleToggleSure} />
           </>
