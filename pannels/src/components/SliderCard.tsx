@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IMyCompanySliderRes } from "../services/utils/api/MyCompanySlider/models";
+// import { IMyCompanySliderRes } from "../services/utils/api/MyCompanySlider/models";
 import Card from "./Card/Card";
 import Button from "./Button";
 import CardText from "./Card/CardText";

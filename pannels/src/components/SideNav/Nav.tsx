@@ -14,8 +14,8 @@ const Nav = () => {
   return (
     <nav className="sidebar-nav">
       <ul id="sidebarnav">
-        {menuItems.map((item) => (
-          <Can
+        {menuItems.map((item, index) => (
+          <Can  key = {index}
             perform={item.toHavePermissions}
             yes={() => (
               <SubHeaderNav

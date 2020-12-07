@@ -1,7 +1,24 @@
 import React from "react";
 import Slider from "react-slick";
+import { axiosInstance as axios } from '../../../services/axios/axios';
+import { useQuery } from 'react-query';
 
-const MainSlider = () => {
+
+// bookmark by pouria
+// should be changed => url variable
+
+type FetchedImages = {
+  id: number;
+  category: null;
+  image: string;
+}[]
+
+interface IProps {
+  images: FetchedImages
+}
+
+
+const MainSlider: React.FC<IProps> = () => {
   const settings = {
     dots: true,
     infinite: true,
@@ -10,39 +27,42 @@ const MainSlider = () => {
     slidesToScroll: 1,
   };
 
+  const fetchData = async () => {
+    const res = await axios.get(`/data_bank/admin/category_slider/`)
+    return res.data
+  }
+  
+
+  const { data } = useQuery('landigSliderImages', fetchData)
+
+
+
   return (
     <div
       className="banner_section slide_medium shop_banner_slider staggered-animation-wrap"
       style={{ marginBottom: "30px" }}
     >
-      <div className="container">
+      <div className="container-fluid">
         <div className="row px-5">
-          <div className="col offset-lg-2">
+          <div className="col-lg-3 col-md-4 col-sm-6 col-3"></div>
+          <div className="col-lg-9 col-12 col-12">
             <Slider {...settings}>
-              <div>
-                <div
-                  style={{
-                    background: "url('images/mainslider/5.jpg')",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition :'bottom'
-                  }}
-                  className="carousel-item active background_bg"
-                ></div>
-              </div>
-              <div>
-                <div
-                  style={{
-                    background: "url('images/mainslider/2.jpg')",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition :'center'
-                    // border: "10px solid black",
-                    // height: "400px",
-                  }}
-                  className="carousel-item active background_bg"
-                ></div>
-              </div>
+              {data?.map((image, index) => (
+                <div key={index}>
+                  <div
+                    style={{
+                      background: `url('${image.image}')`,
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: 'center',
+                      borderRadius: "5px",
+                      overflow: "hidden",
+                    }}
+                    className="carousel-item active background_bg"
+                  >
+                  </div>
+                </div>
+              ))}
             </Slider>
           </div>
         </div>
@@ -50,15 +70,7 @@ const MainSlider = () => {
     </div>
   );
 };
-{
-  /* <div className="carousel-item background_bg">
-<img src="/images/banner4.jpg" alt="" />
-</div>
-<div className="carousel-item background_bg">
-<img src="/images/banner5.jpg" alt="" />
-</div>
-<div className="carousel-item background_bg">
-<img src="/images/banner6.jpg" alt="" />
-</div> */
-}
+
 export default MainSlider;
+
+

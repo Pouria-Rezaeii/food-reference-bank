@@ -5,6 +5,8 @@ import { useOutsideClicker } from "../../services/hooks/useOutsideClicker";
 const NotifNavItem = () => {
   const [notifShow, setNotifShow] = useState(false);
   const notifRef = useRef<HTMLLIElement>(null);
+
+
   const handleToggleNotif = () => {
     setNotifShow(!notifShow);
   };

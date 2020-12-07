@@ -13,6 +13,8 @@ import BannerImage from "../../shared/Banner/BannerImage";
 import UserStatus from "../../shared/Navs/HoverableCart/UserStatus";
 import HoverableCart from "../../shared/Navs/HoverableCart";
 
+// bookmarked by pouria
+
 const Navbar = () => {
   return (
     <div className="col-lg-9 col-md-8 col-sm-6 col-9">
@@ -32,7 +34,7 @@ const Navbar = () => {
         >
           <ul className="navbar-nav">
             <NavbarLi path='/' itemName="خانه" />
-            <NavbarDropDown itemName="بلاگ" reverse>
+            {/* <NavbarDropDown itemName="بلاگ" reverse>
               <DropDownItem itemName="grids">
                 <DropDownLink itemName="3 column" />
                 <DropDownLink itemName="5 column" />
@@ -43,7 +45,7 @@ const Navbar = () => {
                   <DropDownLink itemName="random22222" />
                 </DropDownItem>
               </DropDownItem>
-            </NavbarDropDown>
+            </NavbarDropDown> */}
             <NavbarMegaMenu itemName="فروشگاه">
               <MegaMenuLi lg={9}>
                 <ul className="d-lg-flex">

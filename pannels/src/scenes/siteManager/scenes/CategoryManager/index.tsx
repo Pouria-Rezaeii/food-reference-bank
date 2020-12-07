@@ -180,7 +180,7 @@ const Index = () => {
           return (
             <>
               <CircleButton
-                onClick={() => handleDeleteCategory(id!)}
+                onClick={() => handleDeleteCategory(id)}
                 icon="icon-trash "
                 type="danger"
                 className="ml-2"

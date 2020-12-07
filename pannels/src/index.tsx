@@ -19,27 +19,22 @@ import ModalRoot from "./components/ModalRoot";
 import App from "./scenes/App";
 import ModalProvider from "./services/contexts/ModalContext/ModalProvider";
 import { browserHistory } from "./services/navigation/navigation";
-import {ReactQueryCacheProvider,QueryCache} from "react-query";
-import {ReactQueryDevtools} from "react-query-devtools";
-const queryCache=new QueryCache();
+import { ReactQueryCacheProvider, QueryCache } from "react-query";
+import { ReactQueryDevtools } from "react-query-devtools";
+const queryCache = new QueryCache();
 ReactDOM.render(
-  <>   
-  <ReactQueryCacheProvider queryCache={queryCache}>
-  <ModalProvider>
-    <Router history={browserHistory}>
-      <ModalRoot />
-      <ToastContainer position="top-left" rtl />
-      <App />
-    </Router>
-  </ModalProvider>
-  </ReactQueryCacheProvider>
-    <ReactQueryDevtools/></>,
+  <>
+    <ReactQueryCacheProvider queryCache={queryCache}>
+      <ModalProvider>
+        <Router history={browserHistory}>
+          <ModalRoot />
+          <ToastContainer position="top-left" rtl />
+          <App />
+        </Router>
+      </ModalProvider>
+    </ReactQueryCacheProvider>
+    <ReactQueryDevtools />
+  </>,
   document.querySelector("#main-wrapper")
 );
 
-// <Provider store={store}>
-//   <PersistGate loading={null} persistor={persistor}>
-{
-  /* </PersistGate>
-  </Provider>, */
-}

@@ -40,6 +40,7 @@ export const TableFooter = <T extends object>({
                 .map((item, index) => {
                   return (
                     <li
+                    key = {index}
                       className={`paginate_button page-item ${
                         pageIndex === index && "active"
                       }`}

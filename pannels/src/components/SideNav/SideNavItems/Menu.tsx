@@ -14,7 +14,7 @@ const Menu: React.FC<IProps> = ({ items, active }) => {
       className={`${active ? "collapse in" : "collapse"}`}
     >
       {items.map((item, index) => (
-        <Can
+        <Can  key={index} 
           perform={item.toHavePermissions}
           yes={() => <MenuItem {...item} key={index} />}
         />
