@@ -16,22 +16,6 @@ const Index = () => {
 
   return (
     <BaseLayout  />
-    // <div>
-    //   <BaseLayout.right>
-
-      
-    //   </BaseLayout.right>
-    //   <BaseLayout.left>
-      
-      
-    //   </BaseLayout.left>
-    //   {/* <button onClick={handleLogin}>Login</button>
-    //   {!data && <p>Loading ... </p>}
-    //   <pre>{JSON.stringify(data, null, 4)}</pre>
-    //   <Post /> */}
-
-    // </div>
-    <div/>
   );
 };
 
