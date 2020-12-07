@@ -18,7 +18,7 @@ interface IProps {
 }
 
 
-const MainSlider: React.FC<IProps> = (props) => {
+const MainSlider: React.FC<IProps> = () => {
   const settings = {
     dots: true,
     infinite: true,
@@ -27,8 +27,14 @@ const MainSlider: React.FC<IProps> = (props) => {
     slidesToScroll: 1,
   };
 
-  const { data } = useQuery('landigSliderImages', fetchData, { initialData: props.images })
-  console.log('data', data);
+  const fetchData = async () => {
+    const res = await axios.get(`/data_bank/admin/category_slider/`)
+    return res.data
+  }
+  
+
+  const { data } = useQuery('landigSliderImages', fetchData)
+
 
 
   return (
@@ -67,15 +73,4 @@ const MainSlider: React.FC<IProps> = (props) => {
 
 export default MainSlider;
 
-const fetchData = async () => {
-  const res = await axios.get(`/data_bank/admin/category_slider/`)
-  return res.data
-}
 
-export async function getStaticProps() {
-  const images = await fetchData()
-  return { props: { images } }
-}
-
-
-// background: "url('images/mainslider/5.jpg')",

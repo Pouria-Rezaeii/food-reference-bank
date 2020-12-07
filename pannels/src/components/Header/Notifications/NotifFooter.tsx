@@ -2,7 +2,7 @@ import React from "react";
 
 const NotifFooter = () => {
   return (
-    <li>
+    <li style = {{cursor:"pointer"}}>
       <div className="nav-link text-center link" >
         {" "}
         <strong>دیدن همه اعلان ها</strong>{" "}

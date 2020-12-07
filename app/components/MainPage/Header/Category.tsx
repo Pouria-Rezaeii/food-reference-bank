@@ -18,7 +18,7 @@ const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
   return (
     <li className={`${styles.listItem} ${show ? styles.listItemToggle : ""}`}>
       <div className={styles.listItemContent} onClick={() => setShow(prev => !prev)}>
-        <div className = {styles.ListItemTitle}>{props.title}</div>
+        <div className={styles.ListItemTitle}>{props.title}</div>
         {props.children.length ? <span className={styles.arrow}>&rsaquo;</span> : null}
       </div>
       <ul className={styles.innerList}>
@@ -45,10 +45,15 @@ interface IProps {
 }
 
 
-const Category: React.FC<IProps> = ({ isShow, categories }) => {
+const Category: React.FC<IProps> = ({ isShow }) => {
   const [showMore, setShowMore] = useState(false);
 
-  const { data } = useQuery('categories', fetchData, { initialData: categories })
+  const fetchData = async () => {
+    const res = await axios.get('/data_bank/admin/category/')
+    return res.data
+  }
+
+  const { data } = useQuery('categories', fetchData)
 
   const handleToggleShowMore = () => {
     setShowMore(!showMore);
@@ -94,32 +99,13 @@ const Category: React.FC<IProps> = ({ isShow, categories }) => {
       >
         <ul className={styles.list}>
           {smallScreen && <li className={styles.more} >همه دسته بندی ها </li>}
-          <div style={{ margin: "0 3px", overflow:"hidden"}}>
+          <div style={{ margin: "0 3px", overflow: "hidden" }}>
             {extractedCategories}
           </div>
         </ul>
-        <div
-          className={`more_categories ${showMore ? "show" : ""}`}
-          onClick={handleToggleShowMore}
-        >
-          دسته بندی بیشتر
-      </div>
       </div>
     </>
   );
 };
 
 export default Category;
-
-  // - - - - - - - - serverSide rendering
-
-const fetchData = async () => {
-  const res = await axios.get('/data_bank/admin/category/')
-  return res.data
-}
-
-export async function getStaticProps() {
-  const categories = await fetchData()
-  return { props: { categories } }
-}
-

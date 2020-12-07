@@ -27,8 +27,7 @@ export const Main = () => {
   const postData = async (image: File) => {
     const fd = new FormData();
     fd.append("image", image);
-    const res = await axios.post(`${baseAdminUrl}/category_slider/`, fd)
-    return res.data
+    await axios.post(`${baseAdminUrl}/category_slider/`, fd)
   }
 
   const [mutate] = useMutation(postData, {
@@ -46,7 +45,7 @@ export const Main = () => {
   // - - - - - - - - - deleting an image and invalidating cached data
 
   const deleteData = async (id: number) => {
-     await axios.delete(`${baseAdminUrl}/category_slider/${id}`)
+    await axios.delete(`${baseAdminUrl}/category_slider/${id}`)
   }
 
   const [mutation] = useMutation(deleteData, {
