@@ -3,8 +3,6 @@ import CloseModalIcon from '../../CloseModalIcon';
 import Button from '../../Button';
 import { EModalActionTypes } from '../../../services/contexts/ModalContext/models';
 import { useModalDispatch } from '../../../services/contexts/ModalContext/ModalContext';
-import { Notification } from './models';
-import NotifChangesTable from './NotifTable/NotifChangesTable';
 import { baseAdminUrl } from '../../../services/utils/api/Admin';
 import { useMutation } from 'react-query';
 import { axiosInstance as axios } from '../../../services/axios/axios'
@@ -13,7 +11,7 @@ import { useQueryCache } from 'react-query';
 // bookmarked by pouria
 
 interface IProps {
-  notify: Notification
+  notify: any
 }
 
 interface IChoice {
@@ -32,15 +30,13 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
   };
 
   const sendData = async (choice: IChoice) => {
-    console.log(choice);
-    const res = await axios.patch(`${baseAdminUrl}/notify/${notify.status}/${notify.id}`, choice)
-    console.log(res);
+    const res = await axios.patch(`${baseAdminUrl}/company_slider/${notify.id}/`, choice)
     return res.data
   }
 
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
-      queryCache.invalidateQueries('notifications')
+      queryCache.invalidateQueries('companySliderImage')
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL })
     }
   });
@@ -51,12 +47,6 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
       mutate(choice)
     } catch { }
   }
-
-
-  let subject = notify.status === 'create' ? `درخواست ثبت شرکت ${notify.name}` : `درخواست ویرایش اطلاعات شرکت ${notify.name}`;
-
-  let compareChanges = null
-  if (notify.status === 'update') compareChanges = <NotifChangesTable changes={notify.data} />
 
   return (
     <div>
@@ -69,7 +59,7 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
         <div className="modal-dialog modal-md">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 className="modal-title" id="myModalLabel">{subject}</h4>
+              <h4 className="modal-title" id="myModalLabel">درخواست تغییر عکس اسلایدر</h4>
               <CloseModalIcon handleCloseModal={handleCloseModal} />
             </div>
             <div className="modal-body" style={{ minHeight: "200px", paddingBottom: '30px' }}>
@@ -80,7 +70,9 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
                 <p>شهر : {notify.city} </p>
                 <p>تلفن : {notify.phone} </p>
               </div>
-              {compareChanges}
+              <div style={{ background: notify.image }}>
+                <img src={notify.image} style={{ width: '100%', marginBottom: '30px' }} />
+              </div>
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '25px' }}>
 
                 <textarea

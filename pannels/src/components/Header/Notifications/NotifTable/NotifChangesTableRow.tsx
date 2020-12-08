@@ -13,8 +13,8 @@ const NotifChangesTableRow: React.FC<IProps> = ({change, changeTitle}) => {
   return (
     <tr className = {styles.row}>
       <td>{changeTitle}</td>
-      <td>{change.after}</td>
       <td>{change.before}</td>
+      <td>{change.after}</td>
     </tr>
   )
 }
