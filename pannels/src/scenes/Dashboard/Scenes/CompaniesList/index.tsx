@@ -13,14 +13,15 @@ import {
   useTable,
 } from "react-table";
 import { toast } from "react-toastify";
-import Button from "../../../../components/Button";
 import { ReactTable } from "../../../../components/Table/ReactTable";
 import TableContainer from "../../../../components/Table/TableContainer";
-import api from "../../../../services/utils/api";
 import { ICompanyRes } from "../../../../services/utils/api/models";
 import { TCompanyTableData } from "./components/models";
 import { useQuery } from "react-query";
 import { GetFetcher } from "../../../../React-Query/Companies/GetCompanies/fetcher";
+import CompanyListModal from "./CompanyListModal";
+import {useModalDispatch} from "../../../../services/contexts/ModalContext/ModalContext"
+import {EModalActionTypes} from "../../../../services/contexts/ModalContext/models"
 const hooks = [
   useColumnOrder,
   useFilters,
@@ -32,50 +33,22 @@ const hooks = [
   useResizeColumns,
   useRowSelect,
 ];
-
 const Index = () => {
-  const { data, refetch } = useQuery("CompaniesList", GetFetcher);
-  // const { data, revalidate } = useSWR(baseAdminUrl + "/companies");
-  const [loading, setLoading] = useState(false);
+  const { data } = useQuery("CompaniesList", GetFetcher);
+  const modalDispatch=useModalDispatch()
+  // const [loading, setLoading] = useState(false);
   const [clicked, setClicked] = useState(-1);
   const handleStatusClick = useCallback(
     async (original: TCompanyTableData) => {
       setClicked(original.identifier!);
-      setLoading(true);
-      try {
-        console.log(original);
-        
-        if (original.status === "s") {
-          if (window.confirm("آیا وضعیت شرکت فعال شود؟")) {
-            await api.adminApi.editCompany({
-              id: original.id!,
-              status: "a",
-            });
-            await refetch();
-            toast.success("وضعیت شرکت فعال شد");
-            setLoading(false);
-          }
-          setLoading(false);
-        }
-        if (original.status === "a") {
-          if (window.confirm("آیا میخواهید شرکت غیر فعال شود؟")) {
-            await api.adminApi.editCompany({
-              id: original.id!,
-              status: "s",
-            });
-            await refetch();
-            toast.warning("وضعیت شرکت غیر فعال شد");
-            setLoading(false);
-          }
-          setLoading(false);
-        }
-      } catch (err) {
-        toast.error("تغییر وضعیت شرکت صورت نپذیرفت");
-        setLoading(false);
-        setClicked(-1);
-      }
+      // setLoading(true);
+      modalDispatch({type:EModalActionTypes.SHOW_MODAL,payload:{
+        component:CompanyListModal,
+        props:{id:original.id!,status:original.status}
+      }})
+
     },
-    [refetch]
+    []
   );
   const columns = React.useMemo(
     () => [
@@ -101,25 +74,48 @@ const Index = () => {
       },
 
       {
-        Header: "وضعیت (فعال /معلق )",
+        Header: "وضعیت",
         accessor: "status",
         Cell: ({ row: { original } }: CellProps<TCompanyTableData>) => {
           const buttonText = original.status === "s" ? "معلق" : "فعال";
-          const buttonClass = original.status === "s" ? "warning" : "success";
+          const buttonClass = original.status === "s" ? "red" : "#00aa00";
           return (
-            <Button
-              loading={clicked === original.identifier! && loading}
+            <div
+              style={{
+                width: "50px",
+                height: "30px",
+                borderRadius: "100px",
+                backgroundColor: buttonClass,
+                display: "flex",
+                alignItems: "center",
+                justifyContent:
+                  original.status === "s" ? "flex-end" : "flex-start",
+                padding: "2px",
+                boxShadow: "1px 1px 8px #888888",
+              }}
               onClick={() => handleStatusClick(original)}
-              text={buttonText}
-              type={buttonClass}
-              data-bs-toggle="tooltip" 
-              data-bs-placement="bottom"
-            />
+            >
+              <div
+                style={{
+                  width: "26px",
+                  height: "26px",
+                  backgroundColor: "#fff",
+                  borderRadius: "50%",
+                  transition: "all 5s",
+                }}
+              ></div>
+            </div>
+            // <Button   {loading ? <Spinner /> : text}
+            //   loading={clicked === original.identifier! && loading}
+            //   onClick={() => handleStatusClick(original)}
+            //   text={buttonText}
+            //   type={buttonClass}
+            // />
           );
         },
       },
     ],
-    [clicked, handleStatusClick, loading]
+    [clicked, handleStatusClick]
   );
   const [companies, setCompanies] = useState<TCompanyTableData[]>([]);
   useEffect(() => {

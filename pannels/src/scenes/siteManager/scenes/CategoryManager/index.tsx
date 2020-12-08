@@ -16,6 +16,7 @@ import {useQuery,useMutation,useQueryCache} from "react-query";
 import {GetFetcher} from "../../../../React-Query/Categories/GetCategories/fetcher";
 import {DeleteFetcher} from "../../../../React-Query/Categories/DeleteCategory/fetcher";
 import { toast } from "react-toastify";
+import DeleteCategoryModal from "./components/CategoryModal/DeleteCategoryModal"
 const hooks = [
   useColumnOrder,
   useFilters,
@@ -74,16 +75,10 @@ const Index = () => {
     openCreateCategoryModal();
   };
   const handleDeleteCategory = async (id: Pick<ICategoryRes,"id">) => {
-
-    try{
-      const toDelete = window.confirm("آیا این دسته بندی حذف شود؟");
-      if (toDelete) {
-            await mutate(id);
-            toast.warning("با موفقیت حذف شد")
-        }
-  }catch{
-      console.log(error,"error2");
-  }
+    modalDispatch({type:EModalActionTypes.SHOW_MODAL,payload:{
+      component:DeleteCategoryModal,
+      props:{id:id}
+    }})
   };
   const handleEditCategory = useCallback(
     (data: TCategoryTableData) => {

@@ -72,6 +72,7 @@ const EditCategoryModal: React.FC<IProps & TCategoryTableData> = ({
   }finally{
     setLoading(false);
   }
+  handleCloseModal()
   };
 
   return (

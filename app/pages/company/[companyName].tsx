@@ -74,7 +74,7 @@ export const Company = () => {
     <>
       <div
         className="header_sticky_bar d-none"
-        style={{ height: "120px" }}
+        style={{ height: "10px" }}
       ></div>
       <header className="header_wrap fixed-top header_with_topbar">
         <BottomHeader />

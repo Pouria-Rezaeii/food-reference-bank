@@ -5,7 +5,7 @@ interface IProps {
 }
 export const BreadCrumsCompany: React.FC<IProps> = ({ companyName,logo }) => {
   return (
-    <div className="breadcrumb_section bg_gray page-title-mini">
+    <div className="breadcrumb_section bg_gray page-title-mini" style={{padding:"20px"}}>
       <div className="container">
         <div className="row align-items-center">
           <div className="col-md-6">

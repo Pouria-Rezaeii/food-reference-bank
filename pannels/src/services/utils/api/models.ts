@@ -30,7 +30,7 @@ export interface ICompanyRes {
   category: number | null;
   category_title: string;
   description: string;
-  status: "s" | "a";
+  status: "s" | "a" | "c";
   [index: string]: string | number | null | [number, number];
 }
 

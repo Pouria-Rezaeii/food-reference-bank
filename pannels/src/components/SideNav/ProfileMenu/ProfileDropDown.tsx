@@ -39,7 +39,7 @@ const ProfileDropDown = () => {
         <ProfileMenuItem
           title="اعلان‌ها"
           icon="ti-email"
-          path="/agaga"
+          path="/site-manager/notifications"
           toHavePermissions={[]}
         />
         <ProfileMenuItem

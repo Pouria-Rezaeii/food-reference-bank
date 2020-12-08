@@ -35,7 +35,7 @@ const calcOrChildPermission = (childIitem: IMenuItem[]): TPermissions[] => {
 export const menuItems: ISideNavItems[] = [
   {
     title: "داشبورد",
-    news: 4,
+    news: 0,
     items: adminDashboardItems,
     icon: "icon-speedometer",
     toHavePermissions: calcOrChildPermission(adminDashboardItems),

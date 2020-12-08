@@ -62,6 +62,7 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
                     console.log(error,"error2");
                 }
                 setSubmitting(false);
+                handleCloseModal()
               }}
             >
               {({ isSubmitting }) => (
