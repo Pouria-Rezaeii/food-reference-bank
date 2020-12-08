@@ -69,7 +69,7 @@ const getCompaniesClientSide=async(_: never, companyName: string)=>{
 export const Company = () => {
   const { query } = useRouter();
   const { data } = useQuery(['companies', query.companyName], getCompaniesClientSide);
-// console.log(data);
+  
   return (
     <>
       <div
