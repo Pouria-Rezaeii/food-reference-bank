@@ -49,7 +49,7 @@ interface CompanySliders{
 }
 const getCompaniesServerSide=async(_: never, companyName: string)=>{
   const {data:compantInformation} = await axios.get<CompanyProps[]>(`http://techdoon.ir/api/data_bank/companies/?search=${companyName}`)
-  const {data:companySliders} = await axiosInstance.get<CompanySliders[]>(`http://techdoon.ir/api/data_bank/companies/slider/?company___name=${companyName}`)
+  const {data:companySliders} = await axiosInstance.get<CompanySliders[]>(`http://techdoon.ir/api/data_bank/companies/slider/?company__name=${companyName}`)
   const sliders=[]
   companySliders.map(slider=>{
     sliders.push(slider.image)
@@ -58,7 +58,8 @@ const getCompaniesServerSide=async(_: never, companyName: string)=>{
 }
 const getCompaniesClientSide=async(_: never, companyName: string)=>{
   const {data:compantInformation} = await axiosInstance.get<CompanyProps[]>(`/data_bank/companies/?search=${companyName}`)
-  const {data:companySliders} = await axiosInstance.get<CompanySliders[]>(`/data_bank/companies/slider/?company___name=${companyName}`)
+  const {data:companySliders} = await axiosInstance.get<CompanySliders[]>(`/data_bank/companies/slider/?company__name=${companyName}`)
+  
   const sliders=[]
   companySliders.map(slider=>{
     sliders.push(slider.image)
@@ -68,7 +69,7 @@ const getCompaniesClientSide=async(_: never, companyName: string)=>{
 export const Company = () => {
   const { query } = useRouter();
   const { data } = useQuery(['companies', query.companyName], getCompaniesClientSide);
-
+// console.log(data);
   return (
     <>
       <div
