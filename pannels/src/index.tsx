@@ -20,7 +20,6 @@ import App from "./scenes/App";
 import ModalProvider from "./services/contexts/ModalContext/ModalProvider";
 import { browserHistory } from "./services/navigation/navigation";
 import { ReactQueryCacheProvider, QueryCache } from "react-query";
-
 const queryCache = new QueryCache();
 ReactDOM.render(
   <>

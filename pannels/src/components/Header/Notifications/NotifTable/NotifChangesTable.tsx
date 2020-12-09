@@ -11,10 +11,10 @@ interface IProps {
 
 const NotifChangesTable: React.FC<IProps> = ({ changes }) => {
   return (
-    <div className = {styles.tableBox}>
-      <table className = {styles.table}>
+    <div className={styles.tableBox}>
+      <table className={styles.table}>
         <thead>
-          <tr className = {styles.row}>
+          <tr className={styles.row}>
             <th>عنوان</th>
             <th>وضعیت فعلی</th>
             <th>وضعیت جدید</th>

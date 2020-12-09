@@ -147,3 +147,14 @@
 .listBox::-webkit-scrollbar-track {
   background-color: #eee;
 }
+
+/* temp styles */
+
+.temStyle {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.temStyle:hover {
+  color: red
+}

@@ -15,16 +15,25 @@ import { axiosInstance as axios } from '../../../services/axios/axios';
 const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
   const [show, setShow] = React.useState(false);
 
+  const fetchData = async () => {
+    const res = await axios.get('/data_bank/admin/companies/')
+    return res.data
+  }
+
+  const { data: companies } = useQuery('companies', fetchData)
+
   return (
     <li className={`${styles.listItem} ${show ? styles.listItemToggle : ""}`}>
       <div className={styles.listItemContent} onClick={() => setShow(prev => !prev)}>
         <div className={styles.ListItemTitle}>{props.title}</div>
-        {props.children.length ? <span className={styles.arrow}>&rsaquo;</span> : null}
+        <span className={styles.arrow}>&rsaquo;</span>
       </div>
       <ul className={styles.innerList}>
-        {props.children.map((value, index) => (
-          <ListItem children={value.children} key={index} id={value.id} title={value.title} />
-        ))}
+        <li>
+          {companies?.filter((com) => com.category_title === props.title).map((c, index) => (
+            <li key={index} className={styles.temStyle}>{c.name}</li>
+          ))}
+        </li>
       </ul>
     </li>
   );
@@ -55,9 +64,9 @@ const Category: React.FC<IProps> = ({ isShow }) => {
 
   const { data } = useQuery('categories', fetchData)
 
-  const handleToggleShowMore = () => {
-    setShowMore(!showMore);
-  };
+  // const handleToggleShowMore = () => {
+  //   setShowMore(!showMore);
+  // };
 
   const [smallScreen, setsmallScreen] = useState(false);
   useEffect(() => {
