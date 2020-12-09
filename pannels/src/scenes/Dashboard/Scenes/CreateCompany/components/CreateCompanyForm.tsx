@@ -62,7 +62,7 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
           sendForm.append("logo", logo);
           sendForm.append("website", website);
           sendForm.append("address", address);
-          sendForm.append("location", location.toString());
+          sendForm.append("location", location);
           sendForm.append("category", category_title);
           sendForm.append("description", description);
           sendForm.append("city", city);
