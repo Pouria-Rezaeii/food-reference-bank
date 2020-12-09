@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const baseURL = "/api";
-const serverSideBaseUrl =
-  process.env.NODE_ENV === "production" ? "/api" : "http://techdoon.ir/api";
+const serverSideBaseUrl = "http://techdoon.ir/api";
 export const axiosInstance = axios.create({
   baseURL,
 });
