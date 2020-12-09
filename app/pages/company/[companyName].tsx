@@ -108,7 +108,7 @@ export const Company = () => {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <CompanyMap position={data.location.split(/\[|,|\]/).slice(1,-1)} />
+                  <CompanyMap position={data.location.split(/\[|,|\]/)} />
                 </div>
               </div>
               <div className="col-xl-3 mt-4 pt-2 mt-xl-0 pt-xl-0">
