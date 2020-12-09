@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link"
 interface IProps {
   companyName: string;
   logo:string
@@ -16,10 +17,14 @@ export const BreadCrumsCompany: React.FC<IProps> = ({ companyName,logo }) => {
           <div className="col-md-6">
             <ol className="breadcrumb justify-content-md-end">
               <li className="breadcrumb-item">
-                <a href="#">خانه </a>
+                <Link href="/" as="/">
+                <a>خانه </a>
+                </Link>
               </li>
               <li className="breadcrumb-item">
-                <a href="#"> شرکت ها</a>
+              <Link href="/" as="/">
+                <a>شرکت ها </a>
+                </Link>
               </li>
               <li className="breadcrumb-item active">{companyName}</li>
             </ol>

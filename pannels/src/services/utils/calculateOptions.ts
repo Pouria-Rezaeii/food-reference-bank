@@ -3,7 +3,7 @@ import { ICategoryRes } from "./api/Admin/models";
 import { flattenToArray, notHaveChildren, Tree } from "./treeTravers";
 
 interface  resUserData {
-  id: number;
+  user_id: number;
   username: string;
   email: string;
 };
@@ -76,7 +76,7 @@ export const calculateCityOptions = (data: resCityData[]) => {
 export const calculateUserOptions = (data: resUserData[]) => {
   if (data) {
     const options = data.map((item) => ({
-      value: item.id,
+      value: item.user_id,
       label: item.username,
     }));
     return options;

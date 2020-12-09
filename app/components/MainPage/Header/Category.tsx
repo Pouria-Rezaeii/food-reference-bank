@@ -31,7 +31,11 @@ const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
       <ul className={styles.innerList}>
         <li>
           {companies?.filter((com) => com.category_title === props.title).map((c, index) => (
-            <li key={index} className={styles.temStyle}>{c.name}</li>
+            <li key={index} className={styles.temStyle}>
+              <Link href={`/company/[companyName]`} as={`/company/${c.name}`}>
+                 <a>{c.name}</a>
+              </Link>
+              </li>
           ))}
         </li>
       </ul>

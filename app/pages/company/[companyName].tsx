@@ -14,6 +14,7 @@ import {useQuery} from "react-query";
 import { QueryCache } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
 import moment from "moment-jalaali";
+import Spinner from "../../components/UI/Spinner"
 const CompanyMap = dynamic(
   () => import("../../components/Company/CompanyMap"),
   {
@@ -24,20 +25,20 @@ interface CompanyProps{
   id: number,
   user: number,
   username: string,
-  email: string,
+  email?: string,
   name: string,
   manager_name: string,
   phone_number: string,
-  website: string,
+  website?: string,
   address: string,
   location: string,
-  logo: string,
-  category: number,
-  category_title: string,
+  logo?: string,
+  category?: number,
+  category_title?: string,
   description: string,
   status: string,
-  city: number,
-  postal_code: string,
+  city?: number,
+  postal_code?: string,
   date:string,
   sliders:string[]
 }
@@ -69,7 +70,7 @@ const getCompaniesClientSide=async(_: never, companyName: string)=>{
 export const Company = () => {
   const { query } = useRouter();
   const { data } = useQuery(['companies', query.companyName], getCompaniesClientSide);
-  
+  if(data)
   return (
     <>
       <div
@@ -171,7 +172,7 @@ export const Company = () => {
                       </li>
                       <li>
                         <i className="ti-email"></i>
-                        <a href="mailto:info@kalleh.com">{data.email}</a>
+                        <a href="mailto:info@kalleh.com">{data?.email}</a>
                       </li>
                       <li>
                         <i className="ti-mobile"></i>
@@ -188,7 +189,10 @@ export const Company = () => {
       <Footer />
     </>
   );
-};
+  else{
+    return <Spinner/>
+  }
+}
 export default Company;
 export const getStaticPaths:GetStaticPaths=async()=> {
   const {data} = await axios.get<CompanyProps[]>('http://techdoon.ir/api/data_bank/companies/')
