@@ -122,27 +122,30 @@ export const Company = () => {
                     <CompanyMap position={data.location.split(/\[|,|\]/)} />
                   </div>
                 </div>
-                <div className="col-xl-3 mt-4 pt-2 mt-xl-0 pt-xl-0">
-                  <div className="sidebar">
-                    <div className="widget">
-                      <div className="search_form">
-                        <form>
-                          <input
-                            className="form-control"
-                            placeholder="جستجو..."
-                            type="text"
-                          />
-                          <button
-                            type="submit"
-                            title="Subscribe"
-                            className="btn icon_search"
-                            name="submit"
-                            value="Submit"
-                          >
-                            <i className="ion-ios-search-strong"></i>
-                          </button>
-                        </form>
-                      </div>
+                <div className="mt-4">
+                  <CompanyMap position={data.location.split(/\[|,|\]/)} />
+                </div>
+              </div>
+              <div className="col-xl-3 mt-4 pt-2 mt-xl-0 pt-xl-0">
+                <div className="sidebar">
+                  <div className="widget">
+                    <div className="search_form">
+                      <form>
+                        <input
+                          className="form-control"
+                          placeholder="جستجو..."
+                          type="text"
+                        />
+                        <button
+                          type="submit"
+                          title="Subscribe"
+                          className="btn icon_search"
+                          name="submit"
+                          value="Submit"
+                        >
+                          <i className="ion-ios-search-strong"></i>
+                        </button>
+                      </form>
                     </div>
                     <div className="widget">
                       <h5 className="widget_title">محصولات اخیر</h5>
