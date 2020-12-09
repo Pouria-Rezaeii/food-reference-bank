@@ -12,7 +12,7 @@ import { axiosInstance as axios } from '../../../services/axios/axios';
 // - - - - - containing 2 components
 
 
-const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
+const ListItem = (props) => {
   const [show, setShow] = React.useState(false);
 
   const fetchData = async () => {
@@ -30,12 +30,8 @@ const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
       </div>
       <ul className={styles.innerList}>
         <li>
-          {companies?.filter((com) => com.category_title === props.title).map((c, index) => (
-            <li key={index} className={styles.temStyle}>
-              <Link href={`/company/[companyName]`} as={`/company/${c.name}`}>
-                 <a>{c.name}</a>
-              </Link>
-              </li>
+          {companies?.filter((com) => com.category_title === props.title).map((element, index) => (
+            <li key={index} className={styles.temStyle}>{element.name}</li>
           ))}
         </li>
       </ul>
@@ -91,7 +87,7 @@ const Category: React.FC<IProps> = ({ isShow }) => {
   // - - -  calling a recursive Cmp extract all nested categories
 
   const extractCategoriesHandle = (arr: Categories[]) => {
-    return <ul className={styles.innerList}>
+    return <ul className={styles.outerList}>
       {arr.map((element) => (
         <ListItem key={element.id} children={element.children} id={element.id} title={element.title} />
       ))}
