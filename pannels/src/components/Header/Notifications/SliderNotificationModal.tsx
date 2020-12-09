@@ -37,6 +37,7 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
       queryCache.invalidateQueries('companySliderImage')
+      queryCache.invalidateQueries('Companysliders')
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL })
     }
   });

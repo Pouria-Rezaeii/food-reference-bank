@@ -41,6 +41,7 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
       queryCache.invalidateQueries('notifications')
+      queryCache.invalidateQueries('companyData')
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL })
     }
   });

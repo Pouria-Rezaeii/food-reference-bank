@@ -1,25 +1,29 @@
 export interface IAdminCreateCompanyFormikState {
-  username: string;
-  password1: string;
-  password2: string;
-  name: string;
-  website:string
-  category:number;
-  manager_name:string
-  phone_number: string;
-  mobile_number :string
-  address: string;
-  description:string
-  location: [number, number];
-}
-// export interface ICompanyikState {
-//   name: string;
-//   phone_number: string;
-//   company_number: string;
-//   zip_code: string;
-// }
-export interface ICalanderDate {
-  year: number;
-  month: number;
-  day: number;
-}
+    address: string;
+    category:number;
+    category_title:string;
+    city :string, 
+    description:string
+    email:string;
+    location: [number, number];
+    logo:string
+    manager_name:string
+    name: string;
+    phone_number: string;
+    postal_code :number, 
+    username: string;
+    website:string;
+    user:number;
+  }
+  // export interface ICompanyikState {
+  //   name: string;
+  //   phone_number: string;
+  //   company_number: string;
+  //   zip_code: string;
+  // }
+  export interface ICalanderDate {
+    year: number;
+    month: number;
+    day: number;
+  }
+  

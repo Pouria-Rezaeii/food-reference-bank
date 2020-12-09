@@ -2,6 +2,7 @@
 import { useField, Field, Form, Formik } from "formik";
 import React from "react";
 import CustomInputComponent from "../../../../../components/CustomeInputComponent";
+import CustomFileInputComponent from "../../../../../components/CustomFileInputComponent";
 import CustomeSelectCategory from "../../../../../components/CustomeSelectCategory";
 import CustomSelectCity from "../../../../../components/CustomSelectCity";
 import CustomSelectProvince from "../../../../../components/CustomSelectProvince";
@@ -18,10 +19,12 @@ import CompanyMap from "./CompanyMap";
 import { axiosInstance as axios } from "../../../../../services/axios/axios";
 import { Object } from "ts-toolbelt";
 import { useQuery } from "react-query";
+import { useMutation } from "react-query";
+import { useQueryCache } from "react-query";
 
 interface IProps {
   initialValue: IAdminEditCompanyFormikState;
-  id: number
+  id: number;
 }
 
 interface postValue {
@@ -32,26 +35,45 @@ interface postValue {
   address: string;
   location: string;
   logo: string;
-  category: number;
+  category_title: number;
   description: string;
   city: number;
   postal_code: string;
 }
- ///////////////inja bayad avaz beshe
-const updateCompanyData = (sendForm: postValue ,id :number) => { 
-  axios.put(`/data_bank/my_company/${id}/`, sendForm);
-};
+
+interface SendDataForm {
+  sendForm: FormData;
+  id: number;
+}
 
 const getCityData = async () => {
   const response = await axios.get("/cities/");
-  // console.log(response.data);
   return response.data;
 };
 
+const EditCompanyForm = ({ initialValue, id }: IProps) => {
+  const queryCache = useQueryCache();
 
+  const updateCopmanyDataFetcher = async (sendData: SendDataForm) => {
+    await axios
+      .patch(`/data_bank/my_company/${sendData.id}/`, sendData.sendForm)
+      .then((res) => {
+        alert("شرکت شما با موفقیت ویرایش شد");
+      });
+  };
 
-const EditCompanyForm = ({ initialValue , id }: IProps) => {
-  const { status, data: CityData, error } = useQuery("CityData", getCityData);
+  const [mutate] = useMutation(updateCopmanyDataFetcher, {
+    onSuccess: () => {
+      queryCache.invalidateQueries('companyData');
+    },
+  });
+
+  const updateCompanyData = (sendForm: FormData, id: number) => {
+    const sendData = { sendForm: sendForm, id: id };
+    try {
+      mutate(sendData);
+    } catch {}
+  };
   return (
     <div>
       <Formik<IAdminEditCompanyFormikState, {}>
@@ -62,32 +84,31 @@ const EditCompanyForm = ({ initialValue , id }: IProps) => {
           let {
             name,
             manager_name,
-            // phone_number,
+            phone_number,
             website,
             address,
             location,
             logo,
-            category,
+            category_title,
             description,
             city,
             postal_code,
           } = values;
 
-          let sendForm :postValue= {
-              name: name,
-              manager_name: manager_name,
-              // phone_number: phone_number,
-              website: website,
-              address: address,
-              location: location.toString(),
-              logo: logo,
-              category: category,
-              description: description,
-              city: 3,
-              postal_code: postal_code.toString(),
-          }
-          console.log(sendForm  , 'sendForm');
-          updateCompanyData(sendForm , id);
+          let sendForm = new FormData();
+          sendForm.append("name", name);
+          sendForm.append("manager_name", manager_name);
+          sendForm.append("phone_number", phone_number);
+          sendForm.append("logo", logo);
+          sendForm.append("website", website);
+          sendForm.append("address", address);
+          sendForm.append("location", location.toString());
+          sendForm.append("category", category_title);
+          sendForm.append("description", description);
+          sendForm.append("city", city);
+          sendForm.append("postal_code", postal_code.toString());
+
+          updateCompanyData(sendForm, id);
           setSubmitting(false);
         }}
       >
@@ -102,13 +123,13 @@ const EditCompanyForm = ({ initialValue , id }: IProps) => {
                   disabled={true}
                   component={CustomInputComponent}
                 />
-                <Field
+                {/* <Field
                   label="استان"
                   calculateOptions={calculateProvinceOptions}
                   type="text"
                   name="province"
                   component={CustomSelectProvince}
-                />
+                /> */}
                 <Field
                   label="کد پستی"
                   type="text"
@@ -116,10 +137,17 @@ const EditCompanyForm = ({ initialValue , id }: IProps) => {
                   component={CustomInputComponent}
                 />
                 <Field
+                  label="فیلد کاری"
+                  calculateOptions={calculateLeafs}
+                  type="text"
+                  name="category_title"
+                  component={CustomeSelectCategory}
+                />
+                <Field
                   label="لوگو"
-                  type="select"
+                  type="file"
                   name="logo"
-                  component={CustomInputComponent}
+                  component={CustomFileInputComponent}
                 />
               </div>
               <div className="col-md-4">
@@ -162,13 +190,6 @@ const EditCompanyForm = ({ initialValue , id }: IProps) => {
                   name="website"
                   component={CustomInputComponent}
                 />
-                <Field
-                  label="فیلد کاری"
-                  calculateOptions={calculateLeafs}
-                  type="text"
-                  name="category_title"
-                  component={CustomeSelectCategory}
-                />
               </div>
             </div>
 
@@ -198,8 +219,6 @@ const EditCompanyForm = ({ initialValue , id }: IProps) => {
             <button type="submit" className="btn btn-success">
               <i className="fa fa-check" /> ویرایش شرکت
             </button>
-
-            {JSON.stringify(values, null, 4)}
           </Form>
         )}
       </Formik>

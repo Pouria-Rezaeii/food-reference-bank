@@ -19,7 +19,7 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
   defaultValue,
   label,
   field, // { name, value, onChange, onBlur }
-  form: { touched, errors, setFieldValue, setFieldTouched }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  form: { touched, errors, setFieldValue, initialValues,setFieldTouched }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
 }) => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -54,7 +54,6 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
     _.debounce(promiseOptions, 1000),
     []
   );
-  // console.log(defaultValue , 'defaulttttttttt');
 
   return (
     <div style = {{marginBottom:"25px"}}>
@@ -67,7 +66,7 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
         loadOptions={(e, cb) => debouncedLoadOptions(e, cb)}
         inputValue={searchValue}
         onInputChange={handleSearchValueChange}
-        placeholder="انتخاب کنید"
+        placeholder={' انتخاب دسته بندی'}
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}

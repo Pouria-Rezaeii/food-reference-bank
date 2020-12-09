@@ -2,6 +2,17 @@ import * as _ from "lodash";
 import { ICategoryRes } from "./api/Admin/models";
 import { flattenToArray, notHaveChildren, Tree } from "./treeTravers";
 
+type resUserData = {
+  id: number;
+  username: string;
+  email: string;
+};
+
+type resCityData = {
+  id: number;
+  city: string;
+  province: string;
+};
 export const calculateLeafs = (data: ICategoryRes[]) => {
   if (data) {
     const notHaveChildrenArray = data.map((d) =>
@@ -29,16 +40,9 @@ export const calculateFlatten = (data: ICategoryRes[]) => {
     // return flattenTree
   }
 };
-type resCityData={
-id:number, 
-city: string,
-province: string
-}
 
-export const calculateCityOptions  = (data: resCityData[]) => {
-
+export const calculateCityOptions = (data: resCityData[]) => {
   if (data) {
-    
     const options = data.map((item) => ({
       value: item.id,
       label: item.city,
@@ -47,13 +51,25 @@ export const calculateCityOptions  = (data: resCityData[]) => {
   }
 };
 
-interface  resProvinceData {
-  provinces:string[]    ///what type ?
+export const calculateUserOptions = (data: resUserData[]) => {
+  console.log(data);
+  
+  if (data) {
+    const options = data.map((item) => ({
+      value: item.id,
+      label: item.username,
+    }));
+    return options;
+  }
+};
+
+interface resProvinceData {
+  provinces: string[]; ///what type ?
 }
 
-export const calculateProvinceOptions  = (data: resProvinceData) => {
+export const calculateProvinceOptions = (data: resProvinceData) => {
   if (data) {
-    const options = data.provinces.map((item ) => ({
+    const options = data.provinces.map((item) => ({
       value: item,
       label: item,
     }));

@@ -6,7 +6,7 @@ import BaseLayout from "../components/BaseLayout";
 import Loading from "../components/Loading";
 import { useUserState } from "../services/contexts/UserContext/UserContext";
 import routes, { renderRoutes } from "./routes";
-
+import { ReactQueryDevtools } from "react-query-devtools";
 const App = () => {
   // useEffect(() => {
   //   axios
@@ -17,6 +17,7 @@ const App = () => {
   const user = useUserState();
   return (
     <>
+        <ReactQueryDevtools  />
       <Suspense fallback={<Loading />}>
         <SWRConfig
           value={{

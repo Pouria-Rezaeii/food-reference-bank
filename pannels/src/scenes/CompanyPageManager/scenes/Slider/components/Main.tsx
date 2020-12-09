@@ -15,11 +15,12 @@ const Main = () => {
   const queryCache = useQueryCache();
 
   const getSlidersData = async () => {
-    const res = await axiosInstance.get(`${baseMyCompanySlideUrl}`);
+    const res = await axiosInstance.get(`${baseMyCompanySlideUrl}/?status=a`);
     return res.data;
   };
-  const { data } = useQuery("sliders", getSlidersData);
-// let data1=data
+  const { data } = useQuery("Companysliders", getSlidersData);
+  console.log(data);
+  
   const [sureDelete, setSureDelete] = useState(false);
   const [wantDeletedItemId, setWantDeletedItemId] = useState(-1);
   const handleSureDelete = (id: number) => {
@@ -28,14 +29,13 @@ const Main = () => {
   };
 
   const deleteSlider = async (id: number) => {
-    // data1= data1.filter((item:number , i:number) => i !==id)
     const res = await axiosInstance.delete(`${baseMyCompanySlideUrl}/${id}`);
     return res.data;
   };
 
   const [mutate2] = useMutation(deleteSlider, {
     onSuccess: () => {
-      queryCache.invalidateQueries("sliders");
+      queryCache.invalidateQueries("Companysliders");
     },
   });
   
@@ -61,7 +61,7 @@ const Main = () => {
 
   const [mutate1] = useMutation(sendSlider, {
     onSuccess: () => {
-     queryCache.invalidateQueries("sliders");
+     queryCache.invalidateQueries("Companysliders");
     },
   });
 

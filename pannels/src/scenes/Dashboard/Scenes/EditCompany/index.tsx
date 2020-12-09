@@ -6,11 +6,11 @@ import { axiosInstance as axios } from "../../../../services/axios/axios";
 
 const getCompanyData = async () => {
   const response = await axios.get("/data_bank/my_company/");
-  console.log(response.data);
   return response.data[0];
 };
 
 const Index = () => {
+    
   const { status, data: CompanyData, error } = useQuery(
     "companyData",
     getCompanyData
@@ -20,7 +20,7 @@ const Index = () => {
   const defaultValues: IAdminEditCompanyFormikState = {
     address: CompanyData && CompanyData.address,
     category: CompanyData && CompanyData.category,
-    category_title: CompanyData && CompanyData.category_title,
+    category_title: CompanyData && CompanyData.category,
     city: CompanyData && CompanyData.city,
     description: CompanyData && CompanyData.description,
     email: CompanyData && CompanyData.email,

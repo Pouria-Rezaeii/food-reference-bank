@@ -5,11 +5,14 @@ const rules: IRules = {
     static: [],
   },
   company: {
-    static: ["company:edit" , "company:manage-site"],
+    static: [
+      "company:edit" , 
+    "company:manage-site"
+  ],
   },
   admin: {
     static: [
-      "company:edit", ///********havasm bashe in vas admin nist  */
+      "company:edit", 
       "main-site:edit",
       "company:create",
 	  "company:companylist",

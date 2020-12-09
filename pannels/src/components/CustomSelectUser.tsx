@@ -15,7 +15,7 @@ const styles: StylesConfig = {
   indicatorSeparator: (provided) => ({ ...provided, color: "red" }),
 };
 let initialCity:string ; 
-const CustomSelectCity: React.FC<FieldAttributes<any>> = ({
+const CustomSelectUser: React.FC<FieldAttributes<any>> = ({
     calculateOptions,
   defaultValue,
   label,
@@ -25,10 +25,7 @@ const CustomSelectCity: React.FC<FieldAttributes<any>> = ({
 }) => {
     const [searchValue, setSearchValue] = useState("");
    const [data, setdata ]= useState([]);
-  //  axiosInstance.get(`/cities/?province=${values.province}`).then(({data})=> {setdata(data)} )
 
-
-  
   const handleSearchValueChange = (newValue: string) =>
     setSearchValue(newValue);
   const isError = touched[field.name] && errors[field.name];
@@ -56,8 +53,8 @@ const CustomSelectCity: React.FC<FieldAttributes<any>> = ({
     ) => void
   ) => {
       // axiosInstance.get(`/cities/?province=${values.province}`).then(({data})=>{
-      axiosInstance.get(`/cities/`).then(({data})=>{
-      // console.log(data);
+      axiosInstance.get(`​/register_by_admin​/`).then(({data})=>{          //this api should be changed
+      console.log(data);
       callback(calculateOptions(data ))
    });
   },[])
@@ -79,7 +76,7 @@ const CustomSelectCity: React.FC<FieldAttributes<any>> = ({
         loadOptions={debouncedLoadOptions}
         inputValue={searchValue}
         onInputChange={handleSearchValueChange}
-        placeholder={'انتخاب نام شهر'}
+        placeholder={'انتخاب نام کاریری'}
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -96,4 +93,4 @@ const CustomSelectCity: React.FC<FieldAttributes<any>> = ({
     </div>
   );
 };
-export default CustomSelectCity;
+export default CustomSelectUser;

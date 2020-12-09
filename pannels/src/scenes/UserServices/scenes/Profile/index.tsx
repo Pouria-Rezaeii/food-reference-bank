@@ -6,6 +6,7 @@ import { ICompanyRes } from "../../../../services/utils/api/models";
 import { baseCompanyUrl } from "../../../../services/utils/api/myCompany";
 import { IEditCompany } from "../../../../services/utils/api/myCompany/models";
 import EditCompanyForm from "./components/EditCompanyForm";
+import { axiosInstance as axios } from "../../../../services/axios/axios";
 
 // name: string;
 // manager_name: string;
@@ -35,6 +36,7 @@ import EditCompanyForm from "./components/EditCompanyForm";
 // status: "s" | "a";
 
 export const Index = () => {
+  // const data =axios.get(`${baseCompanyUrl}/my_company/`)
   const { data } = useSWR<ICompanyRes[]>(`${baseCompanyUrl}/my_company/`);
   let editableData = {} as IEditCompany;
   if (data) {

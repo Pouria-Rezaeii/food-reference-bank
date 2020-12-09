@@ -20,7 +20,7 @@ import App from "./scenes/App";
 import ModalProvider from "./services/contexts/ModalContext/ModalProvider";
 import { browserHistory } from "./services/navigation/navigation";
 import { ReactQueryCacheProvider, QueryCache } from "react-query";
-import { ReactQueryDevtools } from "react-query-devtools";
+
 const queryCache = new QueryCache();
 ReactDOM.render(
   <>
@@ -33,7 +33,6 @@ ReactDOM.render(
         </Router>
       </ModalProvider>
     </ReactQueryCacheProvider>
-    <ReactQueryDevtools />
   </>,
   document.querySelector("#main-wrapper")
 );
