@@ -3,6 +3,7 @@ import { Field, Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import api from "../../services/api";
+import { __isProd__ } from "../../services/isProd";
 import CustomeInputComponent from "../CustomeInputComponent";
 import GotoForgotPassword from "./GotoForgotPassword";
 import { IFormikLoginState } from "./models";
@@ -20,7 +21,9 @@ const FormLogin = () => (
       })}
       onSubmit={async (values, { setSubmitting }) => {
         const res = await api.apiAuth.login(values);
-        window.location.href = "http://localhost:3000/pannel";
+        window.location.href = __isProd__
+          ? "http://171.22.24.129/pannel"
+          : "http://localhost:3000/pannel";
 
         //   fetch("/api/auth/login/", {
         //   method: "POST",
