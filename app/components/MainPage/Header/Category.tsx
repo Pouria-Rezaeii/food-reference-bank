@@ -31,7 +31,11 @@ const ListItem = (props) => {
       <ul className={styles.innerList}>
         <li>
           {companies?.filter((com) => com.category_title === props.title).map((element, index) => (
-            <li key={index} className={styles.temStyle}>{element.name}</li>
+            <li key={index} className={styles.temStyle}>
+              <Link href={`/company/[companyName]`} as={`/company/${element.name}`}>
+                 <a>{element.name}</a>
+              </Link>
+            </li>
           ))}
         </li>
       </ul>
