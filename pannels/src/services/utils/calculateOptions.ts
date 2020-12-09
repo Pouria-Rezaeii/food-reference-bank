@@ -2,17 +2,26 @@ import * as _ from "lodash";
 import { ICategoryRes } from "./api/Admin/models";
 import { flattenToArray, notHaveChildren, Tree } from "./treeTravers";
 
-type resUserData = {
+interface  resUserData {
   id: number;
   username: string;
   email: string;
 };
 
-type resCityData = {
+interface  resCityData  {
   id: number;
   city: string;
   province: string;
 };
+
+interface  resCategoryData{
+  children:resCategoryData[]
+  id: number
+  parent: number
+  title: string
+  type: string
+}
+
 export const calculateLeafs = (data: ICategoryRes[]) => {
   if (data) {
     const notHaveChildrenArray = data.map((d) =>
@@ -28,6 +37,7 @@ export const calculateLeafs = (data: ICategoryRes[]) => {
   }
 };
 export const calculateFlatten = (data: ICategoryRes[]) => {
+  
   if (data) {
     const flattenTree = data.map((d) => Tree.reduce(flattenToArray, [], d));
     const flattenVersion = _.flatten(flattenTree);
@@ -38,6 +48,18 @@ export const calculateFlatten = (data: ICategoryRes[]) => {
     }));
     return options;
     // return flattenTree
+  }
+};
+
+export const calculateCategoryOptions = (data: resCategoryData[]) => {
+  if (data) {
+  console.log(data);
+
+    const options = data.map((item) => ({
+      value: item.id,
+      label: item.title,
+    }));
+    return options;
   }
 };
 
@@ -52,8 +74,6 @@ export const calculateCityOptions = (data: resCityData[]) => {
 };
 
 export const calculateUserOptions = (data: resUserData[]) => {
-  console.log(data);
-  
   if (data) {
     const options = data.map((item) => ({
       value: item.id,

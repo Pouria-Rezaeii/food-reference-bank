@@ -11,6 +11,7 @@ import CustomSelectProvince from "../../../../../components/CustomSelectProvince
 import {
   calculateLeafs,
   calculateCityOptions,
+  calculateCategoryOptions,
   calculateUserOptions,
   calculateProvinceOptions,
 } from "../../../../../services/utils/calculateOptions";
@@ -98,7 +99,7 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
                 />
                <Field
                   label="فیلد کاری"
-                  calculateOptions={calculateLeafs}
+                  calculateOptions={calculateCategoryOptions}
                   type="text"
                   name="category_title"
                   component={CustomeSelectCategory}

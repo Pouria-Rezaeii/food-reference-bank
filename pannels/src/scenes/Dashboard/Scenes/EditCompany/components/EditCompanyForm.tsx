@@ -12,6 +12,7 @@ import {
   calculateFlatten,
   calculateCityOptions,
   calculateProvinceOptions,
+  calculateCategoryOptions,
 } from "../../../../../services/utils/calculateOptions";
 import { adminCreatevalidationSchema } from "../constants";
 import { IAdminEditCompanyFormikState } from "../models";
@@ -138,7 +139,7 @@ const EditCompanyForm = ({ initialValue, id }: IProps) => {
                 />
                 <Field
                   label="فیلد کاری"
-                  calculateOptions={calculateLeafs}
+                  calculateOptions={calculateCategoryOptions}
                   type="text"
                   name="category_title"
                   component={CustomeSelectCategory}

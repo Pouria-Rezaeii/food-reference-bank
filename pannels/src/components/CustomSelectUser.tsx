@@ -53,7 +53,7 @@ const CustomSelectUser: React.FC<FieldAttributes<any>> = ({
     ) => void
   ) => {
       // axiosInstance.get(`/cities/?province=${values.province}`).then(({data})=>{
-      axiosInstance.get(`​/register_by_admin​/`).then(({data})=>{          //this api should be changed
+      axiosInstance.get(`/admin/users`).then(({data})=>{          //this api should be changed
       console.log(data);
       callback(calculateOptions(data ))
    });

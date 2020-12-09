@@ -56,6 +56,7 @@ export interface ICategoryRes {
   title: string;
   parent: number | null;
   parent_title?: "";
+  type:string;
   children: ICategoryRes[] | [];
 }
 interface ICategoryParams {
