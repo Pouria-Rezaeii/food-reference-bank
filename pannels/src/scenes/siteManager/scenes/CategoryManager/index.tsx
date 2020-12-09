@@ -74,7 +74,7 @@ const Index = () => {
   const handleCreateCategory = () => {
     openCreateCategoryModal();
   };
-  const handleDeleteCategory = async (id: Pick<ICategoryRes,"id">) => {
+  const handleDeleteCategory = async (id: Pick<ICategoryRes,"id"> | number) => {
     modalDispatch({type:EModalActionTypes.SHOW_MODAL,payload:{
       component:DeleteCategoryModal,
       props:{id:id}

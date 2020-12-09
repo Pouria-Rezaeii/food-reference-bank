@@ -1,10 +1,13 @@
-import { axiosServerInterceptor } from "./axiosServerInterceptor";
-import { axiosInterceptor } from "./axiosInterceptor";
 import axios from "axios";
 
 const baseURL = "/api";
+const serverSideBaseUrl =
+  process.env.NODE_ENV === "production" ? "/api" : "http://techdoon.ir/api";
 export const axiosInstance = axios.create({
   baseURL,
+});
+export const axiosServerSideInstance = axios.create({
+  baseURL: serverSideBaseUrl,
 });
 
 // export const axiosInstanceNoAuth = axios.create({

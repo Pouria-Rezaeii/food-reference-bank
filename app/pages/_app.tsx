@@ -4,6 +4,7 @@ import { AppProps } from "next/app";
 import "../assets/css2/global.css";
 import { ReactQueryCacheProvider, QueryCache } from 'react-query'
 import { Hydrate } from 'react-query/hydration'
+import React from 'react'
 // import "../assets/css/animate-rtl.css"
 // import "../assets/bootstrap/css/bootstrap-rtl.min.css"
 // import "../assets/css/all-rtl.min.css";
@@ -31,7 +32,6 @@ import { Hydrate } from 'react-query/hydration'
 <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css">
 <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.default.min.css"> */
 }
-import Head from "next/head";
 const queryCache = new QueryCache()
 export const MyApp:React.FC<AppProps> =({ Component, pageProps }) =>{
   return (

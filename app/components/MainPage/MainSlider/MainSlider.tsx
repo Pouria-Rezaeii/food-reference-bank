@@ -13,12 +13,9 @@ type FetchedImages = {
   image: string;
 }[]
 
-interface IProps {
-  images: FetchedImages
-}
 
 
-const MainSlider: React.FC<IProps> = () => {
+const MainSlider: React.FC = () => {
   const settings = {
     dots: true,
     infinite: true,

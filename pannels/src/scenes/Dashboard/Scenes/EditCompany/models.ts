@@ -5,7 +5,7 @@ export interface IAdminEditCompanyFormikState {
   city :string, 
   description:string
   email:string;
-  location: [number, number];
+  location: string;
   logo:string
   manager_name:string
   name: string;

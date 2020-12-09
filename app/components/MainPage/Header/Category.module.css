@@ -65,7 +65,7 @@
 .listItem:hover > .listItemContent::after {
   content: "";
   position: absolute;
-  background-color: #aaa;
+  /* background-color: #aaa; */
   top: 0;
   left: 0;
   width: 160%;
@@ -90,7 +90,7 @@
 .listItemToggle > .listItemContent::after {
   content: "";
   position: absolute;
-  background-color: #aaa;
+  background-color: #eee;
   top: 0px;
   left: 0;
   width: 160%;
@@ -153,8 +153,9 @@
 .temStyle {
   cursor: pointer;
   padding: 5px;
+  padding-right: 10px;
 }
 
 .temStyle:hover {
-  color: red
+  color: red;
 }

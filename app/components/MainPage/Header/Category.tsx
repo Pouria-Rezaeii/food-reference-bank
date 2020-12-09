@@ -12,7 +12,7 @@ import { axiosInstance as axios } from '../../../services/axios/axios';
 // - - - - - containing 2 components
 
 
-const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
+const ListItem = (props) => {
   const [show, setShow] = React.useState(false);
 
   const fetchData = async () => {
@@ -30,8 +30,12 @@ const ListItem = (props: Pick<Categories, "children" | "id" | "title">) => {
       </div>
       <ul className={styles.innerList}>
         <li>
-          {companies?.filter((com) => com.category_title === props.title).map((c, index) => (
-            <li key={index} className={styles.temStyle}>{c.name}</li>
+          {companies?.filter((com) => com.category_title === props.title).map((element, index) => (
+            <li key={index} className={styles.temStyle}>
+              <Link href={`/company/[companyName]`} as={`/company/${element.name}`}>
+                 <a>{element.name}</a>
+              </Link>
+            </li>
           ))}
         </li>
       </ul>
@@ -50,7 +54,6 @@ type Categories = {
 
 interface IProps {
   isShow: boolean;
-  categories: Categories[]
 }
 
 
@@ -87,7 +90,7 @@ const Category: React.FC<IProps> = ({ isShow }) => {
   // - - -  calling a recursive Cmp extract all nested categories
 
   const extractCategoriesHandle = (arr: Categories[]) => {
-    return <ul className={styles.innerList}>
+    return <ul className={styles.outerList}>
       {arr.map((element) => (
         <ListItem key={element.id} children={element.children} id={element.id} title={element.title} />
       ))}
