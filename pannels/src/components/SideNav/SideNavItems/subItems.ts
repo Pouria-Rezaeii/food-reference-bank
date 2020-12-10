@@ -52,6 +52,11 @@ const companyPageManageitems : IMenuItem[] =[
 		path : "/company-page-manager/slider" ,
 		title : "اسلایدر شرکت",
 		toHavePermissions :["company:manage-site"]
+  },
+  {
+		path : "/company-page-manager/products" ,
+		title : "محصولات شرکت",
+		toHavePermissions :["company:products"]
 	}
 ]
 

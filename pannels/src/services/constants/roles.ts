@@ -5,22 +5,20 @@ const rules: IRules = {
     static: [],
   },
   company: {
-    static: [
-      "company:edit" , 
-    "company:manage-site"
-  ],
+    static: ["company:edit", "company:manage-site"],
   },
   admin: {
     static: [
-      "company:edit", 
+      "company:edit",
       "main-site:edit",
       "company:create",
-	  "company:companylist",
+      "company:companylist",
       "category:update",
       "category:read",
       "category:delete",
       "category:create",
-	"company:manage-site"
+      "company:manage-site",
+      "company:products"
     ],
   },
 };
