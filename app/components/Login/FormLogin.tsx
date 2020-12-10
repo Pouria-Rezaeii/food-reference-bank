@@ -7,7 +7,6 @@ import { __isProd__ } from "../../services/isProd";
 import CustomeInputComponent from "../CustomeInputComponent";
 import GotoForgotPassword from "./GotoForgotPassword";
 import { IFormikLoginState } from "./models";
-
 const FormLogin = () => (
   <div>
     <Formik<IFormikLoginState>
@@ -21,6 +20,7 @@ const FormLogin = () => (
       })}
       onSubmit={async (values, { setSubmitting }) => {
         const res = await api.apiAuth.login(values);
+        console.log(res)
         window.location.href = __isProd__
           ? "http://171.22.24.129/pannel"
           : "http://localhost:3000/pannel";
