@@ -1,6 +1,7 @@
 import React from 'react'
 import ProductCategoryTableRow from './ProductCategoryTableRow';
 
+// bookmarked by pouria
 
 interface IProps {
   data: any[] | undefined
@@ -8,7 +9,7 @@ interface IProps {
 
 const ProductCategoryTable: React.FC<IProps> = ({ data }) => {
   return (
-    <div className="col-12" >
+    <div className="col-12 mb-5" >
       <div className="card">
         <div className="card-body bg-light">
           <div className="row">
