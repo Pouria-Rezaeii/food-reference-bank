@@ -1,0 +1,21 @@
+.tableBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.table {
+  border: solid 1px #ccc;
+  box-shadow: 0 0 5px #aaa;
+}
+
+.row * {
+  border: solid 1px #ccc;
+  padding: 10px 7px;
+  min-width: 80px;
+  max-width: 160px;
+  text-align: center;
+  vertical-align: middle;
+  overflow-x: scroll;
+}
