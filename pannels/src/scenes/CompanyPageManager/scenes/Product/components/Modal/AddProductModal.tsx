@@ -90,9 +90,9 @@ const AddProductModal  = ({ initialValue, category }: IProps) => {
                   }}
                 >
                   {({ isSubmitting, values }) => (
-                    <Form className="form-horizontal mt-4">
+                    <Form className="form-horizontal ">
                       <div className="row">
-                        <div className="col-md-4">
+                        <div>
                           <Field
                             label="نام محصول "
                             type="text"
@@ -102,19 +102,19 @@ const AddProductModal  = ({ initialValue, category }: IProps) => {
                           <Field
                             label="قیمت محصول "
                             type="text"
-                            name="postal_code"
+                            name="cost"
                             component={CustomInputComponent}
                           />
-                          <Field
+                          {/* <Field
                             label="تصویر محصول"
                             type="file"
                             name="image"
                             component={CustomInputComponent}
-                          />
+                          /> */}
                           <Field
-                            name="address"
+                            name="description"
                             component={CustomeTextAreaComponent}
-                            rows={4}
+                            // rows={4}
                             label="توضیحات محصول"
                             type="text"
                           />
