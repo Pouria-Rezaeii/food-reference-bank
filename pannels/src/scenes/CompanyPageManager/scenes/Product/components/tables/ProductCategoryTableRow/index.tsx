@@ -7,11 +7,12 @@ interface IProps {
 }
 
 const index: React.FC<IProps> = ({ number, productCategory }) => {
+
   return (
     <tr>
       <td>{number}</td>
-      <td style = {{fontWeight:'bold'}}>{productCategory}</td>
-      <td><Button type = 'warning' text = 'اضافه کردن'/></td>
+      <td style={{ fontWeight: 'bold' }}>{productCategory}</td>
+      <td><Button type='warning' text='اضافه کردن' /></td>
     </tr>
   )
 }

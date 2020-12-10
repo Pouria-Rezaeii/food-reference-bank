@@ -19,7 +19,7 @@ const ProductCategoryTable: React.FC<IProps> = ({ data }) => {
         </div>
         <div className="table-responsive">
           <table className="table table-hover no-wrap">
-            <thead  className=" "   style = {{backgroundColor:'oldlace'}}>
+            <thead style={{ backgroundColor: 'oldlace' }}>
               <th>ردیف</th>
               <th>دسته بندی </th>
               <th>اضافه کردن محصول</th>
