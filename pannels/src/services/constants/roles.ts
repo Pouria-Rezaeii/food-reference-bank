@@ -5,7 +5,11 @@ const rules: IRules = {
     static: [],
   },
   company: {
-    static: ["company:edit", "company:manage-site"],
+    static: [
+      "company:edit", 
+      "company:manage-site", 
+      "company:products"
+    ],
   },
   admin: {
     static: [
@@ -18,7 +22,7 @@ const rules: IRules = {
       "category:delete",
       "category:create",
       "company:manage-site",
-      "company:products"
+      "company:products",
     ],
   },
 };
