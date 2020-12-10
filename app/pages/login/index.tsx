@@ -4,6 +4,9 @@ import GotoSignUp from "../../components/Login/GotoSignUp";
 import AuthLayout from "../../components/AuthLayout";
 
 const index = () => {
+
+  localStorage.setItem('key','someValue')
+  
   return (
     <AuthLayout title="ورود">
       <FormLogin />
