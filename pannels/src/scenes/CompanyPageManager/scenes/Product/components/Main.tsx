@@ -3,15 +3,19 @@ import {useQuery} from "react-query"
 import {getCompanyData} from "../../../../../scenes/Dashboard/Scenes/EditCompany/index"
 import { useMutation } from "react-query";
 import {GetCategoryProducts} from "../../../../../React-Query/Companies/GetProductsCategory/fetcher"
-import ProductCategoryTable from '../components/tables/ProductCategoryTable'
+import {GetProducts} from "../../../../../React-Query/Companies/GetProducts/fetcher"
+import ProductCategoryTable from './tables/ProductCategoryTable'
+import ProductTable from "./tables/ProductTable"
+import {ICompnayProducts} from "../../../../../services/utils/api/models";
 const Main = () => {
   // const {data:companyData}=useQuery("companyData",getCompanyData);
-  const {data}=useQuery("CategoryProducts",GetCategoryProducts)
-  console.log(data);
+  const {data:CategoryProducts}=useQuery("CategoryProducts",GetCategoryProducts)
+  const {data:Products}=useQuery<ICompnayProducts[]>("Products",GetProducts)
   
   return (
-  <div>
-  <ProductCategoryTable data={data} />
+  <div style={{width:"100%"}}>
+  <ProductCategoryTable data={CategoryProducts} />
+  <ProductTable data={Products}/>
   </div>
   )
 }

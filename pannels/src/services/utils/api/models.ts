@@ -12,7 +12,19 @@ export type IReqFunction<U, T = void, Y = void> = (
   config: AxiosRequestConfig;
   request?: any;
 }>;
-
+export interface ICompnayProducts{
+    id: number
+    company: number
+    name: string
+    cost: number,
+    description: string,
+    category: number,
+    category_title: string,
+    status: "active" | "suspension",
+    main_fields: string,
+    more_fields: string,
+    images: []
+}
 
 export interface ICompanyRes {
   id: number;
