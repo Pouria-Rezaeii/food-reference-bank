@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import {useQuery} from "react-query"
-import {getCompanyData} from "../../../../../scenes/Dashboard/Scenes/EditCompany/index"
+import { useQuery } from "react-query"
+import { getCompanyData } from "../../../../../scenes/Dashboard/Scenes/EditCompany/index"
 import { useMutation } from "react-query";
 import {GetCategoryProducts} from "../../../../../React-Query/Companies/GetProductsCategory/fetcher"
 import {GetProducts} from "../../../../../React-Query/Companies/GetProducts/fetcher"

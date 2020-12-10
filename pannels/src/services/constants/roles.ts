@@ -18,7 +18,7 @@ const rules: IRules = {
       "category:delete",
       "category:create",
       "company:manage-site",
-      "company:products"
+      "company:products",
     ],
   },
 };
