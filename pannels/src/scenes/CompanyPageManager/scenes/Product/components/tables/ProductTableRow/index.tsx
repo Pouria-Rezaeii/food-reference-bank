@@ -1,5 +1,8 @@
 import React from "react";
-import Button from "../../../../../../../components/Button"
+import Button from "../../../../../../../components/Button";
+import {useModalDispatch} from "../../../../../../../services/contexts/ModalContext/ModalContext";
+import {EModalActionTypes} from "../../../../../../../services/contexts/ModalContext/models";
+import DeleteProduct from "../../Modal/DeleteProduct"
 interface IProps {
   productId: number;
   productName: string;
@@ -8,7 +11,14 @@ interface IProps {
   productStatus:"active" | "suspension"
 }
 
-const index: React.FC<IProps> = ({ productId, productName,productCategory,productPrice,productStatus }) => {
+const Index: React.FC<IProps> = ({ productId, productName,productCategory,productPrice,productStatus }) => {
+    const modalDispatch = useModalDispatch();
+    const handleDeleteProduct=async(id:number)=>{
+    modalDispatch({type:EModalActionTypes.SHOW_MODAL,payload:{
+            component:DeleteProduct,
+            props:{id:id}
+          }})
+    }
   return (
     <tr>
       <td>{productId}</td>
@@ -20,11 +30,11 @@ const index: React.FC<IProps> = ({ productId, productName,productCategory,produc
           <div style={{display:"flex",gap:"3px"}}>
           <Button type="info" text="نمایش"/>
           <Button type="warning" text="ویرایش"/>
-          <Button type="danger" text="حذف"/>
+          <Button type="danger" text="حذف" onClick={()=>handleDeleteProduct(productId)}/>
           </div>
       </td>
     </tr>
   );
 };
 
-export default index;
+export default Index;

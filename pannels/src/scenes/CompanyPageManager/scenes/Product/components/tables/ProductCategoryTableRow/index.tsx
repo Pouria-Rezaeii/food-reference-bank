@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../../../../../../../components/Button';
 import { useModalDispatch } from '../../../../../../../services/contexts/ModalContext/ModalContext'
 import { EModalActionTypes } from '../../../../../../../services/contexts/ModalContext/models';
-// import 
+import AddProductModal from '../../Modal/AddProductModal'
 
 
 // bookmarked by pouria
@@ -12,28 +12,28 @@ interface IProps {
   productCategory: string
 }
 
-const index: React.FC<IProps> = ({ number, productCategory }) => {
+const Index: React.FC<IProps> = ({ number, productCategory }) => {
 
 
-  // const modalDispatch = useModalDispatch()
+  const modalDispatch = useModalDispatch()
 
-  // const showModalHandle = () => {
-  //   modalDispatch({
-  //     type: EModalActionTypes.SHOW_MODAL,
-  //     payload: {
-  //       component: tergetCmp,
-  //       props: { notify }
-  //     }
-  //   })
-  // }
+  const showModalHandle = () => {
+    modalDispatch({
+      type: EModalActionTypes.SHOW_MODAL,
+      payload: {
+        component: AddProductModal,
+        props: { category: productCategory }
+      }
+    })
+  }
 
   return (
     <tr>
       <td>{number}</td>
       <td style={{ fontWeight: 'bold' }}>{productCategory}</td>
-      <td><Button type='warning' text='اضافه کردن' /></td>
+      <td><Button onClick={showModalHandle} type='warning' text='اضافه کردن' /></td>
     </tr>
   )
 }
 
-export default index
+export default Index

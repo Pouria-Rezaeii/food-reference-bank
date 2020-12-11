@@ -21,9 +21,11 @@ const ProductCategoryTable: React.FC<IProps> = ({ data }) => {
         <div className="table-responsive">
           <table className="table table-hover no-wrap">
             <thead style={{ backgroundColor: 'oldlace' }}>
-              <th>ردیف</th>
-              <th>دسته بندی </th>
-              <th>اضافه کردن محصول</th>
+              <tr>
+                <th>ردیف</th>
+                <th>دسته بندی </th>
+                <th>اضافه کردن محصول</th>
+              </tr>
             </thead>
             <tbody>
               {data?.map((product, index) => (
