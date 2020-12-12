@@ -8,7 +8,7 @@ import ProductCategoryTable from './tables/ProductCategoryTable'
 import ProductTable from "./tables/ProductTable"
 import { ICompnayProducts } from "../../../../../services/utils/api/models";
 const Main = () => {
-  
+  // const {data:companyData}=useQuery("companyData",getCompanyData);
   const { data: CategoryProducts } = useQuery("categoryProducts", GetCategoryProducts)
   const { data: Products } = useQuery<ICompnayProducts[]>("products", GetProducts)
 

@@ -5,18 +5,18 @@ import { useRouter } from "next/router";
 import React from "react";
 import { QueryCache, useQuery } from "react-query";
 import { dehydrate } from "react-query/hydration";
-import BreadCrumsCompany from "../../components/Company/BreadCrumsCompany";
-import CompanySlider from "../../components/Company/CompanySlider";
-import BottomHeader from "../../components/Company/Header/BottomHeader";
-import Footer from "../../components/MainPage/Footer/Footer";
-import RecentCart from "../../components/shared/Cards/RecentCart";
-import Spinner from "../../components/UI/Spinner";
+import BreadCrumsCompany from "../../../components/Company/BreadCrumsCompany";
+import CompanySlider from "../../../components/Company/CompanySlider";
+import BottomHeader from "../../../components/Company/Header/BottomHeader";
+import Footer from "../../../components/MainPage/Footer/Footer";
+import RecentCart from "../../../components/shared/Cards/RecentCart";
+import Spinner from "../../../components/UI/Spinner";
 import {
   axiosInstance,
   axiosServerSideInstance,
-} from "../../services/axios/axios";
+} from "../../../services/axios/axios";
 const CompanyMap = dynamic(
-  () => import("../../components/Company/CompanyMap"),
+  () => import("../../../components/Company/CompanyMap"),
   {
     ssr: false,
   }
