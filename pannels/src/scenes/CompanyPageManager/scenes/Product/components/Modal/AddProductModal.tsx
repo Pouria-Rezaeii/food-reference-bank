@@ -16,17 +16,16 @@ interface IProps {
   category: number;
 }
 
-
 interface ICompanySendPRoduct {
   name: string;
-  cost: 0;
+  cost: string;
   description: string;
-  category: 0;
+  category: number;
   main_fields: string;
   more_fields: string;
 }
 
-const AddProductModal = ({ initialValue, category }: IProps) => {
+const AddProductModal = ({ category }: IProps) => {
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
 
@@ -40,7 +39,7 @@ const AddProductModal = ({ initialValue, category }: IProps) => {
 
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
-      queryCache.invalidateQueries("products");
+      queryCache.invalidateQueries("Products");
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     },
   });
@@ -67,10 +66,14 @@ const AddProductModal = ({ initialValue, category }: IProps) => {
               className="modal-body"
               style={{ minHeight: "200px", padding: "40px" }}
             >
-              <Formik<ICompanySendPRoduct, {}>
-                initialValues={initialValue}
+              <Formik
+                initialValues={{
+                  name: '',
+                  cost: '',
+                  description: '',
+                }}
                 enableReinitialize
-                // validationSchema={}
+                // validationSchema={ }
                 onSubmit={(values, { setSubmitting }) => {
                   const newPR = new FormData();
                   newPR.append("name", values.name);
@@ -83,7 +86,6 @@ const AddProductModal = ({ initialValue, category }: IProps) => {
                   setSubmitting(false);
                 }}
               >
-                {({ isSubmitting, values }) => (
                   <Form className="form-horizontal ">
                     <div className="row" >
                       <div>
@@ -108,33 +110,29 @@ const AddProductModal = ({ initialValue, category }: IProps) => {
                         <Field
                           name="description"
                           component={CustomeTextAreaComponent}
-                          // rows={4}
+                          rows={4}
                           label="توضیحات محصول"
                           type="text"
                         />
                       </div>
                     </div>
-                    <div style = {{display:'flex', justifyContent:'space-around'}}>
+                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                       <button type="submit" className="btn btn-success ml-2">
-                      <i className="fa fa-check" /> ثبت محصول
+                        <i className="fa fa-check" /> ثبت محصول
                     </button>
-                    <Button
-                      onClick={handleCloseModal}
-                      type="danger"
-                      text="انصراف"
-                    />
+                      <Button
+                        onClick={handleCloseModal}
+                        type="danger"
+                        text="انصراف"
+                      />
                     </div>
-                    
                   </Form>
-                )}
               </Formik>
-              {/* <div className="modal-footer" style = {}>
-              </div> */}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

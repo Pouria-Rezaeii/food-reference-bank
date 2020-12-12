@@ -10,9 +10,10 @@ import AddProductModal from '../../Modal/AddProductModal'
 interface IProps {
   number: number;
   productCategory: string
+  categoryId: number
 }
 
-const Index: React.FC<IProps> = ({ number, productCategory }) => {
+const Index: React.FC<IProps> = ({ number, productCategory, categoryId }) => {
 
 
   const modalDispatch = useModalDispatch()
@@ -22,7 +23,7 @@ const Index: React.FC<IProps> = ({ number, productCategory }) => {
       type: EModalActionTypes.SHOW_MODAL,
       payload: {
         component: AddProductModal,
-        props: { category: productCategory }
+        props: { categoryId: categoryId }
       }
     })
   }
