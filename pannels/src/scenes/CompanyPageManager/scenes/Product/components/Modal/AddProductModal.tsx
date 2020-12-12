@@ -6,37 +6,47 @@ import { useModalDispatch } from "../../../../../../services/contexts/ModalConte
 import { useMutation } from "react-query";
 import { axiosInstance as axios } from "../../../../../../services/axios/axios";
 import { useQueryCache } from "react-query";
+import AddImage from "../../../../../../components/AddImage";
 
 import { Field, Form, Formik } from "formik";
 import CustomInputComponent from "../../../../../../components/CustomeInputComponent";
 import CustomeTextAreaComponent from "../../../../../../components/CustomeTextAreaComponent";
+import CustomFileInputComponent from "../../../../../../components/CustomFileInputComponent";
+// bookmarked by pouria & parisa
 
 interface IProps {
-  initialValue: ICompanySendPRoduct;
-  category: number;
+  categoryId: number;
 }
 
-
 interface ICompanySendPRoduct {
+  PRDatials: {
+    name: string;
+    cost: string;
+    description: string;
+    category: number;
+    main_fields: string;
+    more_fields: string;
+  };
+  PRimage: FormData;
+}
+
+interface IPRDatials {
   name: string;
-  cost: number;
+  cost: string;
   description: string;
-  category:number;
+  category: number;
   main_fields: string;
   more_fields: string;
 }
 
-const AddProductModal = ({ category }: IProps) => {
-  console.log(category , ' category');
-  const defaultValue = {
-    name:"", 
-    cost:0 , 
-    description : "",
-    category:category, 
-    main_fields: "",
-    more_fields: "" 
-  }
-  
+interface IInitialValues {
+  name: string;
+  cost: string;
+  description: string;
+  image: "";
+}
+
+const AddProductModal = ({ categoryId }: IProps) => {
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
 
@@ -44,8 +54,12 @@ const AddProductModal = ({ category }: IProps) => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
 
-  const sendData = async (data: FormData) => {
-    await axios.post(`store/my_company_products/`, data);
+  const sendData = async (data: ICompanySendPRoduct) => {
+    const res = await axios.post(`store/my_company_products/`, data.PRDatials);
+    console.log("response", res.data.id);
+    const imgres= await axios.post(`store/my_company/product_image/${res.data.id}/`, data.PRimage)
+    console.log(imgres);
+    
   };
 
   const [mutate] = useMutation(sendData, {
@@ -55,10 +69,11 @@ const AddProductModal = ({ category }: IProps) => {
     },
   });
 
-  const sumbitNewProductHandle = (data: FormData) => {
+  const sumbitNewProductHandle = (PRDatials: IPRDatials, PRimage: FormData) => {
+    const data:ICompanySendPRoduct = { PRDatials, PRimage };
     try {
       mutate(data);
-    } catch { }
+    } catch {}
   };
 
   return (
@@ -77,56 +92,65 @@ const AddProductModal = ({ category }: IProps) => {
               className="modal-body"
               style={{ minHeight: "200px", padding: "40px" }}
             >
-              <Formik<ICompanySendPRoduct, {}>
-                initialValues= {defaultValue} 
+              <Formik<IInitialValues>
+                initialValues={{
+                  name: "",
+                  cost: "",
+                  description: "",
+                  image: "",
+                }}
                 enableReinitialize
-                // validationSchema={}
+                // validationSchema={ }
                 onSubmit={(values, { setSubmitting }) => {
-                 
-                  const newPR = new FormData();
-                  newPR.append("name", values.name);
-                  newPR.append("cost", values.cost.toString());
-                  newPR.append("description", values.description);
-                  newPR.append("category", category.toString());
-                  newPR.append("main_fields", "");
-                  newPR.append("more_fields", "");
-                  sumbitNewProductHandle(newPR);
+                  const newPR = {
+                    name: values.name,
+                    cost: values.cost,
+                    description: values.description,
+                    category: categoryId,
+                    main_fields: "{}",
+                    more_fields: "{}",
+                  };
+                  const imageForm = new FormData();
+                  imageForm.append("image", values.image);
+
+                  sumbitNewProductHandle(newPR, imageForm);
                   setSubmitting(false);
                 }}
               >
-                {({ isSubmitting, values }) => (
-                  <Form className="form-horizontal ">
-                    <div className="row" >
-                      <div>
-                        <Field
-                          label="نام محصول "
-                          type="text"
-                          name="name"
-                          component={CustomInputComponent}
-                        />
-                        <Field
-                          label="قیمت محصول "
-                          type="text"
-                          name="cost"
-                          component={CustomInputComponent}
-                        />
-                        {/* <Field
-                            label="تصویر محصول"
-                            type="file"
-                            name="image"
-                            component={CustomInputComponent}
-                          /> */}
-                        <Field
-                          name="description"
-                          component={CustomeTextAreaComponent}
-                          // rows={4}
-                          label="توضیحات محصول"
-                          type="text"
-                        />
-                      </div>
+                <Form className="form-horizontal ">
+                  <div className="row">
+                    <div>
+                      <Field
+                        label="نام محصول "
+                        type="text"
+                        name="name"
+                        component={CustomInputComponent}
+                      />
+                      <Field
+                        label="قیمت محصول "
+                        type="text"
+                        name="cost"
+                        component={CustomInputComponent}
+                      />
+                      <Field
+                        label="تصویر محصول"
+                        type="file"
+                        name="image"
+                        component={CustomFileInputComponent}
+                      />
+                      <Field
+                        name="description"
+                        component={CustomeTextAreaComponent}
+                        rows={4}
+                        label="توضیحات محصول"
+                        type="text"
+                      />
                     </div>
-                    <div style = {{display:'flex', justifyContent:'space-around'}}>
-                      <button type="submit" className="btn btn-success ml-2">
+                  </div>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-around" }}
+                  >
+                    <button type="submit" className="btn btn-success ml-2">
                       <i className="fa fa-check" /> ثبت محصول
                     </button>
                     <Button
@@ -134,13 +158,9 @@ const AddProductModal = ({ category }: IProps) => {
                       type="danger"
                       text="انصراف"
                     />
-                    </div>
-                    
-                  </Form>
-                )}
+                  </div>
+                </Form>
               </Formik>
-              {/* <div className="modal-footer" style = {}>
-              </div> */}
             </div>
           </div>
         </div>
