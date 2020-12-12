@@ -19,14 +19,24 @@ interface IProps {
 
 interface ICompanySendPRoduct {
   name: string;
-  cost: 0;
+  cost: number;
   description: string;
-  category: 0;
+  category:number;
   main_fields: string;
   more_fields: string;
 }
 
-const AddProductModal = ({ initialValue, category }: IProps) => {
+const AddProductModal = ({ category }: IProps) => {
+  console.log(category , ' category');
+  const defaultValue = {
+    name:"", 
+    cost:0 , 
+    description : "",
+    category:category, 
+    main_fields: "",
+    more_fields: "" 
+  }
+  
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
 
@@ -68,10 +78,11 @@ const AddProductModal = ({ initialValue, category }: IProps) => {
               style={{ minHeight: "200px", padding: "40px" }}
             >
               <Formik<ICompanySendPRoduct, {}>
-                initialValues={initialValue}
+                initialValues= {defaultValue} 
                 enableReinitialize
                 // validationSchema={}
                 onSubmit={(values, { setSubmitting }) => {
+                 
                   const newPR = new FormData();
                   newPR.append("name", values.name);
                   newPR.append("cost", values.cost.toString());
