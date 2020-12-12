@@ -11,9 +11,10 @@ import { Field, Form, Formik } from "formik";
 import CustomInputComponent from "../../../../../../components/CustomeInputComponent";
 import CustomeTextAreaComponent from "../../../../../../components/CustomeTextAreaComponent";
 
+// bookmarked by pouria & parisa
+
 interface IProps {
-  initialValue: ICompanySendPRoduct;
-  category: number;
+  categoryId: number;
 }
 
 interface ICompanySendPRoduct {
@@ -25,7 +26,13 @@ interface ICompanySendPRoduct {
   more_fields: string;
 }
 
-const AddProductModal = ({ category }: IProps) => {
+interface IInitialValues {
+  name: string;
+  cost:string;
+  description:string
+}
+
+const AddProductModal = ({ categoryId }: IProps) => {
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
 
@@ -33,18 +40,20 @@ const AddProductModal = ({ category }: IProps) => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
 
-  const sendData = async (data: FormData) => {
-    await axios.post(`store/my_company_products/`, data);
+  const sendData = async (data: ICompanySendPRoduct) => {
+    const res = await axios.post(`store/my_company_products/`, data);
+    console.log('response', res.data);
   };
 
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
-      queryCache.invalidateQueries("Products");
+      queryCache.invalidateQueries("products");
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     },
   });
 
-  const sumbitNewProductHandle = (data: FormData) => {
+  const sumbitNewProductHandle = (data: ICompanySendPRoduct) => {
+    console.log('data', data);
     try {
       mutate(data);
     } catch { }
@@ -66,7 +75,7 @@ const AddProductModal = ({ category }: IProps) => {
               className="modal-body"
               style={{ minHeight: "200px", padding: "40px" }}
             >
-              <Formik
+              <Formik<IInitialValues>
                 initialValues={{
                   name: '',
                   cost: '',
@@ -75,58 +84,60 @@ const AddProductModal = ({ category }: IProps) => {
                 enableReinitialize
                 // validationSchema={ }
                 onSubmit={(values, { setSubmitting }) => {
-                  const newPR = new FormData();
-                  newPR.append("name", values.name);
-                  newPR.append("cost", values.cost.toString());
-                  newPR.append("description", values.description);
-                  newPR.append("category", category.toString());
-                  newPR.append("main_fields", "");
-                  newPR.append("more_fields", "");
+                  const newPR = {
+                    name: values.name,
+                    cost: values.cost,
+                    description: values.description,
+                    category: categoryId,
+                    main_fields: '{}',
+                    more_fields: '{}'
+                  };
+
                   sumbitNewProductHandle(newPR);
                   setSubmitting(false);
                 }}
               >
-                  <Form className="form-horizontal ">
-                    <div className="row" >
-                      <div>
-                        <Field
-                          label="نام محصول "
-                          type="text"
-                          name="name"
-                          component={CustomInputComponent}
-                        />
-                        <Field
-                          label="قیمت محصول "
-                          type="text"
-                          name="cost"
-                          component={CustomInputComponent}
-                        />
-                        {/* <Field
+                <Form className="form-horizontal ">
+                  <div className="row" >
+                    <div>
+                      <Field
+                        label="نام محصول "
+                        type="text"
+                        name="name"
+                        component={CustomInputComponent}
+                      />
+                      <Field
+                        label="قیمت محصول "
+                        type="text"
+                        name="cost"
+                        component={CustomInputComponent}
+                      />
+                      {/* <Field
                             label="تصویر محصول"
                             type="file"
                             name="image"
                             component={CustomInputComponent}
                           /> */}
-                        <Field
-                          name="description"
-                          component={CustomeTextAreaComponent}
-                          rows={4}
-                          label="توضیحات محصول"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                      <button type="submit" className="btn btn-success ml-2">
-                        <i className="fa fa-check" /> ثبت محصول
-                    </button>
-                      <Button
-                        onClick={handleCloseModal}
-                        type="danger"
-                        text="انصراف"
+                      <Field
+                        name="description"
+                        component={CustomeTextAreaComponent}
+                        rows={4}
+                        label="توضیحات محصول"
+                        type="text"
                       />
                     </div>
-                  </Form>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <button type="submit" className="btn btn-success ml-2">
+                      <i className="fa fa-check" /> ثبت محصول
+                    </button>
+                    <Button
+                      onClick={handleCloseModal}
+                      type="danger"
+                      text="انصراف"
+                    />
+                  </div>
+                </Form>
               </Formik>
             </div>
           </div>

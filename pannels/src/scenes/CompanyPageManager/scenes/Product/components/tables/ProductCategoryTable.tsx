@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const ProductCategoryTable: React.FC<IProps> = ({ data }) => {
-  console.log('data', data);
+
   return (
     <div className="col-12 mb-5" >
       <div className="card">
@@ -29,11 +29,11 @@ const ProductCategoryTable: React.FC<IProps> = ({ data }) => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((product, index) => (
+              {data?.map((productCategory, index) => (
                 <ProductCategoryTableRow
                   number={index + 1}
-                  productCategory={product.title}
-                  categoryId = {product.id}
+                  productCategory={productCategory.title}
+                  categoryId = {productCategory.id}
                 />
               ))}
             </tbody>
