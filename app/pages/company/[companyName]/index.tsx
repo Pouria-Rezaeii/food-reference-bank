@@ -98,7 +98,7 @@ export const Company = ({ products }) => {
           <ul>
             {data?.product_category.map(item => (
               <li key={item.title}>
-                <Link href={'/company/[companyName]/[productCategory]'} as={`/company/${data.name}/${item.title}`}>
+                <Link href={'/company/[companyName]/[product]'} as={`/company/${data.name}/${item.title}`}>
                   {item.title}
                 </Link>
               </li>)
@@ -222,7 +222,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     "/data_bank/companies/"
   );
   const paths = data.map((post) => ({
-    params: { companyName: post.name },
+    params: { companyName: post.name, id:'' },
   }));
   return { paths: paths, fallback: false };
 };
@@ -237,7 +237,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       dehydratedState: dehydrate(queryCache),
-      // products: products
     },
   };
 };
