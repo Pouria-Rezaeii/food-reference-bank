@@ -11,8 +11,12 @@ import BottomHeader from "../../../components/Company/Header/BottomHeader";
 import Footer from "../../../components/MainPage/Footer/Footer";
 import RecentCart from "../../../components/shared/Cards/RecentCart";
 import Spinner from "../../../components/UI/Spinner";
-import { axiosInstance, axiosServerSideInstance, } from "../../../services/axios/axios";
-import Link from 'next/link'
+import styles from "../../../assets/companyPageStyle.module.css";
+import {
+  axiosInstance,
+  axiosServerSideInstance,
+} from "../../../services/axios/axios";
+import Link from "next/link";
 
 const CompanyMap = dynamic(
   () => import("../../../components/Company/CompanyMap"),
@@ -40,13 +44,33 @@ interface CompanyProps {
   postal_code?: string;
   date: string;
   sliders: string[];
-  product_category: any[] // type dorost beshe
+  product_category: any[]; // type dorost beshe
 }
 interface CompanySliders {
   company: number;
   company_name: string;
   id: number;
   image: string;
+}
+interface companyProduct {
+  category: number;
+  category_title: string;
+  company: number;
+  cost: number;
+  description: string;
+  id: number;
+  images: companyProductImages[];
+  main_fields: string;
+  more_fields: string;
+  name: string;
+}
+interface companyProductImages {
+  description_admin: string
+  id: number
+  image: string
+  product: number
+  product_name: string
+  status: "accept" | "reject" | "checking";
 }
 const getCompaniesServerSide = async (_: never, companyName: string) => {
   const { data: compantInformation } = await axiosServerSideInstance.get<
@@ -60,6 +84,18 @@ const getCompaniesServerSide = async (_: never, companyName: string) => {
     sliders.push(slider.image);
   });
   return { ...compantInformation[0], sliders: sliders };
+};
+const getCompaniesProductsServerSide = async (_: never, companyId: number) => {
+  const { data: companyProducts } = await axiosServerSideInstance.get<
+    companyProduct[]
+  >(`/store/products/?company=${companyId}`);
+  return companyProducts;
+};
+const getCompaniesProductsClientSide = async (_: never, companyId: number) => {
+  const { data: companyProducts } = await axiosInstance.get<companyProduct[]>(
+    `/store/products/?company=${companyId}`
+  );
+  return companyProducts;
 };
 const getCompaniesClientSide = async (_: never, companyName: string) => {
   const { data: compantInformation } = await axiosInstance.get<CompanyProps[]>(
@@ -75,14 +111,17 @@ const getCompaniesClientSide = async (_: never, companyName: string) => {
   });
   return { ...compantInformation[0], sliders: sliders };
 };
-export const Company = ({ products }) => {
+export const Company = ({ id }) => {
   const { query } = useRouter();
   const { data } = useQuery(
     ["companies", query.companyName],
     getCompaniesClientSide
   );
 
-  console.log(data, "data");
+  const { data: companyProducts } = useQuery(
+    ["companyProducts", id],
+    getCompaniesProductsClientSide
+  );
   if (data)
     return (
       <>
@@ -95,33 +134,55 @@ export const Company = ({ products }) => {
         </header>
         <BreadCrumsCompany companyName={data.name} logo={data.logo} />
         <div className="main_content">
-          <ul>
-            {data?.product_category.map(item => (
-              <li key={item.title}>
-                <Link href={'/company/[companyName]/[product]'} as={`/company/${data.name}/${item.title}`}>
-                  {item.title}
-                </Link>
-              </li>)
-            )}
-          </ul>
           <div className="section">
             <div className="container">
+                    <h2 className="blog_title">{data.name}</h2>
               <div className="row">
                 <div className="col-xl-9">
                   <div className="single_post">
-                    <h2 className="blog_title">{data.name}</h2>
                     <ul className="list_none blog_meta">
                       <li>
-                        <a href="#">
-                          <i className="ti-calendar"></i> ثبت شده در تاریخ
-                          {moment(data.date, "YYYY/MM/DD")
-                            .locale("fa")
-                            .format("YYYY/MM/DD")}
-                        </a>
+                        <i className="ti-calendar"></i> ثبت شده در تاریخ
+                        {moment(data.date, "YYYY/MM/DD")
+                          .locale("fa")
+                          .format("YYYY/MM/DD")}
                       </li>
                     </ul>
                     <div className="blog_img">
                       <CompanySlider sliders={data.sliders} />
+                    </div>
+                    <h2 style={{ textAlign: "center", marginTop: "20px" }}>
+                      محصولات شرکت
+                    </h2>
+                    <div className="container ">
+                      <div className="row">
+                        {data?.product_category.map((item) => (
+                          <div
+                            className="col-12 col-md-3  mt-4"
+                            style={{ width: "200px" }}
+                            key={item.title}
+                          >
+                            <Link
+                              href={"/company/[companyName]/[productCategory]"}
+                              as={`/company/${data.name}/${item.title}`}
+                            >
+                              <div
+                                className={`panel bg-light shadow-md ${styles.product}`}
+                                style={{
+                                  height: "60px",
+                                  borderRadius: "40px",
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                {item.title}
+                              </div>
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                     <div className="blog_content">
                       <div className="blog_text">
@@ -133,14 +194,13 @@ export const Company = ({ products }) => {
                     <CompanyMap position={data.location.split(/\[|,|\]/)} />
                   </div>
                 </div>
-                <div className="mt-4">
+                {/* <div className="mt-4">
                   <CompanyMap position={data.location.split(/\[|,|\]/)} />
-                </div>
-              </div>
-              <div className="col-xl-3 mt-4 pt-2 mt-xl-0 pt-xl-0">
+                </div> */}
+              <div className="col-xl-3 mt-4 mt-xl-0 pt-xl-0" style={{paddingRight:"50px"}}>
                 <div className="sidebar">
                   <div className="widget">
-                    <div className="search_form">
+                    {/* <div className="search_form">
                       <form>
                         <input
                           className="form-control"
@@ -157,32 +217,19 @@ export const Company = ({ products }) => {
                           <i className="ion-ios-search-strong"></i>
                         </button>
                       </form>
-                    </div>
+                    </div> */}
                     <div className="widget">
                       <h5 className="widget_title">محصولات اخیر</h5>
                       <ul className="widget_recent_post">
-                        <li>
-                          <RecentCart
-                            image="/images/kalehrecent3.png"
-                            name="لاکی فروت سیب"
-                            price={45.0}
-                          />
-                        </li>
-                        <li>
-                          <RecentCart
-                            image="/images/kalehrecent2.jpg"
-                            name="کافه لته "
-                            price={30.0}
-                          />
-                        </li>
-
-                        <li>
-                          <RecentCart
-                            image="/images/kalehrecent1.jpg"
-                            name="ماست لاکتیویا"
-                            price={10.0}
-                          />
-                        </li>
+                        {companyProducts.slice(-3).map((product) => (
+                          <li key={product.id}>
+                            <RecentCart
+                              image={product.images[0].image}
+                              name={product.name}
+                              price={product.cost}
+                            />
+                          </li>
+                        ))}
                       </ul>
                     </div>
                     <div className="widget">
@@ -207,6 +254,7 @@ export const Company = ({ products }) => {
                 </div>
               </div>
             </div>
+            </div>
           </div>
         </div>
         <Footer />
@@ -228,15 +276,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const queryCache = new QueryCache();
-
+  const {
+    data: [{ id }],
+  } = await axiosServerSideInstance.get(
+    `/data_bank/companies/?search=${encodeURIComponent(
+      params.companyName as string
+    )}`
+  );
   await queryCache.prefetchQuery(
     ["companies", params.companyName],
     getCompaniesServerSide
+  );
+  await queryCache.prefetchQuery(
+    ["companyProducts", id],
+    getCompaniesProductsServerSide
   );
 
   return {
     props: {
       dehydratedState: dehydrate(queryCache),
+      id,
     },
   };
 };

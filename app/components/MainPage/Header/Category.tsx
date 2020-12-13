@@ -66,7 +66,7 @@ const Category: React.FC<IProps> = ({ isShow }) => {
   }
 
   const { data } = useQuery('categories', fetchData)
-  console.log('data', data);
+  // console.log('data', data);
 
   // const handleToggleShowMore = () => {
   //   setShowMore(!showMore);

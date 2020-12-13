@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ProductTableRow from './ProductTableRow';
 import { ICompnayProducts } from "../../../../../../services/utils/api/models";
+import {ICategoryTree} from "../../../../../../services/utils/api/Category/models";
 interface IProps {
-  data: ICompnayProducts[] | undefined
+  products: ICompnayProducts[] | undefined
+  CategoryProducts:ICategoryTree[] | undefined
 }
 
-const ProductTable: React.FC<IProps> = ({ data }) => {
-
+const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
+  const [filter,setFilter]=useState<string>("");
+  const handleProducts=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+    setFilter(e.target.value)
+  }
   return (
     <div className="col-12">
       <div className="card">
@@ -14,6 +19,14 @@ const ProductTable: React.FC<IProps> = ({ data }) => {
           <div className="row">
             <div className="col-6">
               <h5 className="card-title">محصولات</h5>
+            </div>
+            <div className="col-6">
+              <h5 className="card-title" style={{display:"inline",marginLeft:"10px"}}>جستجو</h5>
+              <select onChange={handleProducts}>
+                <option value="" disabled selected> بر اساس</option>
+                {CategoryProducts?.map(category=><option >{category.title}</option>)}
+                <option value="">همه محصولات</option>
+              </select>
             </div>
           </div>
         </div>
@@ -30,7 +43,7 @@ const ProductTable: React.FC<IProps> = ({ data }) => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((product,index) => (
+              {products?.filter(product=>product.category_title===filter || filter==="")?.map((product,index) => (
                 <ProductTableRow
                   productId={product.id}
                   productName={product.name}

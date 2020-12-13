@@ -29,7 +29,7 @@ interface IProduct {
   name: string;
 }
 
-const product = ({ companyName, products }) => {
+const product = ({ companyName, products, data }) => {
   console.log(products);
   return (
     <>
@@ -40,7 +40,7 @@ const product = ({ companyName, products }) => {
       <header className="header_wrap fixed-top header_with_topbar">
         <BottomHeader />
       </header>
-      <BreadCrumsCompany companyName='' logo='' />
+      <BreadCrumsCompany companyName={companyName} logo={data[0]?.logo} />
       <div className="main_content p-3" style={{ backgroundColor: '#fcfcfc' }}>
         <h3 className='py-5'>انواع شیر تولید شده در شرکت {companyName}</h3>
         {products.map((p: IProduct) => (
@@ -109,6 +109,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params: { companyName, productCategory } }) => {
   const res = await (axiosServerSideInstance.get(`/store/products/?search=${encodeURIComponent(companyName as string)}&search=${encodeURIComponent(productCategory as string)}`))
+  const {data}=await axiosServerSideInstance.get(`/data_bank/companies/?search=${encodeURIComponent(companyName as string)}`)
   const products = res.data
-  return { props: { companyName, products } }
+  return { props: { companyName, productCategory, products,data } }
 }
