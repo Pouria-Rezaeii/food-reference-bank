@@ -3,6 +3,8 @@ import Button from "../../../../../../../components/Button";
 import { useModalDispatch } from "../../../../../../../services/contexts/ModalContext/ModalContext";
 import { EModalActionTypes } from "../../../../../../../services/contexts/ModalContext/models";
 import DeleteProduct from "../../Modal/DeleteProduct";
+import AddRemoveImageProductModal from '../../Modal/AddRemoveImageProductModal';
+
 interface IProps {
   productId: number;
   productName: string;
@@ -21,6 +23,16 @@ const Index: React.FC<IProps> = ({
   productNumber,
 }) => {
   const modalDispatch = useModalDispatch();
+  const handleEditImage = (id: number) => {
+    modalDispatch({
+      type: EModalActionTypes.SHOW_MODAL,
+      payload: {
+        component: AddRemoveImageProductModal,
+        props: { ProductId: id },
+      },
+    });
+  }
+
   const handleDeleteProduct = async (id: number) => {
     modalDispatch({
       type: EModalActionTypes.SHOW_MODAL,
@@ -30,6 +42,7 @@ const Index: React.FC<IProps> = ({
       },
     });
   };
+
   return (
     <tr>
       <td>{productNumber}</td>
@@ -38,24 +51,24 @@ const Index: React.FC<IProps> = ({
       <td>{productPrice}</td>
       <td>
         <div
-          className={`badge badge-${
-            productStatus === "active"
-              ? "success"
-              : productStatus === "suspension"
+          className={`badge badge-${productStatus === "active"
+            ? "success"
+            : productStatus === "suspension"
               ? "danger"
               : "warning"
-          }`}
+            }`}
         >
           {productStatus === "active"
-              ? "فعال"
-              : productStatus === "suspension"
+            ? "فعال"
+            : productStatus === "suspension"
               ? "غیر فعال"
               : "در انتظار تایید"}
         </div>
       </td>
       <td>
         <div style={{ display: "flex", gap: "3px" }}>
-          <Button type="info" text="نمایش و ویرایش" />
+          <Button type="info" text="ویرایش" />
+          <Button type="warning" text="اضافه کردن عکس" onClick={() => handleEditImage(productId)} />
           <Button
             type="danger"
             text="حذف"

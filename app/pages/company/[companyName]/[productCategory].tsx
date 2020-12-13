@@ -109,7 +109,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params: { companyName, productCategory } }) => {
   const res = await (axiosServerSideInstance.get(`/store/products/?search=${encodeURIComponent(companyName as string)}&search=${encodeURIComponent(productCategory as string)}`))
-  const {data}=await axiosServerSideInstance.get(`/data_bank/companies/?search=${encodeURIComponent(companyName as string)}`)
+  const { data } = await axiosServerSideInstance.get(`/data_bank/companies/?search=${encodeURIComponent(companyName as string)}`)
   const products = res.data
-  return { props: { companyName, productCategory, products,data } }
+  return { props: { companyName, productCategory, products, data } }
 }
