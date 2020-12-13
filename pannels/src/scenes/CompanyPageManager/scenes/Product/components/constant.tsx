@@ -4,3 +4,9 @@ export const productCreatevalidationSchema = Yup.object({
   cost: Yup.number().required("قیمت محصول را وارد کنید") .typeError("قیمت محصول نمیتواند حروف باشد"),
   image: Yup.mixed().required("تصویر محصول را انتخاب کنید"),
 });
+
+// export const productUpdatevalidationSchema = Yup.object({
+//   name: Yup.string().required("نام محصول را وارد کنید"),
+//   cost: Yup.number().required("قیمت محصول را وارد کنید") .typeError("قیمت محصول نمیتواند حروف باشد"),
+// });
+

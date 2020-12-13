@@ -1,6 +1,6 @@
 import React from "react";
 import { useMutation } from "react-query";
-import { useQueryCache } from "react-query";
+import { useQueryCache , useQuery} from "react-query";
 import {toast} from "react-toastify"
 import { Field, Form, Formik } from "formik";
 import { axiosInstance as axios } from "../../../../../../services/axios/axios";
@@ -16,18 +16,16 @@ import Button from "../../../../../../components/Button";
 
 interface IProps {
   categoryId: number;
+  ProductId:number
 }
 
-interface ICompanySendPRoduct {
-  PRDatials: {
+interface ICompanyUpdatePRoduct {
     name: string;
     cost: string;
     description: string;
     category: number;
     main_fields: string;
     more_fields: string;
-  };
-  PRimage: FormData;
 }
 
 interface IPRDatials {
@@ -43,10 +41,9 @@ interface IInitialValues {
   name: string;
   cost: string;
   description: string;
-  image: "";
 }
 
-const AddProductModal = ({ categoryId  }: IProps) => {
+const UpdateProductModal = ({ categoryId , ProductId }: IProps) => {
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
 
@@ -54,27 +51,28 @@ const AddProductModal = ({ categoryId  }: IProps) => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
 
-  const sendData = async (data: ICompanySendPRoduct) => {
-    const res = await axios.post(`store/my_company_products/`, data.PRDatials);
-    console.log("response", res.data.id);
-    const imgres = await axios.post(
-      `store/my_company/product_image/${res.data.id}/`,
-      data.PRimage
-    );
+  const getProductDetails= async()=>{
+      const res = await axios.get(`store/my_company_products/${ProductId}`)
+      return res.data; 
+  }
+  const { data } = useQuery("products", getProductDetails);
+
+  const sumbitUpdatedProducts  = async (data: ICompanyUpdatePRoduct) => {
+    const res = await axios.post(`store/my_company_products/${ProductId}`, data);
+    // console.log("response", res.data.id);
   };
 
-  const [mutate] = useMutation(sendData, {
+  const [mutate] = useMutation(sumbitUpdatedProducts, {
     onSuccess: () => {
       queryCache.invalidateQueries("products");
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     },
   });
 
-  const sumbitNewProductHandle = (PRDatials: IPRDatials, PRimage: FormData) => {
-    const data: ICompanySendPRoduct = { PRDatials, PRimage };
+  const HandleUpdatePRDetails= (PRDatials: IPRDatials) => {
     try {
-      mutate(data);
-      toast.success("با موفقیت اضافه شد")
+      mutate(PRDatials);
+      toast.success(" اطلاعات با موفقیت ویرایش شد")
     } catch {}
   };
 
@@ -86,7 +84,7 @@ const AddProductModal = ({ categoryId  }: IProps) => {
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title" id="myModalLabel">
-                اضافه کردن محصول جدید{" "}
+                ویرایش محصول{" "}
               </h4>
               <CloseModalIcon handleCloseModal={handleCloseModal} />
             </div>
@@ -96,10 +94,9 @@ const AddProductModal = ({ categoryId  }: IProps) => {
             >
               <Formik<IInitialValues>
                 initialValues={{
-                  name: "",
-                  cost: "",
-                  description: "",
-                  image: "",
+                  name: data.name,
+                  cost: data.cost,
+                  description: data.description,
                 }}
                 enableReinitialize
                 validationSchema={productCreatevalidationSchema}
@@ -112,10 +109,8 @@ const AddProductModal = ({ categoryId  }: IProps) => {
                     main_fields: "{}",
                     more_fields: "{}",
                   };
-                  const imageForm = new FormData();
-                  imageForm.append("image", values.image);
-
-                  sumbitNewProductHandle(newPR, imageForm);
+                  
+                  HandleUpdatePRDetails(newPR);
                   setSubmitting(false);
                 }}
               >
@@ -135,12 +130,6 @@ const AddProductModal = ({ categoryId  }: IProps) => {
                         component={CustomInputComponent}
                       />
                       <Field
-                        label="تصویر محصول"
-                        type="file"
-                        name="image"
-                        component={CustomFileInputComponent}
-                      />
-                      <Field
                         name="description"
                         component={CustomeTextAreaComponent}
                         rows={4}
@@ -153,7 +142,7 @@ const AddProductModal = ({ categoryId  }: IProps) => {
                     style={{ display: "flex", justifyContent: "space-around" }}
                   >
                     <button type="submit" className="btn btn-success ml-2">
-                      <i className="fa fa-check" /> ثبت محصول
+                      <i className="fa fa-check" /> ویرایش محصول
                     </button>
                     <Button
                       onClick={handleCloseModal}
