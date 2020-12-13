@@ -12,6 +12,8 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
   const handleProducts=(e:React.ChangeEvent<HTMLSelectElement>)=>{
     setFilter(e.target.value)
   }
+  console.log(products);
+  
   return (
     <div className="col-12">
       <div className="card">
