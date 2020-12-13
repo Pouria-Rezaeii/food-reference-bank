@@ -35,8 +35,10 @@ const Index: React.FC = () => {
   const { data: companyNotifs } = useQuery('notifications', fetchCompanyNotifs)
 
   // console.log('companySliderNotifs',companySliderNotifs);
-  console.log('productNotifs',productNotifs);
-  console.log('productImageNotifs',productImageNotifs);
+  console.log('productNotifs', productNotifs);
+  console.log('productImageNotifs', productImageNotifs);
+  console.log('companySliderNotifs', companySliderNotifs);
+  console.log('companyNotifs', companyNotifs);
 
 
   // amirreza goft felan in karo bokonam ta un notif hayi ke eshtebahi ba statuse update mian filter beshe
@@ -72,27 +74,48 @@ const Index: React.FC = () => {
               </tr>
             </thead>
             <tbody style={{ paddingBottom: "0" }}>
-              {updatedCompanyNotifs?.map((notify: Notification, index: number) => (
+              {updatedCompanyNotifs?.map((notify: any, index: number) => (
                 <tr style={{ cursor: 'pointer' }} onClick={() => showModalHandle(notify)}>
                   <td className={`text-center ${notify.status === 'create' ? 'bg-info' : 'bg-success'}`} >{index + 1}</td>
                   <td >{notify.status === 'create' ? 'ایجاد شرکت جدید' : 'ویرایش اطلاعات شرکت'}</td>
-                  <td>{notify.name}</td>
-                  <td className="txt-oflo">{notify.manager_name} </td>
-                  <td><span className="badge badge-primary badge-pill">{notify.category_title} </span> </td>
-                  <td className="txt-oflo">{notify.city}</td>
-                  <td><span className="text-success">{notify.phone}</span></td>
+                  <td>{notify.company.name}</td>
+                  <td className="txt-oflo">{notify.company.manager_name} </td>
+                  <td><span className="badge badge-primary badge-pill">{notify.company.category_title} </span> </td>
+                  <td className="txt-oflo">{notify.company.city}</td>
+                  <td><span className="text-success">{notify.company.phone}</span></td>
                 </tr>
               ))}
-              {/* <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> */}
               {companySliderNotifs?.map((notify: any, index: number) => (
                 <tr style={{ cursor: 'pointer' }} onClick={() => showModalHandle(notify)}>
-                  <td className="text-center  bg-warning">{index + 1}</td>
+                  <td className="text-center  bg-primary">{index + 1}</td>
                   <td >ویرایش عکس اسلایدر</td>
-                  <td>{notify.name}</td>
-                  <td className="txt-oflo">{notify.manager_name} </td>
-                  <td><span className="badge badge-primary badge-pill">{notify.category_title} </span> </td>
-                  <td className="txt-oflo">{notify.city}</td>
-                  <td><span className="text-success">{notify.phone}</span></td>
+                  <td>{notify.company.name}</td>
+                  <td className="txt-oflo">{notify.company.manager_name} </td>
+                  <td><span className="badge badge-primary badge-pill">{notify.company.category_title} </span> </td>
+                  <td className="txt-oflo">{notify.company.city}</td>
+                  <td><span className="text-success">{notify.company.phone}</span></td>
+                </tr>
+              ))}
+              {productNotifs?.map((notify: any, index: number) => (
+                <tr style={{ cursor: 'pointer' }} onClick={() => showModalHandle(notify)}>
+                  <td className="text-center bg-warning">{index + 1}</td>
+                  <td>productNotifs</td>
+                  <td>{notify.company.name}</td>
+                  <td className="txt-oflo">{notify.company.manager_name} </td>
+                  <td><span className="badge badge-primary badge-pill">{notify.company.category_title} </span> </td>
+                  <td className="txt-oflo">{notify.company.city}</td>
+                  <td><span className="text-success">{notify.company.phone}</span></td>
+                </tr>
+              ))}
+              {productImageNotifs?.map((notify: any, index: number) => (
+                <tr style={{ cursor: 'pointer' }} onClick={() => showModalHandle(notify)}>
+                  <td className="text-center bg-success">{index + 1}</td>
+                  <td>productImageNotifs</td>
+                  <td>{notify.company.name}</td>
+                  <td className="txt-oflo">{notify.company.manager_name} </td>
+                  <td><span className="badge badge-primary badge-pill">{notify.company.category_title} </span> </td>
+                  <td className="txt-oflo">{notify.company.city}</td>
+                  <td><span className="text-success">{notify.company.phone}</span></td>
                 </tr>
               ))}
             </tbody>

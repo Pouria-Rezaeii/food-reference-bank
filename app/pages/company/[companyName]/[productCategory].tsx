@@ -7,7 +7,29 @@ import { axiosServerSideInstance } from '../../../services/axios/axios'
 // bookmarked by pouria
 // should be fixed : ssr
 
-const product = ({ productCategory, companyName, products }) => {
+interface ICategoryImage {
+  id: number;
+  product_name: string;
+  image: string;
+  status: string;
+}
+
+interface IProduct {
+  category: number
+  category_title: string;
+  company: number
+  cost: number
+  description: string;
+  id: number
+  images: ICategoryImage[]
+  length: number
+  __proto__: any;
+  main_fields: string;
+  more_fields: string;
+  name: string;
+}
+
+const product = ({ companyName, products }) => {
   console.log(products);
   return (
     <>
@@ -19,14 +41,14 @@ const product = ({ productCategory, companyName, products }) => {
         <BottomHeader />
       </header>
       <BreadCrumsCompany companyName='' logo='' />
-      <div className="main_content p-3" style={{ backgroundColor: '#f8f8f8' }}>
+      <div className="main_content p-3" style={{ backgroundColor: '#fcfcfc' }}>
         <h3 className='py-5'>انواع شیر تولید شده در شرکت {companyName}</h3>
-        {products.map(p => (
+        {products.map((p: IProduct) => (
           <div key={p.name} className='col-12 col-lg-3 col-md-6 col-sm-8' style={{ width: "100%", display: "inline-block" }}>
             <div className="item mx-2">
               <div className="product">
                 <div className="product_img">
-                  <a href="shop-product-detail.html"><img src="/images/product_img3.png" alt="product_img4" /></a>
+                  <a href="shop-product-detail.html"><img src={p.images[0]?.image} alt="product_img4" /></a>
                   <div className="product_action_box">
                     <ul className="list_none pr_action_btn">
                       <li className="add-to-cart"><a href="#"><i className="icon-basket-loaded"></i> افزودن به سبد خرید</a></li>
@@ -86,7 +108,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params: { companyName, productCategory } }) => {
-  const res = await (axiosServerSideInstance.get(`/store/products/?search=${encodeURIComponent(productCategory as string)}`))
+  const res = await (axiosServerSideInstance.get(`/store/products/?search=${encodeURIComponent(companyName as string)}&search=${encodeURIComponent(productCategory as string)}`))
   const products = res.data
-  return { props: { companyName, productCategory, products } }
+  return { props: { companyName, products } }
 }

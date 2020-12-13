@@ -11,7 +11,7 @@ import { EModalActionTypes } from "../../../../../../services/contexts/ModalCont
 
 const AddRemoveImageProductModal = (ProductId: number) => {
   console.log('pp', ProductId);
-  
+
   const queryCache = useQueryCache();
   const modalDispatch = useModalDispatch();
 
@@ -51,7 +51,7 @@ const AddRemoveImageProductModal = (ProductId: number) => {
   const handleDeleteImg = async (ImgId: number) => {
     try {
       mutate2(ImgId);
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const handleIgnoreSureDelete = () => {
@@ -77,7 +77,7 @@ const AddRemoveImageProductModal = (ProductId: number) => {
   const handleSendImg = (image: File) => {
     try {
       mutate1(image);
-    } catch {}
+    } catch { }
     return new Promise((res) => res);
   };
 

@@ -8,8 +8,6 @@ import { axiosInstance as axios } from '../../../services/axios/axios';
 // bookmarked by pouria 
 // should be changed => url variable, parrent property should be added, turning to
 // 2 separate components
-// qestions => are all categories a link too ?
-// 
 
 // - - - - - containing 2 components
 
