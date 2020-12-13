@@ -12,6 +12,7 @@ import { Field, Form, Formik } from "formik";
 import CustomInputComponent from "../../../../../../components/CustomeInputComponent";
 import CustomeTextAreaComponent from "../../../../../../components/CustomeTextAreaComponent";
 import CustomFileInputComponent from "../../../../../../components/CustomFileInputComponent";
+import {productCreatevalidationSchema} from "../constant";
 // bookmarked by pouria & parisa
 
 interface IProps {
@@ -57,9 +58,11 @@ const AddProductModal = ({ categoryId }: IProps) => {
   const sendData = async (data: ICompanySendPRoduct) => {
     const res = await axios.post(`store/my_company_products/`, data.PRDatials);
     console.log("response", res.data.id);
-    const imgres= await axios.post(`store/my_company/product_image/${res.data.id}/`, data.PRimage)
+    const imgres = await axios.post(
+      `store/my_company/product_image/${res.data.id}/`,
+      data.PRimage
+    );
     console.log(imgres);
-    
   };
 
   const [mutate] = useMutation(sendData, {
@@ -70,7 +73,7 @@ const AddProductModal = ({ categoryId }: IProps) => {
   });
 
   const sumbitNewProductHandle = (PRDatials: IPRDatials, PRimage: FormData) => {
-    const data:ICompanySendPRoduct = { PRDatials, PRimage };
+    const data: ICompanySendPRoduct = { PRDatials, PRimage };
     try {
       mutate(data);
     } catch {}
@@ -100,7 +103,7 @@ const AddProductModal = ({ categoryId }: IProps) => {
                   image: "",
                 }}
                 enableReinitialize
-                // validationSchema={ }
+                validationSchema={productCreatevalidationSchema}
                 onSubmit={(values, { setSubmitting }) => {
                   const newPR = {
                     name: values.name,
