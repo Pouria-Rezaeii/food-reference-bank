@@ -15,7 +15,7 @@ const Main = () => {
   return (
     <div style={{ width: "100%" }}>
       <ProductCategoryTable data={CategoryProducts} />
-      <ProductTable data={Products} />
+      <ProductTable products={Products} CategoryProducts={CategoryProducts} />
     </div>
   )
 }
