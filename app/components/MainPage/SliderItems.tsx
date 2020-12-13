@@ -51,8 +51,10 @@ const SliderItems:React.FC<IProps> = ({image,name ,price }) => {
               <a href="shop-product-detail.html">{name}</a>
             </h6>
             <div className="product_price">
-				<span className="price">${(4*price/5).toFixed(3)}</span>
-              <del>${price.toFixed(3)}</del>
+				{/* <span className="price">${(4*price/5).toFixed(3)}</span> */}
+				<span className="price">${(4*price/5)}</span>
+              <del>${price}</del>
+              {/* <del>${price.toFixed(3)}</del> */}
               <div className="on_sale">
                 <span>20% تخفیف</span>
               </div>
