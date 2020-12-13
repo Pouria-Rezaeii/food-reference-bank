@@ -14,7 +14,7 @@ const DeleteProduct: React.FC<Props> = ({id}) => {
     const cache=useQueryCache();
   const [mutate,{error}] = useMutation(DeleteFetcher,{
     onSuccess:()=>{
-      cache.invalidateQueries("Products")
+      cache.invalidateQueries("products")
     }
   });
   const handleCloseModal = () => {

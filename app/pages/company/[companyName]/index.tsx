@@ -5,18 +5,17 @@ import { useRouter } from "next/router";
 import React from "react";
 import { QueryCache, useQuery } from "react-query";
 import { dehydrate } from "react-query/hydration";
-import BreadCrumsCompany from "../../components/Company/BreadCrumsCompany";
-import CompanySlider from "../../components/Company/CompanySlider";
-import BottomHeader from "../../components/Company/Header/BottomHeader";
-import Footer from "../../components/MainPage/Footer/Footer";
-import RecentCart from "../../components/shared/Cards/RecentCart";
-import Spinner from "../../components/UI/Spinner";
-import {
-  axiosInstance,
-  axiosServerSideInstance,
-} from "../../services/axios/axios";
+import BreadCrumsCompany from "../../../components/Company/BreadCrumsCompany";
+import CompanySlider from "../../../components/Company/CompanySlider";
+import BottomHeader from "../../../components/Company/Header/BottomHeader";
+import Footer from "../../../components/MainPage/Footer/Footer";
+import RecentCart from "../../../components/shared/Cards/RecentCart";
+import Spinner from "../../../components/UI/Spinner";
+import { axiosInstance, axiosServerSideInstance, } from "../../../services/axios/axios";
+import Link from 'next/link'
+
 const CompanyMap = dynamic(
-  () => import("../../components/Company/CompanyMap"),
+  () => import("../../../components/Company/CompanyMap"),
   {
     ssr: false,
   }
@@ -41,6 +40,7 @@ interface CompanyProps {
   postal_code?: string;
   date: string;
   sliders: string[];
+  product_category: any[] // type dorost beshe
 }
 interface CompanySliders {
   company: number;
@@ -75,12 +75,14 @@ const getCompaniesClientSide = async (_: never, companyName: string) => {
   });
   return { ...compantInformation[0], sliders: sliders };
 };
-export const Company = () => {
+export const Company = ({ products }) => {
   const { query } = useRouter();
   const { data } = useQuery(
     ["companies", query.companyName],
     getCompaniesClientSide
   );
+
+  console.log(data, "data");
   if (data)
     return (
       <>
@@ -93,6 +95,15 @@ export const Company = () => {
         </header>
         <BreadCrumsCompany companyName={data.name} logo={data.logo} />
         <div className="main_content">
+          <ul>
+            {data?.product_category.map(item => (
+              <li key={item.title}>
+                <Link href={'/company/[companyName]/[productCategory]'} as={`/company/${data.name}/${item.title}`}>
+                  {item.title}
+                </Link>
+              </li>)
+            )}
+          </ul>
           <div className="section">
             <div className="container">
               <div className="row">
@@ -226,6 +237,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       dehydratedState: dehydrate(queryCache),
+      // products: products
     },
   };
 };

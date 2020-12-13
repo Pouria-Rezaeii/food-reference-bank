@@ -10,7 +10,14 @@ import SliderLoaders from "../../../../../components/SliderLoaders";
 import SliderCard from "../../../../../components/SliderCard";
 import { useMutation, useQueryCache, useQuery } from "react-query";
 import { axiosInstance } from "../../../../../services/axios/axios";
-
+interface ISliderData {
+  company: number;
+  company_name: string;
+  description_admin: string;
+  id: number;
+  image: string;
+  status: "a" | "c" | "r";
+}
 const Main = () => {
   const queryCache = useQueryCache();
 
@@ -18,9 +25,9 @@ const Main = () => {
     const res = await axiosInstance.get(`${baseMyCompanySlideUrl}/?status=a`);
     return res.data;
   };
-  const { data } = useQuery("Companysliders", getSlidersData);
-  console.log(data);
-  
+  const { data } = useQuery<ISliderData[]>("Companysliders", getSlidersData);
+  console.log(data, "data");
+
   const [sureDelete, setSureDelete] = useState(false);
   const [wantDeletedItemId, setWantDeletedItemId] = useState(-1);
   const handleSureDelete = (id: number) => {
@@ -38,7 +45,7 @@ const Main = () => {
       queryCache.invalidateQueries("Companysliders");
     },
   });
-  
+
   const handleDelete = async (id: number) => {
     try {
       mutate2(id);
@@ -61,7 +68,7 @@ const Main = () => {
 
   const [mutate1] = useMutation(sendSlider, {
     onSuccess: () => {
-     queryCache.invalidateQueries("Companysliders");
+      queryCache.invalidateQueries("Companysliders");
     },
   });
 

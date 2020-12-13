@@ -6,8 +6,10 @@ import { axiosInstance as axios } from '../../../services/axios/axios';
 
 
 // bookmarked by pouria 
-// should be changed => url variable, parrent property should be added
+// should be changed => url variable, parrent property should be added, turning to
+// 2 separate components
 // qestions => are all categories a link too ?
+// 
 
 // - - - - - containing 2 components
 
@@ -16,7 +18,7 @@ const ListItem = (props) => {
   const [show, setShow] = React.useState(false);
 
   const fetchData = async () => {
-    const res = await axios.get('/data_bank/admin/companies/')
+    const res = await axios.get('/data_bank/companies/')
     return res.data
   }
 
@@ -61,11 +63,12 @@ const Category: React.FC<IProps> = ({ isShow }) => {
   const [showMore, setShowMore] = useState(false);
 
   const fetchData = async () => {
-    const res = await axios.get('/data_bank/admin/category/')
+    const res = await axios.get('/data_bank/category_tree/')
     return res.data
   }
 
   const { data } = useQuery('categories', fetchData)
+  console.log('data', data);
 
   // const handleToggleShowMore = () => {
   //   setShowMore(!showMore);
