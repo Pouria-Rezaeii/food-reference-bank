@@ -9,9 +9,10 @@ import { EModalActionTypes } from "../../../../../../services/contexts/ModalCont
 
 // bookmarked by parisa:)
 
-const AddRemoveImageProductModal = (ProductId: number) => {
-  console.log('pp', ProductId);
-
+interface IProps{
+  ProductId:number;
+}
+const AddRemoveImageProductModal = ({ ProductId }: IProps) => {
   const queryCache = useQueryCache();
   const modalDispatch = useModalDispatch();
 
@@ -26,7 +27,6 @@ const AddRemoveImageProductModal = (ProductId: number) => {
     return res.data;
   };
   const { data } = useQuery("CompanyImgProduct", getImgProductData);
-  console.log(data);
 
   const [sureDelete, setSureDelete] = useState(false);
   const [wantDeletedItemId, setWantDeletedItemId] = useState(-1);
@@ -51,7 +51,7 @@ const AddRemoveImageProductModal = (ProductId: number) => {
   const handleDeleteImg = async (ImgId: number) => {
     try {
       mutate2(ImgId);
-    } catch (err) { }
+    } catch (err) {}
   };
 
   const handleIgnoreSureDelete = () => {
@@ -77,7 +77,7 @@ const AddRemoveImageProductModal = (ProductId: number) => {
   const handleSendImg = (image: File) => {
     try {
       mutate1(image);
-    } catch { }
+    } catch {}
     return new Promise((res) => res);
   };
 
@@ -89,7 +89,7 @@ const AddRemoveImageProductModal = (ProductId: number) => {
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title" id="myModalLabel">
-                اضافه کردن محصول جدید{" "}
+                اضافه کردن عکس محصول{" "}
               </h4>
               <CloseModalIcon handleCloseModal={handleCloseModal} />
             </div>
@@ -101,7 +101,7 @@ const AddRemoveImageProductModal = (ProductId: number) => {
               {data && (
                 <>
                   {data.map((item) => (
-                    <div className="col-lg-3 col-md-6">
+                    <div className="col-lg-3 col-md-6 ">
                       <SliderCard
                         {...item}
                         isSureState={

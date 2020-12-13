@@ -26,7 +26,6 @@ const Main = () => {
     return res.data;
   };
   const { data } = useQuery<ISliderData[]>("Companysliders", getSlidersData);
-  console.log(data, "data");
 
   const [sureDelete, setSureDelete] = useState(false);
   const [wantDeletedItemId, setWantDeletedItemId] = useState(-1);

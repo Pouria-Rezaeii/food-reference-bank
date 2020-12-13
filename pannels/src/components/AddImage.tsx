@@ -34,8 +34,8 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
   };
   const handleSend = async (file: File) => {
     try {
-      await onSubmit(file);
       setFiles([]);
+      await onSubmit(file);
     } catch (e) {}
   };
   const thumbs = (files as Array<IFileWithPreview>).map((file, index) => (
