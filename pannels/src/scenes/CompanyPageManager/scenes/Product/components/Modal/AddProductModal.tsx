@@ -6,8 +6,7 @@ import { useModalDispatch } from "../../../../../../services/contexts/ModalConte
 import { useMutation } from "react-query";
 import { axiosInstance as axios } from "../../../../../../services/axios/axios";
 import { useQueryCache } from "react-query";
-import AddImage from "../../../../../../components/AddImage";
-
+import {toast} from "react-toastify"
 import { Field, Form, Formik } from "formik";
 import CustomInputComponent from "../../../../../../components/CustomeInputComponent";
 import CustomeTextAreaComponent from "../../../../../../components/CustomeTextAreaComponent";
@@ -73,6 +72,7 @@ const AddProductModal = ({ categoryId }: IProps) => {
     const data:ICompanySendPRoduct = { PRDatials, PRimage };
     try {
       mutate(data);
+      toast.success("با موفقیت اضافه شد")
     } catch {}
   };
 

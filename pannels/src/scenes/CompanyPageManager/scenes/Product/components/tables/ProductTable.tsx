@@ -22,21 +22,22 @@ const ProductTable: React.FC<IProps> = ({ data }) => {
             <thead className=" bg-light">
               <tr>
                 <th>ردیف</th>
-                <th>نام محصول</th>
                 <th>دسته بندی محصول</th>
+                <th>نام محصول</th>
                 <th>قیمت</th>
                 <th>وضعیت</th>
                 <th>تنظیمات</th>
               </tr>
             </thead>
             <tbody>
-              {data?.map((product) => (
+              {data?.map((product,index) => (
                 <ProductTableRow
                   productId={product.id}
                   productName={product.name}
                   productCategory={product.category_title}
                   productPrice={product.cost}
                   productStatus={product.status}
+                  productNumber={index+1}
                 />
               ))}
             </tbody>
