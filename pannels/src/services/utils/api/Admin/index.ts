@@ -1,6 +1,7 @@
 import { axiosInstance } from "./../../../axios/axios";
 import { IAdminApi } from "./models";
 
+export const baseAdminStoreUrl = "/store/admin";
 export const baseAdminUrl = "/data_bank/admin";
 const addCompanySliderConfigReq = {
   headers: {
