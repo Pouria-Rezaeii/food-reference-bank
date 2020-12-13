@@ -38,8 +38,6 @@ const ExclusiveProductsSlider = () => {
     "randomProducts",
     getProductsClientSide
   );
-  console.log(products,"products");
-  
   const settings = {
     infinite: true,
     slidesToShow: 4,

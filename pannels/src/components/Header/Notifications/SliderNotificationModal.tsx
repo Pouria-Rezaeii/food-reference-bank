@@ -33,6 +33,8 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
       `${baseAdminUrl}/company_slider/${notify.id}/`,
       choice
     );
+    console.log(res);
+    
     return res.data;
   };
 
