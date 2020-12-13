@@ -8,7 +8,7 @@ interface IProps {
   productName: string;
   productCategory: string;
   productPrice: number;
-  productStatus: "active" | "suspension";
+  productStatus: "active" | "suspension" | "checking";
   productNumber: number;
 }
 
@@ -33,24 +33,29 @@ const Index: React.FC<IProps> = ({
   return (
     <tr>
       <td>{productNumber}</td>
-      <td style={{ fontWeight: 'bold' }}>{productCategory}</td>
+      <td style={{ fontWeight: "bold" }}>{productCategory}</td>
       <td>{productName}</td>
       <td>{productPrice}</td>
       <td>
         <div
           className={`badge badge-${
-            productStatus === "active" ? "success" : "danger"
+            productStatus === "active"
+              ? "success"
+              : productStatus === "suspension"
+              ? "danger"
+              : "warning"
           }`}
         >
-          {productStatus==="active"? "فعال":"در انتظار تایید"}
+          {productStatus === "active"
+              ? "فعال"
+              : productStatus === "suspension"
+              ? "غیر فعال"
+              : "در انتظار تایید"}
         </div>
       </td>
       <td>
         <div style={{ display: "flex", gap: "3px" }}>
-          <Button
-            type="info"
-            text="نمایش و ویرایش"
-          />
+          <Button type="info" text="نمایش و ویرایش" />
           <Button
             type="danger"
             text="حذف"

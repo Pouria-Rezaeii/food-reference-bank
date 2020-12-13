@@ -6,7 +6,6 @@ interface IProps {
 }
 
 const ProductTable: React.FC<IProps> = ({ data }) => {
-
   return (
     <div className="col-12">
       <div className="card">

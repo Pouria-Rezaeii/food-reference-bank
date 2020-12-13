@@ -134,13 +134,12 @@ export const Company = ({ id }) => {
         </header>
         <BreadCrumsCompany companyName={data.name} logo={data.logo} />
         <div className="main_content">
-          <ul></ul>
           <div className="section">
             <div className="container">
+                    <h2 className="blog_title">{data.name}</h2>
               <div className="row">
                 <div className="col-xl-9">
                   <div className="single_post">
-                    <h2 className="blog_title">{data.name}</h2>
                     <ul className="list_none blog_meta">
                       <li>
                         <i className="ti-calendar"></i> ثبت شده در تاریخ
@@ -198,11 +197,10 @@ export const Company = ({ id }) => {
                 {/* <div className="mt-4">
                   <CompanyMap position={data.location.split(/\[|,|\]/)} />
                 </div> */}
-              </div>
-              <div className="col-xl-3 mt-4 pt-2 mt-xl-0 pt-xl-0">
+              <div className="col-xl-3 mt-4 mt-xl-0 pt-xl-0" style={{paddingRight:"50px"}}>
                 <div className="sidebar">
                   <div className="widget">
-                    <div className="search_form">
+                    {/* <div className="search_form">
                       <form>
                         <input
                           className="form-control"
@@ -219,7 +217,7 @@ export const Company = ({ id }) => {
                           <i className="ion-ios-search-strong"></i>
                         </button>
                       </form>
-                    </div>
+                    </div> */}
                     <div className="widget">
                       <h5 className="widget_title">محصولات اخیر</h5>
                       <ul className="widget_recent_post">
@@ -256,6 +254,7 @@ export const Company = ({ id }) => {
                 </div>
               </div>
             </div>
+            </div>
           </div>
         </div>
         <Footer />
@@ -271,7 +270,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     "/data_bank/companies/"
   );
   const paths = data.map((post) => ({
-    params: { companyName: post.name },
+    params: { companyName: post.name, id:'' },
   }));
   return { paths: paths, fallback: false };
 };
