@@ -19,7 +19,7 @@ interface IChoice {
   description_admin: string;
 }
 
-const NotificationModal: React.FC<IProps> = ({ notify }) => {
+const SliderNotificationModal: React.FC<IProps> = ({ notify }) => {
   const [description, setDescription] = useState<string>("");
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
@@ -124,4 +124,4 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
   );
 };
 
-export default NotificationModal;
+export default SliderNotificationModal;
