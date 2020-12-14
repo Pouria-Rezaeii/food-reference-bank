@@ -19,6 +19,7 @@ const rules: IRules = {
       "category:create",
       "company:manage-site",
       "company:products",
+      
     ],
   },
   "":{static:[]}

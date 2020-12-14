@@ -3,6 +3,7 @@ import NotifItem from "./NotifItem";
 import { Notification } from './models';
 import { useQuery } from 'react-query'
 import { fetchCompanySliderNotifs, fetchCompanyNotifs, fetchProductImageNotifs, fetchProductNotifs } from '../../../services/axios/fetchers/notificatins'
+import {useUserState} from '../../../services/contexts/UserContext/UserContext'
 import { useModalDispatch } from '../../../services/contexts/ModalContext/ModalContext';
 import { EModalActionTypes } from '../../../services/contexts/ModalContext/models';
 import NotificationModal from './NotificationModal';
@@ -12,13 +13,14 @@ import { baseAdminStoreUrl, baseAdminUrl } from '../../../services/utils/api/Adm
 // types issue
 
 const Notifs = () => {
-  const modalDispatch = useModalDispatch()
-
-  const { data: companyNotifs } = useQuery('companyNotifications', fetchCompanyNotifs)
-  const { data: companySliderNotifs } = useQuery('companySliderNotifications', fetchCompanySliderNotifs)
-  const { data: productNotifs } = useQuery('productNotifications', fetchProductNotifs)
-  const { data: productImageNotifs } = useQuery('productImageNotifications', fetchProductImageNotifs)
-
+const userState = useUserState()
+const modalDispatch=useModalDispatch()
+  const { data: productNotifs } = useQuery('productNotifications', fetchProductNotifs, {enabled: userState.rule === 'admin'})
+  const { data: productImageNotifs } = useQuery('productImageNotifications', fetchProductImageNotifs, {enabled: userState.rule === 'admin'})
+  const { data: companySliderNotifs } = useQuery('companySliderNotifications', fetchCompanySliderNotifs, {enabled: userState.rule === 'admin'})
+  const { data: companyNotifs } = useQuery('notifications', fetchCompanyNotifs, {enabled: userState.rule === 'admin'})
+  
+  
   // amirreza goft felan in karo bokonam ta un notif hayi ke eshtebahi ba statuse update mian filter beshe
 
   const updatedCompanyNotifs = companyNotifs?.filter((notif: Notification) => {

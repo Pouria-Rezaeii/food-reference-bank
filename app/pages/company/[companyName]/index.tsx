@@ -121,6 +121,8 @@ export const Company = ({ id }) => {
     ["companyProducts", id],
     getCompaniesProductsClientSide
   );
+  console.log(companyProducts,"companyProducts");
+  
   if (data)
     return (
       <>
