@@ -12,7 +12,7 @@ const index = () => {
   };
   return (
     <AuthLayout title="ثبت نام">
-      <div
+      {/* <div
         className="d-flex justify-content-around pb-3"
         style={{ borderBottom: "1px solid #ddd" }}
       >
@@ -28,10 +28,11 @@ const index = () => {
           checked={radioValue === "user"}
           onChange={handleChangeRadio}
         />
-      </div>
+      </div> */}
       <br />
-      {radioValue === "company" && <FormSignUpCompany />}
-      {radioValue === "user" && <FormSignUpUser />}
+      <FormSignUpCompany />
+      {/* {radioValue === "company" && <FormSignUpCompany />} */}
+      {/* {radioValue === "user" && <FormSignUpUser />} */}
       <GotoLogin />
     </AuthLayout>
   );
