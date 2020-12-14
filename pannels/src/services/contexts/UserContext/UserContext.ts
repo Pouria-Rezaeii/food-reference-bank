@@ -4,7 +4,7 @@ import { IUserState } from "./models";
 const initial: IUserState = {
   username: "",
   isAuth: true,
-  rule: "admin",
+  rule: "user",
 };
 
 
