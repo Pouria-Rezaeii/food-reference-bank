@@ -17,7 +17,7 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
   return (
     <div className="col-12">
       <div className="card">
-        <div className="card-body" style={{ backgroundColor: "cyan" }}>
+        <div className="card-body bg-light">
           <div className="row">
             <div className="col-6">
               <h5 className="card-title">محصولات</h5>
@@ -34,7 +34,7 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
         </div>
         <div className="table-responsive">
           <table className="table table-hover no-wrap">
-            <thead className=" bg-light">
+            <thead style={{ backgroundColor: 'oldlace' }}>
               <tr>
                 <th>ردیف</th>
                 <th>دسته بندی محصول</th>

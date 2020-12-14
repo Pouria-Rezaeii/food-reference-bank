@@ -18,7 +18,7 @@ const RecentCart:React.FC<IProps> = ({name , price , image}) => {
           {name}
         </h6>
         <p className="small m-0">
-            قیمت : {price.toFixed(2)} تومان
+            قیمت : {price} تومان
         </p>
       </div>
     </div>
