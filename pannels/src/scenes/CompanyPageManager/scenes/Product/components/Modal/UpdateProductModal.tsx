@@ -59,7 +59,7 @@ const UpdateProductModal = ({ categoryId, ProductId }: IProps) => {
   const { data } = useQuery(`product${ProductId}`, getProductDetails);
 
   const sumbitUpdatedProducts = async (data: ICompanyUpdatePRoduct) => {
-    const res = await axios.put(
+    const res = await axios.patch(
       `store/my_company_products/${ProductId}/`,
       data
     );

@@ -46,7 +46,7 @@ const Index: React.FC = () => {
     cacheToInvalidate: string[],
   ) => {
     return data.map((notify: any, index: number) => (
-      <tr style={{ cursor: 'pointer' }} onClick={() => showModalHandle(
+      <tr key={index} style={{ cursor: 'pointer' }} onClick={() => showModalHandle(
         notify,
         status,
         hasImage,
