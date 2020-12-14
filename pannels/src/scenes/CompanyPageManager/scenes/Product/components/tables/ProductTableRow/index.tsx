@@ -62,7 +62,7 @@ const Index: React.FC<IProps> = ({
       <td style={{ fontWeight: "bold" }}>{productCategory}</td>
       <td>{productName}</td>
       <td>{productPrice}</td>
-      <td>
+      {/* <td>
         <div
           className={`badge badge-${productStatus === "active"
             ? "success"
@@ -77,7 +77,7 @@ const Index: React.FC<IProps> = ({
               ? "غیر فعال"
               : "در انتظار تایید"}
         </div>
-      </td>
+      </td> */}
       <td>
         <div style={{ display: "flex", gap: "3px" }}>
           <Button type="info" text="ویرایش" onClick={()=>handleUpdateProduct(productCategoryId,productId)}/>

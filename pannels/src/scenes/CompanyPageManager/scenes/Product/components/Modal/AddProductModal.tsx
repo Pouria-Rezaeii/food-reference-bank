@@ -55,7 +55,7 @@ const AddProductModal = ({ categoryId  }: IProps) => {
   };
 
   const sendData = async (data: ICompanySendPRoduct) => {
-    const res = await axios.post(`store/my_company_products/`, data.PRDatials);
+    const res = await axios.patch(`store/my_company_products/`, data.PRDatials);
     console.log("response", res.data.id);
     const imgres = await axios.post(
       `store/my_company/product_image/${res.data.id}/`,
@@ -66,15 +66,15 @@ const AddProductModal = ({ categoryId  }: IProps) => {
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
       queryCache.invalidateQueries("products");
-      modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     },
   });
-
+  
   const sumbitNewProductHandle = (PRDatials: IPRDatials, PRimage: FormData) => {
     const data: ICompanySendPRoduct = { PRDatials, PRimage };
     try {
       mutate(data);
       toast.success("با موفقیت اضافه شد")
+      modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     } catch {}
   };
 

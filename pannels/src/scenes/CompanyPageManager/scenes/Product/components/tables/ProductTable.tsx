@@ -38,7 +38,7 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
                 <th>دسته بندی محصول</th>
                 <th>نام محصول</th>
                 <th>قیمت</th>
-                <th>وضعیت</th>
+                {/* <th>وضعیت</th> */}
                 <th>تنظیمات</th>
               </tr>
             </thead>
