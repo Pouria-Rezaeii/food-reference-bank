@@ -14,7 +14,6 @@ const Index: React.FC = () => {
 
   const modalDispatch = useModalDispatch()
 
-
   const showModalHandle = (notify: Notification) => {
     const tergetCmp = notify.status === 'c' ? SliderNotificationModal : NotificationModal
     modalDispatch({
@@ -27,18 +26,10 @@ const Index: React.FC = () => {
   }
 
 
-
-
-  const { data: productNotifs } = useQuery('productNotifications', fetchProductNotifs)
-  const { data: productImageNotifs } = useQuery('productImageNotifications', fetchProductImageNotifs)
-  const { data: companySliderNotifs } = useQuery('companySliderNotifications', fetchCompanySliderNotifs)
-  const { data: companyNotifs } = useQuery('notifications', fetchCompanyNotifs)
-
-  // console.log('companySliderNotifs',companySliderNotifs);
-  console.log('productNotifs', productNotifs);
-  console.log('productImageNotifs', productImageNotifs);
-  console.log('companySliderNotifs', companySliderNotifs);
-  console.log('companyNotifs', companyNotifs);
+const { data: productNotifs } = useQuery('productNotifications', fetchProductNotifs)
+const { data: productImageNotifs } = useQuery('productImageNotifications', fetchProductImageNotifs)
+const { data: companySliderNotifs } = useQuery('companySliderNotifications', fetchCompanySliderNotifs)
+const { data: companyNotifs } = useQuery('notifications', fetchCompanyNotifs)
 
 
   // amirreza goft felan in karo bokonam ta un notif hayi ke eshtebahi ba statuse update mian filter beshe

@@ -20,10 +20,12 @@ import App from "./scenes/App";
 import ModalProvider from "./services/contexts/ModalContext/ModalProvider";
 import { browserHistory } from "./services/navigation/navigation";
 import { ReactQueryCacheProvider, QueryCache } from "react-query";
+import UserProvider from "./services/contexts/UserContext/UserProvider"
 const queryCache = new QueryCache();
 ReactDOM.render(
   <>
     <ReactQueryCacheProvider queryCache={queryCache}>
+      <UserProvider>
       <ModalProvider>
         <Router history={browserHistory}>
           <ModalRoot />
@@ -31,6 +33,7 @@ ReactDOM.render(
           <App />
         </Router>
       </ModalProvider>
+      </UserProvider>
     </ReactQueryCacheProvider>
   </>,
   document.querySelector("#main-wrapper")

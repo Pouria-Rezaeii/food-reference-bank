@@ -2,9 +2,9 @@ import { axiosInstance as axios } from '../axios';
 import { baseAdminUrl } from '../../utils/api/Admin';
 import { baseAdminStoreUrl } from '../../utils/api/Admin';
 
+
 const fetchNotification = async (url: string) => {
   const res = await axios.get(url);
-  console.log(res)
   return res.data
 }
 

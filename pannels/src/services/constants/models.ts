@@ -23,3 +23,4 @@ export type TPermissions =
   | "category:update"
   | "category:delete"
   | "category:create";
+  
