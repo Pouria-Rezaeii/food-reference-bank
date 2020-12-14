@@ -29,15 +29,15 @@ const ListItem = (props) => {
         <span className={styles.arrow}>&rsaquo;</span>
       </div>
       <ul className={styles.innerList}>
-        <li>
-          {companies?.filter((com) => com.category_title === props.title).map((element, index) => (
-            <li key={index} className={styles.temStyle}>
+        {companies?.filter((com) => com.category_title === props.title).map((element, index) => (
+          <li key={index} >
+            <span>
               <Link href={`/company/[companyName]`} as={`/company/${element.name}`}>
-                 <a>{element.name}</a>
+                <a>{element.name}</a>
               </Link>
-            </li>
-          ))}
-        </li>
+            </span>
+          </li>
+        ))}
       </ul>
     </li>
   );
@@ -91,7 +91,7 @@ const Category: React.FC<IProps> = ({ isShow }) => {
   // - - -  calling a recursive Cmp extract all nested categories
 
   const extractCategoriesHandle = (arr: Categories[]) => {
-    return <ul className={styles.outerList}>
+    return <ul style={{ padding: '10px' }}>
       {arr.map((element) => (
         <ListItem key={element.id} children={element.children} id={element.id} title={element.title} />
       ))}
@@ -112,9 +112,9 @@ const Category: React.FC<IProps> = ({ isShow }) => {
       >
         <ul className={styles.list}>
           {smallScreen && <li className={styles.more} >همه دسته بندی ها </li>}
-          <div style={{ margin: "0 3px", overflow: "hidden" }}>
-            {extractedCategories}
-          </div>
+          {/* <div style={{ margin: "0 3px", overflow: "hidden" }}> */}
+          {extractedCategories}
+          {/* </div> */}
         </ul>
       </div>
     </>

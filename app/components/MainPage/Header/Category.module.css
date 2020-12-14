@@ -1,3 +1,20 @@
+/* scrollbar styles */
+
+.listBox::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listBox::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 2px;
+}
+
+.listBox::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+
+/* end of scrollbar styles */
+
 .listBox {
   direction: ltr;
   max-height: 33rem;
@@ -20,14 +37,12 @@
   }
 }
 
+/* -------------------------------- */
+
 .listItem {
   margin: 1px 0;
   cursor: pointer;
   box-sizing: border-box;
-}
-
-.listItem :not(:last-of-type) {
-  border-bottom: 1px solid #eee;
 }
 
 .listItemContent {
@@ -45,117 +60,40 @@
   margin-left: 5px;
 }
 
-.listItem:hover > .listItemContent > .arrow {
+.listItem:hover .arrow {
   transform: rotate(-90deg);
 }
 
 .innerList {
   box-sizing: border-box;
-  transition: all 0.5s;
-  max-height: 0;
-  opacity: 0;
   padding-right: 23px;
-  box-sizing: border-box;
 }
 
-.innerList .listItem {
+.innerList li {
+  max-height: 0;
+  transition: all .2s;
+}
+
+.innerList li span {
   display: none;
+  opacity:0
 }
 
-.listItem:hover > .listItemContent::after {
-  content: "";
-  position: absolute;
-  /* background-color: #aaa; */
-  top: 0;
-  left: 0;
-  width: 160%;
-  height: 100%;
+.listItemToggle .innerList li {
+  max-height: 30px;
+  margin:1px 0;
 }
 
-.listItem:hover > .listItemContent .ListItemTitle,
-.listItem:hover > .listItemContent .arrow {
-  color: #333;
-}
-
-.listItemToggle > .listItemContent .ListItemTitle,
-.listItemToggle > .listItemContent .arrow {
-  color: #333;
-}
-
-.listItemToggle > .innerList {
-  max-height: 1000px;
+.listItemToggle .innerList li span {
+  display: block;
   opacity: 1;
 }
 
-.listItemToggle > .listItemContent::after {
-  content: "";
-  position: absolute;
-  background-color: #eee;
-  top: 0px;
-  left: 0;
-  width: 160%;
-  height: 100%;
-}
-
-.listItemContent .ListItemTitle,
-.listItemContent .arrow {
-  position: relative;
-  z-index: 10;
-}
-
-.listItemToggle > .innerList > .listItem {
+.listItemToggle .innerList li span a{
+  padding: 5px 0;
   display: block;
 }
 
-.listItemToggle > .listItemContent > .arrow {
+.listItemToggle .arrow {
   transform: rotate(-90deg);
-}
-
-/* first layer list styles separately */
-
-.list div > .innerList {
-  max-height: 1000px;
-  padding-right: 3px;
-  opacity: 1;
-}
-
-.list div > .innerList > .listItem {
-  display: block;
-  margin: 1px 0;
-  cursor: pointer;
-}
-
-.list div > .innerList > .listItem > .listItemContent {
-  padding: 6px;
-}
-
-.list div > .innerList > .listItem:not(:last-of-type) {
-  border-bottom: 1px solid #eee;
-}
-
-/* scrollbar styles */
-
-.listBox::-webkit-scrollbar {
-  width: 6px;
-}
-
-.listBox::-webkit-scrollbar-thumb {
-  background-color: #999;
-  border-radius: 2px;
-}
-
-.listBox::-webkit-scrollbar-track {
-  background-color: #eee;
-}
-
-/* temp styles */
-
-.temStyle {
-  cursor: pointer;
-  padding: 5px;
-  padding-right: 10px;
-}
-
-.temStyle:hover {
-  color: red;
 }
