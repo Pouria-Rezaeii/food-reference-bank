@@ -12,7 +12,6 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
   const handleProducts=(e:React.ChangeEvent<HTMLSelectElement>)=>{
     setFilter(e.target.value)
   }
-  console.log(products);
   
   return (
     <div className="col-12">
@@ -24,9 +23,8 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
             </div>
             <div className="col-6">
               <h5 className="card-title" style={{display:"inline",marginLeft:"10px"}}>جستجو</h5>
-              <select onChange={handleProducts}>
-                <option value="" disabled selected> بر اساس</option>
-                {CategoryProducts?.map(category=><option >{category.title}</option>)}
+              <select onChange={handleProducts} >
+                {CategoryProducts?.map(category=><option key={category.title}>{category.title}</option>)}
                 <option value="">همه محصولات</option>
               </select>
             </div>
@@ -50,9 +48,11 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
                   productId={product.id}
                   productName={product.name}
                   productCategory={product.category_title}
+                  productCategoryId={product.category}
                   productPrice={product.cost}
                   productStatus={product.status}
                   productNumber={index+1}
+                  key={product.id}
                 />
               ))}
             </tbody>

@@ -9,11 +9,17 @@ import { baseAdminUrl } from '../../../services/utils/api/Admin';
 import { useMutation } from 'react-query';
 import { axiosInstance as axios } from '../../../services/axios/axios'
 import { useQueryCache } from 'react-query';
+import CompanyInfoTable from './CompanyInfoTable'
 
 // bookmarked by pouria
 
 interface IProps {
-  notify: Notification
+  // notify: Notification
+  notify: any;
+  status: string;
+  hasImage: boolean;
+  url: string;
+  cacheToInvalidate: string[]
 }
 
 interface IChoice {
@@ -22,26 +28,25 @@ interface IChoice {
 }
 
 
-const NotificationModal: React.FC<IProps> = ({ notify }) => {
+const NotificationModal: React.FC<IProps> = ({ notify, status, hasImage, url, cacheToInvalidate }) => {
   const [description, setDescription] = useState<string>('');
   const modalDispatch = useModalDispatch()
   const queryCache = useQueryCache()
+  console.log(notify);
 
   const handleCloseModal = () => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
 
   const sendData = async (choice: IChoice) => {
-    console.log(choice);
-    const res = await axios.patch(`${baseAdminUrl}/notify/${notify.status}/${notify.id}`, choice)
+    const res = await axios.patch(`${url}${notify.id}/`, choice)
     console.log(res);
     return res.data
   }
 
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
-      queryCache.invalidateQueries('notifications')
-      queryCache.invalidateQueries('companyData')
+      cacheToInvalidate.map((item: string) => queryCache.invalidateQueries(item))
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL })
     }
   });
@@ -53,11 +58,29 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
     } catch { }
   }
 
-
-  let subject = notify.status === 'create' ? `درخواست ثبت شرکت ${notify.name}` : `درخواست ویرایش اطلاعات شرکت ${notify.name}`;
-
   let compareChanges = null
   if (notify.status === 'update') compareChanges = <NotifChangesTable changes={notify.data} />
+
+  let product = null
+  if (status === 'ایجاد یا ویرایش محصول') product = (
+    <div>
+      <hr />
+      <p>اسم محصول: {notify.name}</p>
+      <p> قیمت: {notify.cost}</p>
+      <p>توضیحات : {notify.description}</p>
+    </div>
+  )
+
+  let imageBox = null;
+  if (hasImage) imageBox = (
+    <div style={{ background: notify.image }}>
+      <img
+        src={notify.image}
+        style={{ width: "100%", marginBottom: "30px" }}
+      />
+    </div>
+  )
+
 
   return (
     <div>
@@ -70,18 +93,14 @@ const NotificationModal: React.FC<IProps> = ({ notify }) => {
         <div className="modal-dialog modal-md">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 className="modal-title" id="myModalLabel">{subject}</h4>
+              <h4 className="modal-title" id="myModalLabel">درخواست {status}</h4>
               <CloseModalIcon handleCloseModal={handleCloseModal} />
             </div>
             <div className="modal-body" style={{ minHeight: "200px", paddingBottom: '30px' }}>
-              <div className='notifInfo'>
-                <p>نام شرکت : {notify.name} </p>
-                <p>نام مدیر شرکت : {notify.manager_name} </p>
-                <p>عنوان دسته بندی : {notify.category_title} </p>
-                <p>شهر : {notify.city} </p>
-                <p>تلفن : {notify.phone} </p>
-              </div>
+              <CompanyInfoTable companyInfo={notify.company} />
               {compareChanges}
+              {product}
+              {imageBox}
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '25px' }}>
 
                 <textarea

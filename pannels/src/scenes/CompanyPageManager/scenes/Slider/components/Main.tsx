@@ -62,7 +62,7 @@ const Main = () => {
   const sendSlider = async (image: File) => {
     const fd = new FormData();
     fd.append("image", image);
-    await axiosInstance.post(`${baseMyCompanySlideUrl}`, fd);
+    await axiosInstance.post(`${baseMyCompanySlideUrl}/`, fd);
   };
 
   const [mutate1] = useMutation(sendSlider, {

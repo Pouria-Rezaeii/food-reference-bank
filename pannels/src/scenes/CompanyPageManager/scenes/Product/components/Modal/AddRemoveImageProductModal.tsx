@@ -84,7 +84,7 @@ const AddRemoveImageProductModal = ({ ProductId }: IProps) => {
   return (
     <div>
       <div className="modal-backdrop show"></div>
-      <div id="myModal" className="modal show " style={{ display: "block" }}>
+      <div id="myModal" className="modal show " style={{ display: "block"  }}>
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
@@ -95,13 +95,17 @@ const AddRemoveImageProductModal = ({ ProductId }: IProps) => {
             </div>
             <div
               className="modal-body"
-              style={{ minHeight: "200px", padding: "40px" }}
+              style={{ minHeight: "200px",
+               padding: "50px" , 
+               display: "flex" , 
+               flexWrap:"wrap" , 
+               justifyContent:"space-evenly"}}
             >
               {/* {!data && <SliderLoaders />} */}
               {data && (
                 <>
                   {data.map((item) => (
-                    <div className="col-lg-3 col-md-6 ">
+                    <div className="col-lg-3 col-md-3 " style={{flexShrink:0 , minWidth:"200px"}}>
                       <SliderCard
                         {...item}
                         isSureState={

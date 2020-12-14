@@ -34,6 +34,7 @@ const ProductCategoryTable: React.FC<IProps> = ({ data }) => {
                   number={index + 1}
                   productCategory={productCategory.title}
                   categoryId = {productCategory.id}
+                  key={productCategory.id}
                 />
               ))}
             </tbody>

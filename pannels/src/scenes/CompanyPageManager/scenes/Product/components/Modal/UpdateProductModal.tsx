@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "react-query";
-import { useQueryCache , useQuery} from "react-query";
-import {toast} from "react-toastify"
+import { useQueryCache, useQuery } from "react-query";
+import { toast } from "react-toastify";
 import { Field, Form, Formik } from "formik";
 import { axiosInstance as axios } from "../../../../../../services/axios/axios";
 import CloseModalIcon from "../../../../../../components/CloseModalIcon";
@@ -10,22 +10,22 @@ import { useModalDispatch } from "../../../../../../services/contexts/ModalConte
 import CustomInputComponent from "../../../../../../components/CustomeInputComponent";
 import CustomeTextAreaComponent from "../../../../../../components/CustomeTextAreaComponent";
 import CustomFileInputComponent from "../../../../../../components/CustomFileInputComponent";
-import {productCreatevalidationSchema} from "../constant";
+import { productUpdatevalidationSchema } from "../constant";
 import Button from "../../../../../../components/Button";
 // bookmarked by pouria & parisa
 
 interface IProps {
   categoryId: number;
-  ProductId:number
+  ProductId: number;
 }
 
 interface ICompanyUpdatePRoduct {
-    name: string;
-    cost: string;
-    description: string;
-    category: number;
-    main_fields: string;
-    more_fields: string;
+  name: string;
+  cost: string;
+  description: string;
+  category: number;
+  main_fields: string;
+  more_fields: string;
 }
 
 interface IPRDatials {
@@ -43,7 +43,7 @@ interface IInitialValues {
   description: string;
 }
 
-const UpdateProductModal = ({ categoryId , ProductId }: IProps) => {
+const UpdateProductModal = ({ categoryId, ProductId }: IProps) => {
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
 
@@ -51,28 +51,32 @@ const UpdateProductModal = ({ categoryId , ProductId }: IProps) => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
 
-  const getProductDetails= async()=>{
-      const res = await axios.get(`store/my_company_products/${ProductId}`)
-      return res.data; 
-  }
-  const { data } = useQuery("products", getProductDetails);
+  const getProductDetails = async () => {
+    const res = await axios.get(`store/my_company_products/${ProductId}`);
 
-  const sumbitUpdatedProducts  = async (data: ICompanyUpdatePRoduct) => {
-    const res = await axios.post(`store/my_company_products/${ProductId}`, data);
+    return res.data;
+  };
+  const { data } = useQuery(`product${ProductId}`, getProductDetails);
+
+  const sumbitUpdatedProducts = async (data: ICompanyUpdatePRoduct) => {
+    const res = await axios.put(
+      `store/my_company_products/${ProductId}/`,
+      data
+    );
     // console.log("response", res.data.id);
   };
 
   const [mutate] = useMutation(sumbitUpdatedProducts, {
     onSuccess: () => {
-      queryCache.invalidateQueries("products");
-      modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
+      queryCache.invalidateQueries(`product${ProductId}`);
     },
-  });
+});
 
-  const HandleUpdatePRDetails= (PRDatials: IPRDatials) => {
+const HandleUpdatePRDetails = (PRDatials: IPRDatials) => {
     try {
-      mutate(PRDatials);
-      toast.success(" اطلاعات با موفقیت ویرایش شد")
+        mutate(PRDatials);
+        toast.success(" اطلاعات با موفقیت ویرایش شد");
+        modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     } catch {}
   };
 
@@ -94,12 +98,12 @@ const UpdateProductModal = ({ categoryId , ProductId }: IProps) => {
             >
               <Formik<IInitialValues>
                 initialValues={{
-                  name: data.name,
-                  cost: data.cost,
-                  description: data.description,
+                  name: data ? data.name : "",
+                  cost: data ? data.cost : 0,
+                  description: data ? data.description : "",
                 }}
                 enableReinitialize
-                validationSchema={productCreatevalidationSchema}
+                validationSchema={productUpdatevalidationSchema}
                 onSubmit={(values, { setSubmitting }) => {
                   const newPR = {
                     name: values.name,
@@ -109,7 +113,6 @@ const UpdateProductModal = ({ categoryId , ProductId }: IProps) => {
                     main_fields: "{}",
                     more_fields: "{}",
                   };
-                  
                   HandleUpdatePRDetails(newPR);
                   setSubmitting(false);
                 }}
@@ -160,4 +163,4 @@ const UpdateProductModal = ({ categoryId , ProductId }: IProps) => {
   );
 };
 
-export default AddProductModal;
+export default UpdateProductModal;

@@ -9,7 +9,7 @@ const fetchNotification = async (url: string) => {
 }
 
 export const fetchCompanyNotifs = () => fetchNotification(`${baseAdminUrl}/companyNotify/`)
-export const fetchCompanySliderNotifs = () => fetchNotification(`${baseAdminUrl}/company_slider`)
-export const fetchProductNotifs = () => fetchNotification(`${baseAdminStoreUrl}/product_notify`)
-export const fetchProductImageNotifs = () => fetchNotification(`${baseAdminStoreUrl}/product_images`)
+export const fetchCompanySliderNotifs = () => fetchNotification(`${baseAdminUrl}/company_slider?status=c`)
+export const fetchProductNotifs = () => fetchNotification(`${baseAdminStoreUrl}/product_notify?status=c`)
+export const fetchProductImageNotifs = () => fetchNotification(`${baseAdminStoreUrl}/product_images?status=c`)
 
