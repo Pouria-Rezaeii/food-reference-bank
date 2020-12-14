@@ -29,8 +29,7 @@ interface IProduct {
   name: string;
 }
 
-const product = ({ companyName, products, data }) => {
-  console.log(products);
+const product = ({ companyName, products, data,productCategory }) => {
   return (
     <>
       <div
@@ -42,8 +41,8 @@ const product = ({ companyName, products, data }) => {
       </header>
       <BreadCrumsCompany companyName={companyName} logo={data[0]?.logo} />
       <div className="main_content p-3" style={{ backgroundColor: '#fcfcfc' }}>
-        <h3 className='py-5'>انواع شیر تولید شده در شرکت {companyName}</h3>
-        {products.map((p: IProduct) => (
+        <h3 className='py-5'>انواع {productCategory} تولید شده در شرکت {companyName}</h3>
+        {products.filter(product=>product.images.length && product.images[0].status==="accept").map((p: IProduct) => (
           <div key={p.name} className='col-12 col-lg-3 col-md-6 col-sm-8' style={{ width: "100%", display: "inline-block" }}>
             <div className="item mx-2">
               <div className="product">
@@ -95,7 +94,7 @@ export default product
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await axiosServerSideInstance.get<{ name: string; product_category: { title: string }[] }[]>(`/data_bank/companies/`)
-  const companies = await res.data;
+  const companies = res.data;
 
   const paths = companies.map(company => company.product_category.map(product => (
     {
@@ -108,8 +107,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params: { companyName, productCategory } }) => {
-  const res = await (axiosServerSideInstance.get(`/store/products/?search=${encodeURIComponent(companyName as string)}&search=${encodeURIComponent(productCategory as string)}`))
-  const { data } = await axiosServerSideInstance.get(`/data_bank/companies/?search=${encodeURIComponent(companyName as string)}`)
+  const { data } = await axiosServerSideInstance.get<IProduct>(`/data_bank/companies/?search=${encodeURIComponent(companyName as string)}`)
+  const productCategoryInfo=data[0]?.product_category?.filter(item=>item.title===productCategory)
+  const res = await (axiosServerSideInstance.get(`/store/products/?search=${encodeURIComponent(companyName as string)}&category=${productCategoryInfo[0].id}`))
   const products = res.data
   return { props: { companyName, productCategory, products, data } }
 }

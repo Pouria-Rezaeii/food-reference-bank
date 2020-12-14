@@ -117,7 +117,6 @@ export const Company = ({ id }) => {
     ["companies", query.companyName],
     getCompaniesClientSide
   );
-
   const { data: companyProducts } = useQuery(
     ["companyProducts", id],
     getCompaniesProductsClientSide
@@ -151,9 +150,12 @@ export const Company = ({ id }) => {
                     <div className="blog_img">
                       <CompanySlider sliders={data.sliders} />
                     </div>
+                    {
+                      data?.product_category.length ?
                     <h2 style={{ textAlign: "center", marginTop: "20px" }}>
                       محصولات شرکت
-                    </h2>
+                    </h2> : null
+                    }
                     <div className="container ">
                       <div className="row">
                         {data?.product_category.map((item) => (
@@ -167,7 +169,7 @@ export const Company = ({ id }) => {
                               as={`/company/${data.name}/${item.title}`}
                             >
                               <div
-                                className={`panel bg-light shadow-md ${styles.product}`}
+                                className={`panel shadow-md ${styles.product}`}
                                 style={{
                                   height: "60px",
                                   borderRadius: "40px",
@@ -219,7 +221,7 @@ export const Company = ({ id }) => {
                       </form>
                     </div> */}
                     <div className="widget">
-                      <h5 className="widget_title">محصولات اخیر</h5>
+                     {companyProducts.length ?<h5 className="widget_title">محصولات اخیر</h5> : null}
                       <ul className="widget_recent_post">
                         {companyProducts.slice(-3).map((product) => (
                           <li key={product.id}>
