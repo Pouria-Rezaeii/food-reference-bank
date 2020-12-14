@@ -4,7 +4,6 @@ import { useQuery } from 'react-query';
 import { useModalDispatch } from '../../../../services/contexts/ModalContext/ModalContext';
 import { EModalActionTypes } from '../../../../services/contexts/ModalContext/models';
 import NotificationModal from '../../../../components/Header/Notifications/NotificationModal';
-// import SliderNotificationModal from '../../../../components/Header/Notifications/SliderNotificationModal';
 import { fetchCompanyNotifs, fetchCompanySliderNotifs, fetchProductNotifs, fetchProductImageNotifs } from '../../../../services/axios/fetchers/notificatins'
 import { baseAdminUrl, baseAdminStoreUrl } from '../../../../services/utils/api/Admin/index'
 
@@ -22,7 +21,7 @@ const Index: React.FC = () => {
       type: EModalActionTypes.SHOW_MODAL,
       payload: {
         component: tergetCmp,
-        props: { notify, status , hasImage, url, cacheToInvalidate}
+        props: { notify, status, hasImage, url, cacheToInvalidate }
       }
     })
   }
@@ -54,13 +53,13 @@ const Index: React.FC = () => {
         url,
         cacheToInvalidate,
       )}>
-        <td className={`text-center ${bgColor}`} >{index + 1}</td>
+        <td className={`text-center`} style = {{backgroundColor:bgColor}}>{index + 1}</td>
         <td >{status}</td>
         <td>{notify.company.name}</td>
         <td className="txt-oflo">{notify.company.manager_name} </td>
-        <td><span className="badge badge-primary badge-pill">{notify.company.category_title} </span></td>
+        <td><span className="badge badge-warning badge-pill">{notify.company.category_title} </span></td>
         <td className="txt-oflo">{notify.company.city}</td>
-        <td><span className="text-success">{notify.company.phone}</span></td>
+        <td><span>{notify.company.phone}</span></td>
       </tr>
     ))
   }
@@ -98,27 +97,29 @@ const Index: React.FC = () => {
                   `${baseAdminUrl}/notify/${notify.status}/`,
                   ['companyNotifications', 'companyData']
                 )}>
-                  <td className={`text-center bg-success`} >{index + 1}</td>
+                  <td className={`text-center`} style = {{backgroundColor:'#86aba1'}}>{index + 1}</td>
                   <td >ایجاد یا ویرایش شرکت</td>
                   <td>{notify.company.name}</td>
                   <td className="txt-oflo">{notify.company.manager_name} </td>
-                  <td><span className="badge badge-primary badge-pill">{notify.company.category_title} </span></td>
+                  <td><span className="badge badge-warning badge-pill">{notify.company.category_title} </span></td>
                   <td className="txt-oflo">{notify.company.city}</td>
-                  <td><span className="text-success">{notify.company.phone}</span></td>
+                  <td><span >{notify.company.phone}</span></td>
                 </tr>
               ))}
               {companySliderNotifs && handleExtractNotifs(
                 companySliderNotifs,
                 'ویرایش عکس اسلایدر',
-                'bg-primary',
+                '#adce74',
                 true,
                 `${baseAdminUrl}/company_slider/`,
-                ['companySliderImage', 'Companysliders']
+                ['companySliderImage', 'Companysliders', 'companySliderNotifications'] // one of these is not required
+                                                                                       // and should be deleted
+                
               )}
               {productNotifs && handleExtractNotifs(
                 productNotifs,
                 'ایجاد یا ویرایش محصول',
-                'bg-warning',
+                '#ffe5b9',
                 false,
                 `${baseAdminStoreUrl}/product_notify/`,
                 ['productNotifications']
@@ -126,7 +127,7 @@ const Index: React.FC = () => {
               {productImageNotifs && handleExtractNotifs(
                 productImageNotifs,
                 'ایجاد یا تغییر عکس محصول',
-                'bg-success',
+                '#c9cbff',
                 true,
                 `${baseAdminStoreUrl}/product_images/`,
                 ['productImageNotifications']

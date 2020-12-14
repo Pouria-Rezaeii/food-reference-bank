@@ -32,16 +32,14 @@ const NotificationModal: React.FC<IProps> = ({ notify, status, hasImage, url, ca
   const [description, setDescription] = useState<string>('');
   const modalDispatch = useModalDispatch()
   const queryCache = useQueryCache()
+  console.log(notify);
 
   const handleCloseModal = () => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
 
   const sendData = async (choice: IChoice) => {
-    // console.log(url);
-    // console.log('clicked');
-    const res = await axios.patch(`${url}${notify.id}`, choice)
-    // const res = await axios.patch(`${baseAdminUrl}/company_slider/${notify.id}/`, choice);
+    const res = await axios.patch(`${url}${notify.id}/`, choice)
     console.log(res);
     return res.data
   }
