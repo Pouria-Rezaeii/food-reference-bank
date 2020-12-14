@@ -48,6 +48,7 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
                   productId={product.id}
                   productName={product.name}
                   productCategory={product.category_title}
+                  productCategoryId={product.category}
                   productPrice={product.cost}
                   productStatus={product.status}
                   productNumber={index+1}

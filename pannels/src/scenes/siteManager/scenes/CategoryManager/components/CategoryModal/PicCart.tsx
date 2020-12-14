@@ -20,7 +20,7 @@ const PicCart: React.FC<IProps> = ({ image }) => {
       <div className="card">
         <div className="el-card-item">
           <div className="el-card-avatar el-overlay-1">
-            <img src={image} alt="user" />
+            <img src={image} width={"200px"}  alt="user"/>
             <div className="el-overlay">
               <ul className="el-info">
                 <li onClick={handleOpenPreview}>

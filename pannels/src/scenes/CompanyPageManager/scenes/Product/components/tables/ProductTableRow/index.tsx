@@ -4,11 +4,13 @@ import { useModalDispatch } from "../../../../../../../services/contexts/ModalCo
 import { EModalActionTypes } from "../../../../../../../services/contexts/ModalContext/models";
 import DeleteProduct from "../../Modal/DeleteProduct";
 import AddRemoveImageProductModal from '../../Modal/AddRemoveImageProductModal';
+import UpdateProductModal from '../../Modal/UpdateProductModal';
 
 interface IProps {
   productId: number;
   productName: string;
   productCategory: string;
+  productCategoryId: number;
   productPrice: number;
   productStatus: "active" | "suspension" | "checking";
   productNumber: number;
@@ -18,6 +20,7 @@ const Index: React.FC<IProps> = ({
   productId,
   productName,
   productCategory,
+  productCategoryId,
   productPrice,
   productStatus,
   productNumber,
@@ -32,6 +35,16 @@ const Index: React.FC<IProps> = ({
       },
     });
   }
+
+  const handleUpdateProduct = async (id: number , PRid:number) => {
+    modalDispatch({
+      type: EModalActionTypes.SHOW_MODAL,
+      payload: {
+        component: UpdateProductModal,
+        props: { categoryId: id , ProductId :PRid },
+      },
+    });
+  };
 
   const handleDeleteProduct = async (id: number) => {
     modalDispatch({
@@ -67,7 +80,7 @@ const Index: React.FC<IProps> = ({
       </td>
       <td>
         <div style={{ display: "flex", gap: "3px" }}>
-          <Button type="info" text="ویرایش" />
+          <Button type="info" text="ویرایش" onClick={()=>handleUpdateProduct(productCategoryId,productId)}/>
           <Button type="warning" text="اضافه کردن عکس" onClick={() => handleEditImage(productId)} />
           <Button
             type="danger"
