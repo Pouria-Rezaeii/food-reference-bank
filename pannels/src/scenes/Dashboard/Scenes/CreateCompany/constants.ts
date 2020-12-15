@@ -1,29 +1,17 @@
 import * as Yup from "yup";
 import { utils } from "react-modern-calendar-datepicker";
+
 import { convertStringToDate } from "../../../../services/utils/convertStringToDate";
 export const adminCreatevalidationSchema = Yup.object({
-  username: Yup.string().required("نام کاربری را وارد کنید"),
-  password1: Yup.string().required("رمز عبور را وارد کنید"),
-  password2: Yup.string()
-    .required("تکرار رمز عبور الزامی است")
-    .when("password", {
-      is: (val) => !!(val && val.length > 0),
-      then: Yup.string().oneOf(
-        [Yup.ref("password1")],
-        "ﺮﻣﺯ ﻊﺑﻭﺭ ﺏﺍ ﺖﮐﺭﺍﺭ ﺂﻧ ﺏﺎﯾﺩ ﺏﺭﺎﺑﺭ ﺏﺎﺷﺩ"
-      ),
-    }),
-  category: Yup.number().moreThan(1, "لطفا دسته بندی را انتخاب کنید"),
-  manager_name: Yup.string().required("لطفا نام مدیرعامل را وارد کنید"),
   name: Yup.string().required("لطفا نام شرکت را وارد کنید"),
-  description: Yup.string().required("لطفا نام شرکت را وارد کنید"),
-  address: Yup.string().required("لطفا آدرس را وارد کنید"),
-  mobile_number: Yup.number()
-    .typeError("شماره موبایل نمیتواند حروف باشد")
-    .required("لطفا شماره موبایل خود را وارد کنید"),
+  manager_name: Yup.string().required("لطفا نام مدیرعامل را وارد کنید"),
+  category: Yup.number().moreThan(1, "لطفا دسته بندی را انتخاب کنید"),
   phone_number: Yup.number()
     .typeError("شماره تلفن شرکت نمیتواند حروف باشد")
     .required("شماره تلفن شرکت را وارد کنید"),
+  address: Yup.string().required("لطفا آدرس را وارد کنید"),
+  description: Yup.string().required("لطفا نام شرکت را وارد کنید"),
+   
 });
 
 // zip_code: Yup.number()
