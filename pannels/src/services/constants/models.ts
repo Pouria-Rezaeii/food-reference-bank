@@ -5,7 +5,7 @@ export interface IRules {
   user: IRulePermissionTypes;
   company: IRulePermissionTypes;
   admin: IRulePermissionTypes;
-  adminCompany:IRulePermissionTypes;
+  adminCompany: IRulePermissionTypes;
   [key: string]: IRulePermissionTypes;
 }
 interface IUserRules {}
@@ -23,5 +23,5 @@ export type TPermissions =
   | "category:read"
   | "category:update"
   | "category:delete"
-  | "category:create";
-  
+  | "category:create"
+  | "companyByUser:create";
