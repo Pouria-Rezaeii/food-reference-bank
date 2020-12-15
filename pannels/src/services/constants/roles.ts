@@ -15,11 +15,13 @@ const rules: IRules = {
       "category:read",
       "category:delete",
       "category:create",
+      "company:create",
     ],
   },
   adminCompany:{
     static:[
       "company:edit",
+      "company:create",
       "main-site:edit",
       "company:companylist",
       "category:update",
