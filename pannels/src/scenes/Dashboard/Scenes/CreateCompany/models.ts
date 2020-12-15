@@ -28,7 +28,7 @@ export interface IAdminCreateCompanyFormikState {
     category_title:string,
     description:string,
     city:string,
-    postal_code:number, 
+    postal_code:string | number, 
   }
   // export interface ICompanyikState {
   //   name: string;

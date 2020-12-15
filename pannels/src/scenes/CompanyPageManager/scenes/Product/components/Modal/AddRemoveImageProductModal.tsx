@@ -104,7 +104,7 @@ const AddRemoveImageProductModal = ({ ProductId }: IProps) => {
               {/* {!data && <SliderLoaders />} */}
               {data && (
                 <>
-                  {data.map((item) => (
+                  {data.map((item:any) => (
                     <div className="col-lg-3 col-md-3 " style={{flexShrink:0 , minWidth:"200px"}}>
                       <SliderCard
                         {...item}
