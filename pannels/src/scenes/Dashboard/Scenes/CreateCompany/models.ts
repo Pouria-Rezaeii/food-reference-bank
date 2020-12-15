@@ -15,6 +15,21 @@ export interface IAdminCreateCompanyFormikState {
     website:string;
     user:number;
   }
+
+  export interface IUserCreateCompanyFormikState{
+    // user:string|undefined, 
+    name:string,
+    manager_name:string,
+    phone_number:string,
+    website:string,
+    address:string,
+    location:string,
+    logo:string,
+    category_title:string,
+    description:string,
+    city:string,
+    postal_code:number, 
+  }
   // export interface ICompanyikState {
   //   name: string;
   //   phone_number: string;
