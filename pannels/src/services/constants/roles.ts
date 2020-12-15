@@ -2,7 +2,7 @@ import { IRules } from "./models";
 
 const rules: IRules = {
   user: {
-    static: ["company:create"],
+    static: ["companyByUser:create"],
   },
   company: {
     static: ["company:edit", "company:manage-site","company:products"],
@@ -16,6 +16,7 @@ const rules: IRules = {
       "category:delete",
       "category:create",
       "company:create",
+      "companyByUser:create"
     ],
   },
   adminCompany:{
