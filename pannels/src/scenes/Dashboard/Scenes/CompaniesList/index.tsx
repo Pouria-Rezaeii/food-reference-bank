@@ -92,6 +92,7 @@ const Index = () => {
                   original.status === "s" ? "flex-end" : "flex-start",
                 padding: "2px",
                 boxShadow: "1px 1px 8px #888888",
+                cursor:"pointer"
               }}
               onClick={() => handleStatusClick(original)}
             >

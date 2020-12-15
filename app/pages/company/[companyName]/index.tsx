@@ -121,8 +121,8 @@ export const Company = ({ id }) => {
     ["companyProducts", id],
     getCompaniesProductsClientSide
   );
-  console.log(companyProducts,"companyProducts");
-  
+  console.log(companyProducts, "companyProducts");
+
   if (data)
     return (
       <>
@@ -137,7 +137,7 @@ export const Company = ({ id }) => {
         <div className="main_content">
           <div className="section">
             <div className="container">
-                    <h2 className="blog_title">{data.name}</h2>
+              <h2 className="blog_title">{data.name}</h2>
               <div className="row">
                 <div className="col-xl-9">
                   <div className="single_post">
@@ -152,40 +152,41 @@ export const Company = ({ id }) => {
                     <div className="blog_img">
                       <CompanySlider sliders={data.sliders} />
                     </div>
-                    {
-                      data?.product_category.length ?
-                    <h2 style={{ textAlign: "center", marginTop: "20px" }}>
-                      محصولات شرکت
-                    </h2> : null
-                    }
-                    <div className="container ">
-                      <div className="row">
-                        {data?.product_category.map((item) => (
-                          <div
-                            className="col-12 col-md-3  mt-4"
-                            style={{ width: "200px" }}
-                            key={item.title}
-                          >
-                            <Link
-                              href={"/company/[companyName]/[productCategory]"}
-                              as={`/company/${data.name}/${item.title}`}
+                    <div
+                      className='productBox'
+                      style={{ border: 'solid 2px #ccc', margin: '60px 0 40px', borderRadius:'8px' }}
+                    >
+                      <h2 style={{ textAlign: "center", marginTop: "20px" }}>محصولات شرکت</h2>
+                      <hr />
+                      <div className="container">
+                        <div className="row"
+                        style = {{display:'flex', gap:'10px', justifyContent:'center', flexWrap:'wrap', padding:'10px 5px 20px'}}>
+                          {data?.product_category.map((item) => (
+                            <div
+                              style = {{width: '23%'}}
+                              key={item.title}
                             >
-                              <div
-                                className={`panel shadow-md ${styles.product}`}
-                                style={{
-                                  height: "60px",
-                                  borderRadius: "40px",
-                                  cursor: "pointer",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
+                              <Link
+                                href={"/company/[companyName]/[productCategory]"}
+                                as={`/company/${data.name}/${item.title}`}
                               >
-                                {item.title}
-                              </div>
-                            </Link>
-                          </div>
-                        ))}
+                                <div
+                                  className={`panel shadow-md ${styles.product}`}
+                                  style={{
+                                    height: "50px",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                  }}
+                                >
+                                  {item.title}
+                                </div>
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     <div className="blog_content">
@@ -201,10 +202,10 @@ export const Company = ({ id }) => {
                 {/* <div className="mt-4">
                   <CompanyMap position={data.location.split(/\[|,|\]/)} />
                 </div> */}
-              <div className="col-xl-3 mt-4 mt-xl-0 pt-xl-0" style={{paddingRight:"50px"}}>
-                <div className="sidebar">
-                  <div className="widget">
-                    {/* <div className="search_form">
+                <div className="col-xl-3 mt-4 mt-xl-0 pt-xl-0" style={{ paddingRight: "50px" }}>
+                  <div className="sidebar">
+                    <div className="widget">
+                      {/* <div className="search_form">
                       <form>
                         <input
                           className="form-control"
@@ -222,42 +223,42 @@ export const Company = ({ id }) => {
                         </button>
                       </form>
                     </div> */}
-                    <div className="widget">
-                     {companyProducts.length ?<h5 className="widget_title">محصولات اخیر</h5> : null}
-                      <ul className="widget_recent_post">
-                        {companyProducts.slice(-3).map((product) => (
-                          <li key={product.id}>
-                            <RecentCart
-                              image={product.images[0].image}
-                              name={product.name}
-                              price={product.cost}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="widget">
-                      <h5 className="widget_title">اطلاعات شرکت</h5>
+                      <div className="widget">
+                        {companyProducts.length ? <h5 className="widget_title">محصولات اخیر</h5> : null}
+                        <ul className="widget_recent_post">
+                          {companyProducts.slice(-3).map((product) => (
+                            <li key={product.id}>
+                              <RecentCart
+                                image={product.images[0].image}
+                                name={product.name}
+                                price={product.cost}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="widget">
+                        <h5 className="widget_title">اطلاعات شرکت</h5>
 
-                      <ul className="contact_info contact_info_dark">
-                        <li>
-                          <i className="ti-location-pin"></i>
-                          <p>{data.address}</p>
-                        </li>
-                        <li>
-                          <i className="ti-email"></i>
-                          <a href="mailto:info@kalleh.com">{data?.email}</a>
-                        </li>
-                        <li>
-                          <i className="ti-mobile"></i>
-                          <p>{data.phone_number}</p>
-                        </li>
-                      </ul>
+                        <ul className="contact_info contact_info_dark">
+                          <li>
+                            <i className="ti-location-pin"></i>
+                            <p>{data.address}</p>
+                          </li>
+                          <li>
+                            <i className="ti-email"></i>
+                            <a href="mailto:info@kalleh.com">{data?.email}</a>
+                          </li>
+                          <li>
+                            <i className="ti-mobile"></i>
+                            <p>{data.phone_number}</p>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
@@ -274,7 +275,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     "/data_bank/companies/"
   );
   const paths = data.map((post) => ({
-    params: { companyName: post.name, id:'' },
+    params: { companyName: post.name, id: '' },
   }));
   return { paths: paths, fallback: false };
 };
