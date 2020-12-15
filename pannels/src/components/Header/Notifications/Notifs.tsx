@@ -3,7 +3,7 @@ import NotifItem from "./NotifItem";
 import { Notification } from './models';
 import { useQuery } from 'react-query'
 import { fetchCompanySliderNotifs, fetchCompanyNotifs, fetchProductImageNotifs, fetchProductNotifs } from '../../../services/axios/fetchers/notificatins'
-import {useUserState} from '../../../services/contexts/UserContext/UserContext'
+import { useUserState } from '../../../services/contexts/UserContext/UserContext'
 import { useModalDispatch } from '../../../services/contexts/ModalContext/ModalContext';
 import { EModalActionTypes } from '../../../services/contexts/ModalContext/models';
 import NotificationModal from './NotificationModal';
@@ -13,14 +13,15 @@ import { baseAdminStoreUrl, baseAdminUrl } from '../../../services/utils/api/Adm
 // types issue
 
 const Notifs = () => {
-const userState = useUserState()
-const modalDispatch=useModalDispatch()
-  const { data: productNotifs } = useQuery('productNotifications', fetchProductNotifs, {enabled: userState.rule === 'admin'})
-  const { data: productImageNotifs } = useQuery('productImageNotifications', fetchProductImageNotifs, {enabled: userState.rule === 'admin'})
-  const { data: companySliderNotifs } = useQuery('companySliderNotifications', fetchCompanySliderNotifs, {enabled: userState.rule === 'admin'})
-  const { data: companyNotifs } = useQuery('notifications', fetchCompanyNotifs, {enabled: userState.rule === 'admin'})
-  
-  
+  const userState = useUserState()
+  const modalDispatch = useModalDispatch()
+  const isAdmin = userState.rule === 'admin' || userState.rule === 'adminCompany';
+  const { data: productNotifs } = useQuery('productNotifications', fetchProductNotifs, { enabled: isAdmin })
+  const { data: productImageNotifs } = useQuery('productImageNotifications', fetchProductImageNotifs, { enabled: isAdmin })
+  const { data: companySliderNotifs } = useQuery('companySliderNotifications', fetchCompanySliderNotifs, { enabled: isAdmin })
+  const { data: companyNotifs } = useQuery('notifications', fetchCompanyNotifs, { enabled: isAdmin })
+
+
   // amirreza goft felan in karo bokonam ta un notif hayi ke eshtebahi ba statuse update mian filter beshe
 
   const updatedCompanyNotifs = companyNotifs?.filter((notif: Notification) => {
