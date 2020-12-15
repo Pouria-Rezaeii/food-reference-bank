@@ -65,7 +65,7 @@ const modalDispatch=useModalDispatch()
             'ایجاد یا ویرایش شرکت',
             false,
             `${baseAdminUrl}/notify/${notify.status}/`,
-            ['companyNotifications', 'companyData']
+            ['companyNotifications', 'companyData',"companyData"]
           )} />
         ))}
         {companySliderNotifs && handleExtractNotifs(
@@ -73,7 +73,7 @@ const modalDispatch=useModalDispatch()
           'ویرایش عکس اسلایدر',
           true,
           `${baseAdminUrl}/company_slider/`,
-          ['companySliderImage', 'Companysliders', 'companySliderNotifications'] // one of these is not required
+          ['companySliderImage', 'Companysliders', 'companySliderNotifications',"Companysliders"] // one of these is not required
           // and should be deleted
         )}
         {productNotifs && handleExtractNotifs(
@@ -81,14 +81,14 @@ const modalDispatch=useModalDispatch()
           'ایجاد یا ویرایش محصول',
           false,
           `${baseAdminStoreUrl}/product_notify/`,
-          ['productNotifications']
+          ['productNotifications',"categoryProducts","products"]
         )}
         {productImageNotifs && handleExtractNotifs(
           productImageNotifs,
           'ایجاد یا تغییر عکس محصول',
           true,
           `${baseAdminStoreUrl}/product_images/`,
-          ['productImageNotifications']
+          ['productImageNotifications',"categoryProducts","products"]
         )}
       </div>
     </li>

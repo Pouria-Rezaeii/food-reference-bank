@@ -95,7 +95,7 @@ const Index: React.FC = () => {
                   'ایجاد یا ویرایش شرکت',
                   false,
                   `${baseAdminUrl}/notify/${notify.status}/`,
-                  ['companyNotifications', 'companyData']
+                  ['companyNotifications', 'companyData',"companyData"]
                 )}>
                   <td className={`text-center`} style = {{backgroundColor:'#86aba1'}}>{index + 1}</td>
                   <td >ایجاد یا ویرایش شرکت</td>
@@ -112,7 +112,7 @@ const Index: React.FC = () => {
                 '#adce74',
                 true,
                 `${baseAdminUrl}/company_slider/`,
-                ['companySliderImage', 'Companysliders', 'companySliderNotifications'] // one of these is not required
+                ['companySliderImage', 'Companysliders', 'companySliderNotifications',"Companysliders"] // one of these is not required
                                                                                        // and should be deleted
                 
               )}
@@ -122,7 +122,7 @@ const Index: React.FC = () => {
                 '#ffe5b9',
                 false,
                 `${baseAdminStoreUrl}/product_notify/`,
-                ['productNotifications']
+                ['productNotifications',"products","categoryProducts"]
               )}
               {productImageNotifs && handleExtractNotifs(
                 productImageNotifs,
@@ -130,7 +130,7 @@ const Index: React.FC = () => {
                 '#c9cbff',
                 true,
                 `${baseAdminStoreUrl}/product_images/`,
-                ['productImageNotifications']
+                ['productImageNotifications',"products","categoryProducts"]
               )}
             </tbody>
           </table>
