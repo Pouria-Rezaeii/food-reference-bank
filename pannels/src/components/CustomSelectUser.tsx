@@ -55,7 +55,7 @@ const CustomSelectUser: React.FC<FieldAttributes<any>> = ({
       // axiosInstance.get(`/cities/?province=${values.province}`).then(({data})=>{
       axiosInstance.get(`/admin/users`).then(({data})=>{          //this api should be changed
       console.log(data);
-      callback(calculateOptions(data ))
+      callback(calculateOptions(data.filter(item=>item.username!=="admin") ))
    });
   },[])
 
