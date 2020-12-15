@@ -69,7 +69,7 @@ const product = ({ companyName, products, data, productCategory }) => {
                             backgroundSize: "cover",
                             backgroundRepeat: "no-repeat",
                             backgroundPosition: "center",
-                            height: "400px",
+                            height: "300px",
                           }}
                         />
                       </a>
