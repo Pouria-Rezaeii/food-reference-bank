@@ -62,7 +62,6 @@ const AddProductModal = ({ categoryId  }: IProps) => {
       data.PRimage
     );
   };
-
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
       queryCache.invalidateQueries("products");
