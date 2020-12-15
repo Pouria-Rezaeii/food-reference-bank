@@ -1,7 +1,7 @@
 import { IRoute } from "../../routes";
 import { lazy } from "react";
 import CompaniesList from "./CompaniesList";
-
+import CreateCompanyFormByUser from "../../../scenes/Dashboard/Scenes/CreateCompany/components/CreateCompanyFormByUser"
 const Apps = lazy(() => import("./Apps"));
 const CreateCompany = lazy(() => import("./CreateCompany"));
 const EditCompany = lazy(() => import("./EditCompany"));
@@ -27,5 +27,11 @@ export const dashboardRoutes: IRoute[] = [
 	  component:CompaniesList,
 	  private:true,
 	  toHavePermissions : ['company:companylist']
+  },
+  {
+    path:"/dashboard/create-userCompany",
+    component:CreateCompanyFormByUser,
+    private:true,
+    toHavePermissions:["companyByUser:create"]
   }
 ];
