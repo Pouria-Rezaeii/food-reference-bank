@@ -56,6 +56,8 @@ const EditCompanyForm = ({ initialValue, id }: IProps) => {
   const queryCache = useQueryCache();
 
   const updateCopmanyDataFetcher = async (sendData: SendDataForm) => {
+    // console.log(sendData.sendForm.get('logo'));
+    
     await axios
       .patch(`/data_bank/my_company/${sendData.id}/`, sendData.sendForm)
       .then((res) => {
@@ -100,7 +102,10 @@ const EditCompanyForm = ({ initialValue, id }: IProps) => {
           sendForm.append("name", name);
           sendForm.append("manager_name", manager_name);
           sendForm.append("phone_number", phone_number);
-          sendForm.append("logo", logo);
+          if(initialValue.logo !== logo) 
+          {
+            sendForm.append("logo", logo);
+          }
           sendForm.append("website", website);
           sendForm.append("address", address);
           sendForm.append("location", location);

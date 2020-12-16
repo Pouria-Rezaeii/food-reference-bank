@@ -15,7 +15,7 @@ const CustomFileInputComponent: React.FC<
     console.log({ t: e.target });
 
     e && e.target && setFieldValue(field.name, e.target.files[0], false);
-    !e && setFieldValue(field.name, "", false);
+    !e && setFieldValue(field.name,  field.value,  false);
   };
   let image = field.value && (
     <img
