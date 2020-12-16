@@ -3,7 +3,9 @@ import { ICategoryApi } from "./models";
 
 const baseCategoryUrl = "/category";
 
-export const apiCategory: ICategoryApi = {
+export const apiCategory = {
+  getCategories: () =>
+    axiosInstance.get(`/data_bank/category_tree/`),
   // createCategory: (obj) => {
   //   return axiosInstance.post(baseCategoryUrl, obj);
   // },

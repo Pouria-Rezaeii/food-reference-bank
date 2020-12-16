@@ -4,7 +4,7 @@ import EditCompanyForm from "./components/EditCompanyForm";
 import { IAdminEditCompanyFormikState } from "./models";
 import { axiosInstance as axios } from "../../../../services/axios/axios";
 
-const getCompanyData = async () => {
+export const getCompanyData = async () => {
   const response = await axios.get("/data_bank/my_company/");
   return response.data[0];
 };

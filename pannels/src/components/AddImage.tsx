@@ -34,13 +34,13 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
   };
   const handleSend = async (file: File) => {
     try {
-      await onSubmit(file);
       setFiles([]);
+      await onSubmit(file);
     } catch (e) {}
   };
   const thumbs = (files as Array<IFileWithPreview>).map((file, index) => (
    <React.Fragment key={file.size}>
-     <PicCart image={file.preview} />
+     <PicCart  image={file.preview} />
       <Button
         onClick={() => {
           setshowImage(false)
@@ -67,7 +67,7 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
       <section className="container">
         <div className="row">
           {!!thumbs.length && <div className="col-md-6">{thumbs}</div>}{" "}
-          <div className="col-md-6">
+          <div className="col-md-6" style={{marginRight:"3px"}}>
             <div {...getRootProps({ className: "dropzone" })}>
               <input {...getInputProps()} />
               <p>

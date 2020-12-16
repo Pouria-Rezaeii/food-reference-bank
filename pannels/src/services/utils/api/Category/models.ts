@@ -8,3 +8,11 @@ export interface ICategoryApi {
 export interface ICategoryUrls {
   createCategory: string;
 }
+ export interface ICategoryTree{
+   id:number,
+   parent_title:string,
+   children:[],
+   title:string,
+   type:string,
+   parent:string
+ }

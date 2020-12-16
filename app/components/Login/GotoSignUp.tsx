@@ -6,7 +6,7 @@ const GotoSignUp = () => {
     <div className="form-note text-center">
       اکانت ندارید؟
       <Link href="/signup">
-        <a>اکنون ثبت نام کنید</a>
+        <a><span style={{marginRight:"5px"}}>اکنون ثبت نام کنید</span></a>
       </Link>
     </div>
   );

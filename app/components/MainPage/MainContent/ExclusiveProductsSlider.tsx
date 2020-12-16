@@ -1,8 +1,43 @@
 import React from "react";
 import Slider from "react-slick";
 import SliderItems from "../SliderItems";
-
+import { QueryCache,useQuery } from 'react-query'
+import { dehydrate } from 'react-query/hydration'
+import {GetStaticProps} from "next"
+import { axiosInstance, axiosServerSideInstance } from "../../../services/axios/axios";
+interface companyProduct {
+  category: number;
+  category_title: string;
+  company: number;
+  cost: number;
+  description: string;
+  id: number;
+  images: companyProductImages[];
+  main_fields: string;
+  more_fields: string;
+  name: string;
+}
+interface companyProductImages {
+  description_admin: string
+  id: number
+  image: string
+  product: number
+  product_name: string
+  status: "accept" | "reject" | "checking";
+}
+const getProductsServerSide=async ()=>{
+  const {data:products}=await axiosServerSideInstance.get<companyProduct[]>("/store/products/")
+  return products.filter(product=>product.images.length)
+}
+const getProductsClientSide=async ()=>{
+  const {data:products}=await axiosInstance.get<companyProduct[]>("/store/products/")
+  return products.filter(product=>product.images.length)
+}
 const ExclusiveProductsSlider = () => {
+  const { data: products } = useQuery(
+    "randomProducts",
+    getProductsClientSide
+  );
   const settings = {
     infinite: true,
     slidesToShow: 4,
@@ -53,30 +88,12 @@ const ExclusiveProductsSlider = () => {
         <div className="row">
           <div className="col-12">
             <Slider {...settings}>
-              <div>
-                <SliderItems price={8.000}  name ='شیرنارگیل عالیس' image="/images/product_img1.png" />
-              </div>
-              <div>
-                <SliderItems price={22.000} name='پرسیل' image="/images/product_img2.png" />
-              </div>
-              <div>
-                <SliderItems price={5.000}  name ='شیر کم چرب'image="/images/product_img3.png" />
-              </div>
-              <div>
-                <SliderItems price={25.000} name='تخم مرغ ۶ تایی' image="/images/product_img4.png" />
-              </div>
-              <div>
-                <SliderItems price={30.000} name ='کرم بیسکوییت' image="/images/product_img5.png" />
-              </div>
-              <div>
-                <SliderItems price={5.000}  name ='شیر کم چرب'image="/images/product_img3.png" />
-              </div>
-              <div>
-                <SliderItems price={8.000}  name ='شیرنارگیل عالیس' image="/images/product_img1.png" />
-              </div>
-              <div>
-                <SliderItems price={25.000} name='تخم مرغ ۶ تایی' image="/images/product_img4.png" />
-              </div>
+              {products?.map(product=>{
+              return(
+                  <div>
+                  <SliderItems price={product.cost}  name ={product.name} image={product.images[0].image} />
+                </div>
+              )})}
             </Slider>
           </div>
         </div>
@@ -86,3 +103,16 @@ const ExclusiveProductsSlider = () => {
 };
 
 export default ExclusiveProductsSlider;
+export const getStaticProps: GetStaticProps = async () => {
+  const queryCache = new QueryCache();
+  await queryCache.prefetchQuery(
+    "randomProducts",
+    getProductsServerSide
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryCache)
+    },
+  };
+};

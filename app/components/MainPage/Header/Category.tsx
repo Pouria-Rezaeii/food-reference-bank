@@ -6,8 +6,8 @@ import { axiosInstance as axios } from '../../../services/axios/axios';
 
 
 // bookmarked by pouria 
-// should be changed => url variable, parrent property should be added
-// qestions => are all categories a link too ?
+// should be changed => url variable, parrent property should be added, turning to
+// 2 separate components
 
 // - - - - - containing 2 components
 
@@ -16,7 +16,7 @@ const ListItem = (props) => {
   const [show, setShow] = React.useState(false);
 
   const fetchData = async () => {
-    const res = await axios.get('/data_bank/admin/companies/')
+    const res = await axios.get('/data_bank/companies/')
     return res.data
   }
 
@@ -29,15 +29,15 @@ const ListItem = (props) => {
         <span className={styles.arrow}>&rsaquo;</span>
       </div>
       <ul className={styles.innerList}>
-        <li>
-          {companies?.filter((com) => com.category_title === props.title).map((element, index) => (
-            <li key={index} className={styles.temStyle}>
+        {companies?.filter((com) => com.category_title === props.title && com.status === 'a').map((element, index) => (
+          <li key={index} >
+            <span>
               <Link href={`/company/[companyName]`} as={`/company/${element.name}`}>
-                 <a>{element.name}</a>
+                <a>{element.name}</a>
               </Link>
-            </li>
-          ))}
-        </li>
+            </span>
+          </li>
+        ))}
       </ul>
     </li>
   );
@@ -61,11 +61,12 @@ const Category: React.FC<IProps> = ({ isShow }) => {
   const [showMore, setShowMore] = useState(false);
 
   const fetchData = async () => {
-    const res = await axios.get('/data_bank/admin/category/')
+    const res = await axios.get('/data_bank/category_tree/')
     return res.data
   }
 
   const { data } = useQuery('categories', fetchData)
+  // console.log('data', data);
 
   // const handleToggleShowMore = () => {
   //   setShowMore(!showMore);
@@ -90,7 +91,7 @@ const Category: React.FC<IProps> = ({ isShow }) => {
   // - - -  calling a recursive Cmp extract all nested categories
 
   const extractCategoriesHandle = (arr: Categories[]) => {
-    return <ul className={styles.outerList}>
+    return <ul style={{ padding: '10px' }}>
       {arr.map((element) => (
         <ListItem key={element.id} children={element.children} id={element.id} title={element.title} />
       ))}
@@ -111,9 +112,9 @@ const Category: React.FC<IProps> = ({ isShow }) => {
       >
         <ul className={styles.list}>
           {smallScreen && <li className={styles.more} >همه دسته بندی ها </li>}
-          <div style={{ margin: "0 3px", overflow: "hidden" }}>
-            {extractedCategories}
-          </div>
+          {/* <div style={{ margin: "0 3px", overflow: "hidden" }}> */}
+          {extractedCategories}
+          {/* </div> */}
         </ul>
       </div>
     </>

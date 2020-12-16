@@ -15,6 +15,11 @@ const adminDashboardItems: IMenuItem[] = [
 	  path:"/dashboard/companies-list",
 	  title : 'لیست شرکت‌ها',
 	  toHavePermissions :["company:companylist"]
+  },
+  {
+    path:"/dashboard/create-userCompany",
+    title:"ثبت شرکت",
+    toHavePermissions:["companyByUser:create"]
   }
 
   // {
@@ -52,6 +57,11 @@ const companyPageManageitems : IMenuItem[] =[
 		path : "/company-page-manager/slider" ,
 		title : "اسلایدر شرکت",
 		toHavePermissions :["company:manage-site"]
+  },
+  {
+		path : "/company-page-manager/products" ,
+		title : "محصولات شرکت",
+		toHavePermissions :["company:products"]
 	}
 ]
 

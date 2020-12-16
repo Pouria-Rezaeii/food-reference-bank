@@ -34,6 +34,7 @@ const CustomFileInputComponent: React.FC<
 
   return (
     <div
+    style={{ overflowX:"hidden"}}
       className={`form-group  ${props.className ? props.className : ""} ${
         isError ? "has-danger" : ""
       }`}
@@ -41,11 +42,6 @@ const CustomFileInputComponent: React.FC<
       <label>{label}</label>
       {image}
       <input
-        style={{
-          maxWidth: "400px",
-          maxHeight: "400px",
-        }}
-        // placeholder={"لوگوی جدید خود را انتخاب کیند"}
         onChange={handleChange}
         {...(field.onBlur, field.name)}
         {...props}

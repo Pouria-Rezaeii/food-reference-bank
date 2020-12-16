@@ -45,9 +45,9 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
       }>
     ) => void
   ) => {
-    api.adminApi.getCategories({ search: inputValue }).then(({ data }) => {
+    api.apiCategory.getCategories().then(({ data }) => {
     const JobCategory= data.filter((d)=> d.type==="j")
-    console.log(JobCategory);
+    // console.log(JobCategory);
     
       callback(calculateOptions(JobCategory)!);
     });

@@ -25,14 +25,11 @@ const MainSlider: React.FC = () => {
   };
 
   const fetchData = async () => {
-    const res = await axios.get(`/data_bank/admin/category_slider/`)
+    const res = await axios.get(`/data_bank/category/slider/`)
     return res.data
   }
-  
 
   const { data } = useQuery('landigSliderImages', fetchData)
-
-
 
   return (
     <div

@@ -8,6 +8,7 @@ export const userReducer: React.Reducer<IUserState, AppActions> = (
 ) => {
   switch (action.type) {
     case EUserActionTypes.LOGIN:
+    
       return { ...action.payload, isAuth: true };
     case EUserActionTypes.LOGOUT:
       return { isAuth: false } as IUserState;

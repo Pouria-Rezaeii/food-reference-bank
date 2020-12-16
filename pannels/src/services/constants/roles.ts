@@ -2,26 +2,36 @@ import { IRules } from "./models";
 
 const rules: IRules = {
   user: {
-    static: [],
+    static: ["companyByUser:create"],
   },
   company: {
-    static: [
-      "company:edit" , 
-    "company:manage-site"
-  ],
+    static: ["company:edit", "company:manage-site","company:products"],
   },
   admin: {
     static: [
-      "company:edit", 
       "main-site:edit",
-      "company:create",
-	  "company:companylist",
+      "company:companylist",
       "category:update",
       "category:read",
       "category:delete",
       "category:create",
-	"company:manage-site"
+      "company:create",
+      "companyByUser:create"
     ],
+  },
+  adminCompany:{
+    static:[
+      "company:edit",
+      "company:create",
+      "main-site:edit",
+      "company:companylist",
+      "category:update",
+      "category:read",
+      "category:delete",
+      "category:create",
+      "company:manage-site",
+      "company:products"
+    ]
   },
 };
 
