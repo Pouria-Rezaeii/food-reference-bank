@@ -40,7 +40,7 @@ const FormLogin = () => (
           <Field
             type="text"
             name="username"
-            placeholder="شماره موبایل"
+            placeholder="نام کاربری"
             component={CustomeInputComponent}
           />
           <Field
@@ -49,12 +49,12 @@ const FormLogin = () => (
             placeholder="رمز عبور"
             component={CustomeInputComponent}
           />
-          <Field
+          {/* <Field
             type="email"
             name="email"
             placeholder="ایمیل"
             component={CustomeInputComponent}
-          />
+          /> */}
           <GotoForgotPassword />
           <div className="form-group">
             <button
