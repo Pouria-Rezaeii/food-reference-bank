@@ -22,7 +22,6 @@ const rules: IRules = {
   adminCompany:{
     static:[
       "company:edit",
-      "company:create",
       "main-site:edit",
       "company:companylist",
       "category:update",

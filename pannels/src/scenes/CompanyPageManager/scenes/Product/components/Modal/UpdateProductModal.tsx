@@ -12,6 +12,7 @@ import CustomeTextAreaComponent from "../../../../../../components/CustomeTextAr
 import CustomFileInputComponent from "../../../../../../components/CustomFileInputComponent";
 import { productUpdatevalidationSchema } from "../constant";
 import Button from "../../../../../../components/Button";
+import { useUserState } from '../../../../../../services/contexts/UserContext/UserContext'
 // bookmarked by pouria & parisa
 
 interface IProps {
@@ -46,7 +47,7 @@ interface IInitialValues {
 const UpdateProductModal = ({ categoryId, ProductId }: IProps) => {
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
-
+  const userState=useUserState();
   const handleCloseModal = () => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
@@ -75,7 +76,9 @@ const UpdateProductModal = ({ categoryId, ProductId }: IProps) => {
 const HandleUpdatePRDetails = (PRDatials: IPRDatials) => {
     try {
         mutate(PRDatials);
-        toast.success(" اطلاعات با موفقیت ویرایش شد");
+        userState.rule === "admin" || userState.rule === "adminCompany"
+        ? toast.warning(" اطلاعات محصول مورد نظر با موفقیت ویرایش شد")
+        : toast.warning("در خواست ویرایش محصول مورد نظر برای ادمین ارسال شد.");
         modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     } catch {}
   };

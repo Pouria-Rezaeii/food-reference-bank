@@ -1,11 +1,9 @@
-// import React from "react";
-// import Img1 from "../../../../../assets/images/add.png";
-
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import PicCart from "../scenes/siteManager/scenes/CategoryManager/components/CategoryModal/PicCart";
 import Button from "./Button";
-
+import { useUserState } from "../services/contexts/UserContext/UserContext";
+import { toast } from "react-toastify";
 interface IProps {
   url: string;
   onSubmit: (image: File) => Promise<any>;
@@ -14,8 +12,9 @@ interface IFileWithPreview extends File {
   preview: any;
 }
 const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
+  const userState = useUserState();
   const [files, setFiles] = useState<File[]>([]);
-  const [showImage, setshowImage]= useState(true)
+  const [showImage, setshowImage] = useState(true);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png",
     onDrop: (acceptedFiles) => {
@@ -36,15 +35,18 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
     try {
       setFiles([]);
       await onSubmit(file);
+      userState.rule === "admin" || userState.rule === "adminCompany"
+        ? toast.info("اسلایدر با موفقیت اضافه شد.")
+        : toast.info("در خواست افزودن اسلایدر مورد نظر برای ادمین ارسال شد.");
     } catch (e) {}
   };
   const thumbs = (files as Array<IFileWithPreview>).map((file, index) => (
-   <React.Fragment key={file.size}>
-     <PicCart  image={file.preview} />
+    <React.Fragment key={file.size}>
+      <PicCart image={file.preview} />
       <Button
         onClick={() => {
-          setshowImage(false)
-          handleSend(file)
+          setshowImage(false);
+          handleSend(file);
         }}
         className="ml-2 "
         type="success"
@@ -67,7 +69,7 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
       <section className="container">
         <div className="row">
           {!!thumbs.length && <div className="col-md-6">{thumbs}</div>}{" "}
-          <div className="col-md-6" style={{marginRight:"3px"}}>
+          <div className="col-md-6" style={{ marginRight: "3px" }}>
             <div {...getRootProps({ className: "dropzone" })}>
               <input {...getInputProps()} />
               <p>

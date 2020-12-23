@@ -50,7 +50,7 @@ const statusName=status==="a" ? "غیر فعال": "معلق"
         <div className="modal-dialog modal-md">
           <div className="modal-content">
             <div className="modal-header">
-            <h4 className="modal-title" id="myModalLabel">آیا میخواهید {statusName} شود؟</h4>
+            <h4 className="modal-title" id="myModalLabel">آیا میخواهید وضعیت شرکت {statusName} شود؟</h4>
               <CloseModalIcon handleCloseModal={handleCloseModal} />
             </div>
             <div className="modal-footer" style={{justifyContent:"space-around" }}>

@@ -1,33 +1,26 @@
-// Render Prop
-import { useField, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import React from "react";
 import CustomInputComponent from "../../../../../components/CustomeInputComponent";
 import CustomFileInputComponent from "../../../../../components/CustomFileInputComponent";
 import CustomeSelectCategory from "../../../../../components/CustomeSelectCategory";
 import CustomSelectCity from "../../../../../components/CustomSelectCity";
-import CustomSelectProvince from "../../../../../components/CustomSelectProvince";
 import CustomeTextAreaComponent from "../../../../../components/CustomeTextAreaComponent";
 import {
-  calculateLeafs,
-  calculateFlatten,
   calculateCityOptions,
-  calculateProvinceOptions,
   calculateCategoryOptions,
 } from "../../../../../services/utils/calculateOptions";
 import { validationSchema } from "../constants";
 import { IAdminEditCompanyFormikState } from "../models";
 import CompanyMap from "./CompanyMap";
 import { axiosInstance as axios } from "../../../../../services/axios/axios";
-import { Object } from "ts-toolbelt";
-import { useQuery } from "react-query";
 import { useMutation } from "react-query";
 import { useQueryCache } from "react-query";
-
+import { toast } from "react-toastify";
+import { useUserState } from "../../../../../services/contexts/UserContext/UserContext";
 interface IProps {
   initialValue: IAdminEditCompanyFormikState;
   id: number;
 }
-
 interface postValue {
   name: string;
   manager_name: string;
@@ -54,12 +47,14 @@ const getCityData = async () => {
 
 const EditCompanyForm = ({ initialValue, id }: IProps) => {
   const queryCache = useQueryCache();
-
+  const userState = useUserState();
   const updateCopmanyDataFetcher = async (sendData: SendDataForm) => {
     await axios
       .patch(`/data_bank/my_company/${sendData.id}/`, sendData.sendForm)
-      .then((res) => {
-        alert("شرکت شما با موفقیت ویرایش شد");
+      .then(() => {
+        userState.rule === "admin" || userState.rule === "adminCompany"
+          ? toast.warning("شرکت شما با موفقیت ویرایش شد")
+          : toast.warning("در خواست ویرایش شرکت برای ادمین ارسال شد.");
       });
   };
 

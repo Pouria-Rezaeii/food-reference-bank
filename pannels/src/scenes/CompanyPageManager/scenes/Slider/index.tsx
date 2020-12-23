@@ -5,9 +5,9 @@ const Index = () => {
     <>
       <div className="row">
         <div className="col-12">
-          <h4 className="d-inline">اسلایدر شرکت</h4>
+          <h4 className="d-inline">اسلایدر های شرکت</h4>
           <p className="text-muted m-t-0">
-            میتوانید اسلایدر شرکت خود را به دلخواه تغییر دهید
+            اسلایدر های شرکت خود را انتخاب نمایید.
           </p>
           <div className="row el-element-overlay">
             <Main />

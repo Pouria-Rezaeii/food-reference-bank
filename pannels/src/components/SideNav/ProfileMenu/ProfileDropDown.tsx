@@ -42,7 +42,7 @@ const ProfileDropDown = () => {
           path="/site-manager/notifications"
           toHavePermissions={[]}
         />
-        <ProfileMenuItem
+        {/* <ProfileMenuItem
           title="صندوق پیام ها"
           icon="icon-note"
           path="/agagaaa"
@@ -54,7 +54,7 @@ const ProfileDropDown = () => {
           icon="ti-setting"
           path="/gg"
           toHavePermissions={[]}
-        />
+        /> */}
         <ProfileDropDownDevider />
 
         <ProfileMenuExitItem

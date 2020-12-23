@@ -6,7 +6,7 @@ import { useMutation, useQueryCache, useQuery } from "react-query";
 import { axiosInstance } from "../../../../../../services/axios/axios";
 import { useModalDispatch } from "../../../../../../services/contexts/ModalContext/ModalContext";
 import { EModalActionTypes } from "../../../../../../services/contexts/ModalContext/models";
-
+import {toast} from "react-toastify";
 // bookmarked by parisa:)
 
 interface IProps{
@@ -15,7 +15,6 @@ interface IProps{
 const AddRemoveImageProductModal = ({ ProductId }: IProps) => {
   const queryCache = useQueryCache();
   const modalDispatch = useModalDispatch();
-
   const handleCloseModal = () => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
@@ -77,6 +76,7 @@ const AddRemoveImageProductModal = ({ ProductId }: IProps) => {
   const handleSendImg = (image: File) => {
     try {
       mutate1(image);
+        toast.info("عکس جدید برای محصول مورد نظر با موفقیت اضافه شد.")
     } catch {}
     return new Promise((res) => res);
   };

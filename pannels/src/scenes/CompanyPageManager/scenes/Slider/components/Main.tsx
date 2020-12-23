@@ -75,7 +75,7 @@ const Main = () => {
     try {
       mutate1(image);
     } catch {}
-    return new Promise((res) => res());
+    return new Promise((res) => {});
   };
   return (
     <>

@@ -15,8 +15,8 @@ const BaseLayout: React.FC = ({ children }) => {
   const { data } = useQuery("role", fetcher, {
     onSuccess: (data) => {
       // if(data.data.is_company && data.data.is_admin){
-
       // }
+      console.log(data.data,"role");
       userDispatch({
         type: EUserActionTypes.LOGIN,
         payload: {

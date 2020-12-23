@@ -23,7 +23,7 @@ const DeleteCategoryModal: React.FC<Props> = ({id}) => {
   const handleEnterModal = async() => {
       try{
           await mutate(id)
-          toast.warning("با موفقیت حذف شد")
+          toast.error("دسته بندی مورد نظر با موفقیت حذف شد.")
       }catch(err){
       }
         handleCloseModal()
@@ -39,7 +39,7 @@ const DeleteCategoryModal: React.FC<Props> = ({id}) => {
         <div className="modal-dialog modal-md">
           <div className="modal-content">
             <div className="modal-header">
-            <h4 className="modal-title" id="myModalLabel">آیا میخواهید حذف شود ؟</h4>
+            <h4 className="modal-title" id="myModalLabel">آیا میخواهید این دسته بندی حذف شود ؟</h4>
               <CloseModalIcon handleCloseModal={handleCloseModal} />
             </div>
             <div className="modal-footer" style={{justifyContent:"space-around" }}>

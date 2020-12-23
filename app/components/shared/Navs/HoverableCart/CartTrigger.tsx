@@ -4,9 +4,10 @@ interface IProps {
 }
 export const CartTrigger: React.FC<IProps> = ({ cartCount }) => {
   return (
-    <a className="nav-link cart_trigger">
-      <i className="linearicons-cart"></i>
-      <span className="cart_count">{cartCount}</span>
+    // <a className="nav-link cart_trigger">
+    <a>
+      {/* <i className="linearicons-cart"></i> */}
+      {/* <span className="cart_count">{cartCount}</span> */}
     </a>
   );
 };

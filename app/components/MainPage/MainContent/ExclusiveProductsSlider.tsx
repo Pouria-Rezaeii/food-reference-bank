@@ -1,10 +1,13 @@
 import React from "react";
 import Slider from "react-slick";
 import SliderItems from "../SliderItems";
-import { QueryCache,useQuery } from 'react-query'
-import { dehydrate } from 'react-query/hydration'
-import {GetStaticProps} from "next"
-import { axiosInstance, axiosServerSideInstance } from "../../../services/axios/axios";
+import { QueryCache, useQuery } from "react-query";
+import { dehydrate } from "react-query/hydration";
+import { GetStaticProps } from "next";
+import {
+  axiosInstance,
+  axiosServerSideInstance,
+} from "../../../services/axios/axios";
 interface companyProduct {
   category: number;
   category_title: string;
@@ -18,31 +21,33 @@ interface companyProduct {
   name: string;
 }
 interface companyProductImages {
-  description_admin: string
-  id: number
-  image: string
-  product: number
-  product_name: string
+  description_admin: string;
+  id: number;
+  image: string;
+  product: number;
+  product_name: string;
   status: "accept" | "reject" | "checking";
 }
-const getProductsServerSide=async ()=>{
-  const {data:products}=await axiosServerSideInstance.get<companyProduct[]>("/store/products/")
-  return products.filter(product=>product.images.length)
-}
-const getProductsClientSide=async ()=>{
-  const {data:products}=await axiosInstance.get<companyProduct[]>("/store/products/")
-  return products.filter(product=>product.images.length)
-}
-const ExclusiveProductsSlider = () => {
-  const { data: products } = useQuery(
-    "randomProducts",
-    getProductsClientSide
+const getProductsServerSide = async () => {
+  const { data: products } = await axiosServerSideInstance.get<
+    companyProduct[]
+  >("/store/products/");
+  return products.filter((product) => product.images.length);
+};
+const getProductsClientSide = async () => {
+  const { data: products } = await axiosInstance.get<companyProduct[]>(
+    "/store/products/"
   );
+  return products.filter((product) => product.images.length);
+};
+const ExclusiveProductsSlider = () => {
+  const { data: products } = useQuery("randomProducts", getProductsClientSide);
   const settings = {
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 4,
-    initialSlide: 0, autoplay: true,
+    initialSlide: 0,
+    autoplay: true,
     speed: 4000,
     autoplaySpeed: 3000,
     cssEase: "ease-out",
@@ -80,7 +85,7 @@ const ExclusiveProductsSlider = () => {
           <div className="col-12">
             <div className="heading_tab_header">
               <div className="heading_s2">
-                <h2>محصولات </h2>
+                <h2>جدید ترین محصولات</h2>
               </div>
             </div>
           </div>
@@ -88,12 +93,17 @@ const ExclusiveProductsSlider = () => {
         <div className="row">
           <div className="col-12">
             <Slider {...settings}>
-              {products?.map(product=>{
-              return(
+              {products?.map((product) => {
+                return (
                   <div>
-                  <SliderItems price={product.cost}  name ={product.name} image={product.images[0].image} />
-                </div>
-              )})}
+                    <SliderItems
+                      price={product.cost}
+                      name={product.name}
+                      image={product.images[0].image}
+                    />
+                  </div>
+                );
+              })}
             </Slider>
           </div>
         </div>
@@ -105,14 +115,11 @@ const ExclusiveProductsSlider = () => {
 export default ExclusiveProductsSlider;
 export const getStaticProps: GetStaticProps = async () => {
   const queryCache = new QueryCache();
-  await queryCache.prefetchQuery(
-    "randomProducts",
-    getProductsServerSide
-  );
+  await queryCache.prefetchQuery("randomProducts", getProductsServerSide);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryCache)
+      dehydratedState: dehydrate(queryCache),
     },
   };
 };

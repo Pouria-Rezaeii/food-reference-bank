@@ -13,7 +13,7 @@ const NavTabs: React.FC<IProps> = ({ activeItem, onChangeActiveItem }) => {
 
   return (
     <ul className="nav nav-tabs customtab">
-	  {/* <li className="nav-item" onClick={(e) => onChangeActiveItem(picCategory)}>
+      {/* <li className="nav-item" onClick={(e) => onChangeActiveItem(picCategory)}>
 		<div
 		  className={`nav-link ${itemOneActive ? "active" : ""}  `}
 		  data-toggle="tab"
@@ -27,14 +27,14 @@ const NavTabs: React.FC<IProps> = ({ activeItem, onChangeActiveItem }) => {
         className="nav-item"
         onClick={(e) => onChangeActiveItem(sliderCategory)}
       >
-        <div
+        {/* <div
           className={`nav-link ${itemTwoActive ? "active" : ""}`}
           data-toggle="tab"
           role="tab"
           aria-selected="true"
         >
           <span className="hidden-xs-down">اسلایدر دسته بندی</span>
-        </div>
+        </div> */}
       </li>
     </ul>
   );
