@@ -48,7 +48,7 @@ export const BottomHeader = () => {
           >
             <ul className="navbar-nav">
               <NavbarLi itemName="خانه" path='/'/>
-              <NavbarDropDown itemName="بلاگ" reverse>
+              {/* <NavbarDropDown itemName="بلاگ" reverse>
                 <DropDownItem itemName="grids">
                   <DropDownLink itemName="3 column" />
                   <DropDownLink itemName="5 column" />
@@ -59,8 +59,8 @@ export const BottomHeader = () => {
                     <DropDownLink itemName="random22222" />
                   </DropDownItem>
                 </DropDownItem>
-              </NavbarDropDown>
-              <NavbarMegaMenu itemName="فروشگاه">
+              </NavbarDropDown> */}
+              {/* <NavbarMegaMenu itemName="فروشگاه">
                 <MegaMenuLi lg={9}>
                   <ul className="d-lg-flex">
                     <MegaMenuLi xl={3} md={4}>
@@ -130,7 +130,7 @@ export const BottomHeader = () => {
                     </HeaderBannerContent>
                   </HeaderBanner>
                 </MegaMenuLi>
-              </NavbarMegaMenu>
+              </NavbarMegaMenu> */}
 
               <NavbarLi path='/' itemName="تماس با ما" />
               <NavbarLi path='/' itemName="درباره ما" />

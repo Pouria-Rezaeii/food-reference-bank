@@ -22,7 +22,7 @@ const ImageEditSection: React.FC<IProps> = ({
   return (
     <div className="tab-content">
 	  {/* {isActivePageOne && <EditCategoryPicture image={picture}/>} */}
-      {isActivePageTwo && <EditCategorySlider  />}
+      {/* {isActivePageTwo && <EditCategorySlider  />} */}
     </div>
   );
 };

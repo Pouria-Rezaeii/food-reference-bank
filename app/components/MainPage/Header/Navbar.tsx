@@ -46,7 +46,7 @@ const Navbar = () => {
                 </DropDownItem>
               </DropDownItem>
             </NavbarDropDown> */}
-            <NavbarMegaMenu itemName="فروشگاه">
+            {/* <NavbarMegaMenu itemName="فروشگاه">
               <MegaMenuLi lg={9}>
                 <ul className="d-lg-flex">
                     <MegaMenuLi xl={3} md={4}>
@@ -116,7 +116,7 @@ const Navbar = () => {
                   </HeaderBannerContent>
                 </HeaderBanner>
               </MegaMenuLi>
-            </NavbarMegaMenu>
+            </NavbarMegaMenu> */}
 
             <NavbarLi path ='/' itemName="تماس با ما" />
             <NavbarLi path='/' itemName="درباره ما" />
