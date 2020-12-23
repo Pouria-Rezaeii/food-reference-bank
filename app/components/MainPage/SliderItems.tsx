@@ -62,12 +62,12 @@ const SliderItems:React.FC<IProps> = ({image,name ,price }) => {
                 <span>20% تخفیف</span>
               </div> */}
             </div>
-            <div className="rating_wrap">
+            {/* <div className="rating_wrap">
               <div className="rating">
                 <div className="product_rate" style={{ width: "70%" }}></div>
               </div>
               <span className="rating_num">(22)</span>
-            </div>
+            </div> */}
             <div className="pr_desc">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.

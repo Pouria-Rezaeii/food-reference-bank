@@ -15,6 +15,7 @@ import {
   calculateUserOptions,
   calculateProvinceOptions,
 } from "../../../../../services/utils/calculateOptions";
+import {toast} from 'react-toastify';
 import { adminCreatevalidationSchema } from "../constants";
 import { IAdminCreateCompanyFormikState } from "../models";
 import { axiosInstance as axios } from "../../../../../services/axios/axios";
@@ -26,9 +27,7 @@ interface IProps {
 }
 
 const CreateCompanyData = (sendForm: FormData) => {
-  console.log('create');
-  
-  axios.post('/data_bank/admin/companies/', sendForm).then(res=>{alert('شرکت جدید با موفقیت ثبت شد ')})
+  axios.post('/data_bank/admin/companies/', sendForm).then(res=>{toast.info('شرکت جدید با موفقیت ثبت شد ')})
 };
 
 const CreateCompanyForm = ({ initialValue }: IProps) => {

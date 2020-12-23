@@ -14,6 +14,7 @@ import {
   calculateCategoryOptions,
 } from "../../../../../services/utils/calculateOptions";
 // import { adminCreatevalidationSchema } from "../constants";
+import {toast} from "react-toastify";
 import { IUserCreateCompanyFormikState } from "../models";
 import { axiosInstance as axios } from "../../../../../services/axios/axios";
 // import {useUserState} from '../../../../../services/contexts/UserContext/UserContext'
@@ -23,7 +24,7 @@ const CreateCompanyFormByUser = () => {
     const CreateCompanyByUSer = (sendForm: FormData) => {
         console.log("create");
         axios.post("/data_bank/my_company/", sendForm).then((res) => {
-            alert("شرکت جدید شما با موفقیت ثبت شد ");
+          toast.info("شرکت جدید شما با موفقیت ثبت شد ");
             cache.invalidateQueries("role")
         });
         

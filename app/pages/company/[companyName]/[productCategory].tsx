@@ -76,14 +76,14 @@ const product = ({ companyName, products, data, productCategory }) => {
                       <div className="product_action_box">
                         <ul className="list_none pr_action_btn">
                           <li className="add-to-cart">
-                            <a href="#">
+                            <a href="">
                               <i className="icon-basket-loaded"></i> افزودن به
                               سبد خرید
                             </a>
                           </li>
                           <li>
                             <a
-                              href="//bestwebcreator.com/shopwise/demo/shop-compare.html"
+                              href=""
                               className="popup-ajax"
                             >
                               <i className="icon-shuffle"></i>
@@ -91,14 +91,14 @@ const product = ({ companyName, products, data, productCategory }) => {
                           </li>
                           <li>
                             <a
-                              href="//bestwebcreator.com/shopwise/demo/shop-quick-view.html"
+                              href=""
                               className="popup-ajax"
                             >
                               <i className="icon-magnifier-add"></i>
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="icon-heart"></i>
                             </a>
                           </li>
@@ -112,7 +112,7 @@ const product = ({ companyName, products, data, productCategory }) => {
                       <div className="product_price">
                         <span className="price">{p.cost}تومان  </span>
                       </div>
-                      <div className="rating_wrap">
+                      {/* <div className="rating_wrap">
                         <div className="rating">
                           <div
                             className="product_rate"
@@ -120,7 +120,7 @@ const product = ({ companyName, products, data, productCategory }) => {
                           ></div>
                         </div>
                         <span className="rating_num">(22)</span>
-                      </div>
+                      </div> */}
                       <div className="pr_desc">
                         <p>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -128,7 +128,7 @@ const product = ({ companyName, products, data, productCategory }) => {
                           nunc id varius nunc.
                         </p>
                       </div>
-                      <div className="pr_switch_wrap">
+                      {/* <div className="pr_switch_wrap">
                         <div className="product_color_switch">
                           <span
                             className="active"
@@ -144,7 +144,7 @@ const product = ({ companyName, products, data, productCategory }) => {
                             style={{ backgroundColor: "rgb(185, 194, 223)" }}
                           ></span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

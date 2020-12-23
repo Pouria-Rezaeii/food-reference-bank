@@ -57,9 +57,9 @@ const EditCategoryModal: React.FC<IProps> = ({ modalDispatcher }) => {
               onSubmit={async (values, { setSubmitting }) => {
                 try{
                     await mutate(values)
-                    toast.success("با موفقیت اضافه شد")
+                    toast.success("دسته بندی جدید با موفقیت اضافه شد.")
                 }catch{
-                    console.log(error,"error2");
+                    toast.warning("دسته بندی مورد نظر اضافه نشد.")
                 }
                 setSubmitting(false);
                 handleCloseModal()

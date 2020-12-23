@@ -40,7 +40,7 @@ const Index = () => {
         <div className="card card-body">
           <h4 className="card-title">ویرایش شرکت</h4>
           <h5 className="card-subtitle">
-            برای ویرایش شرکت فرم زیر را ویرایش کنید.
+           برای ویرایش اطلاعات شرکت خود فرم زیر را ویرایش نمایید.
           </h5>
           <EditCompanyForm initialValue={defaultValues} id={CompanyId} />
         </div>

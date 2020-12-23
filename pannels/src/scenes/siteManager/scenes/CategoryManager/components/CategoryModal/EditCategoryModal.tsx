@@ -22,8 +22,8 @@ import CategoryIdProvider from "../../../../../../services/contexts/CategoryIdCo
 import Button from "../../../../../../components/Button";
 import Centerise from "../../../../../../components/Centerise";
 import { toast } from "react-toastify";
-import {useMutation,useQueryCache} from "react-query";
-import {fetcher} from "../../../../../../React-Query/Categories/EditCategory/fetcher";
+import { useMutation, useQueryCache } from "react-query";
+import { fetcher } from "../../../../../../React-Query/Categories/EditCategory/fetcher";
 //-----------------------------------------------------------------
 
 interface IProps {
@@ -35,11 +35,11 @@ const EditCategoryModal: React.FC<IProps & TCategoryTableData> = ({
   id,
   title,
 }) => {
-  const cache=useQueryCache();
-  const [mutate,{error}] = useMutation(fetcher,{
-    onSuccess:()=>{
-      cache.invalidateQueries("Categories")
-    }
+  const cache = useQueryCache();
+  const [mutate, { error }] = useMutation(fetcher, {
+    onSuccess: () => {
+      cache.invalidateQueries("Categories");
+    },
   });
   const { data } = useSWR<ICategorySlider[]>(
     [`${baseAdminUrl}/category_slider/`, "category", id],
@@ -64,15 +64,15 @@ const EditCategoryModal: React.FC<IProps & TCategoryTableData> = ({
 
   const handleSubmit = async () => {
     setLoading(true);
-    try{
-      await mutate( {id, title: categoryName })
-      toast.info('با موفقیت تغییر یافت')
-  }catch{
-      console.log(error,"error2");
-  }finally{
-    setLoading(false);
-  }
-  handleCloseModal()
+    try {
+      await mutate({ id, title: categoryName });
+      toast.warning("دسته بندی مورد نظر با موفقیت ویرایش شد.");
+    } catch {
+      toast.error("دسته بندی مورد نظر ویرایش نشد.");
+    } finally {
+      setLoading(false);
+    }
+    handleCloseModal();
   };
 
   return (

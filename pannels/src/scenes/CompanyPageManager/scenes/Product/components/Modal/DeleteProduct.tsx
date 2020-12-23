@@ -23,7 +23,7 @@ const DeleteProduct: React.FC<Props> = ({id}) => {
   const handleEnterModal = async() => {
       try{
           await mutate(id)
-          toast.warning("با موفقیت حذف شد")
+          toast.error("محصول مورد نظر با موفقیت حذف شد.")
       }catch(err){
       }
         handleCloseModal()

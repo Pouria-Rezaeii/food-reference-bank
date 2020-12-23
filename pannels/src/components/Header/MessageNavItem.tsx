@@ -18,14 +18,14 @@ const MessageNavItem = () => {
       className={`nav-item dropdown ${messageShow && "show"}`}
       onClick={handleToggleMessages}
     >
-      <div className="nav-link dropdown-toggle waves-effect waves-dark">
+      {/* <div className="nav-link dropdown-toggle waves-effect waves-dark">
         <i className="icon-note"></i>
         <div className="notify">
           {" "}
           <span className="heartbit"></span> <span className="point"></span>{" "}
         </div>
       </div>
-      <Messages isShow={messageShow} />
+      <Messages isShow={messageShow} /> */}
     </li>
   );
 };
