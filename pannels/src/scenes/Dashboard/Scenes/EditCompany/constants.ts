@@ -18,10 +18,12 @@ export const validationSchema = Yup.object({
   phone_number: Yup.number()
     .typeError("شماره تلفن شرکت نمیتواند حروف باشد")
     .required("شماره تلفن شرکت را وارد کنید"),
-  website: Yup.string().required("لطفا آدرس سایت را وارد کنید").url(),
-  address: Yup.string().required("لطفا آدرس را وارد کنید"),
+    website: Yup.string()
+    .required("لطفا آدرس سایت را وارد کنید")  
+    .url(".آدرس سایت باید معتبر باشد"),
+    address: Yup.string().required("لطفا آدرس را وارد کنید"),
   logo: Yup.string().required("لوگو شرکت خود را انتخاب کنید"),
-  location: Yup.string().required("hhhh"),
+  location: Yup.string().required("لوکیشن شرکت را انتخاب کنید"),
   postal_code: Yup.number()
     .typeError("کدپستی شرکت نمیتواند حروف باشد")
     .required("کدپستی شرکت را وارد کنید"),
