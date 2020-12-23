@@ -1,6 +1,6 @@
 import { FieldAttributes } from "formik";
 import * as _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { OptionsType, StylesConfig } from "react-select";
 import AsyncSelect from "react-select/async";
 import api from "../services/utils/api";
@@ -22,7 +22,7 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
   form: { touched, errors, setFieldValue, initialValues,setFieldTouched }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
 }) => {
   const [searchValue, setSearchValue] = useState("");
-
+  
   const handleSearchValueChange = (newValue: string) =>
     setSearchValue(newValue);
   const isError = touched[field.name] && errors[field.name];
@@ -48,7 +48,6 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
     api.apiCategory.getCategories().then(({ data }) => {
     const JobCategory= data.filter((d)=> d.type==="j")
     // console.log(JobCategory);
-    
       callback(calculateOptions(JobCategory)!);
     });
   };
@@ -65,6 +64,7 @@ const CustomeSelectCategory: React.FC<FieldAttributes<any>> = ({
         defaultValue={defaultValue}
         cacheOptions
         isClearable
+        isSearchable={true}
         defaultOptions
         loadOptions={(e, cb) => debouncedLoadOptions(e, cb)}
         inputValue={searchValue}

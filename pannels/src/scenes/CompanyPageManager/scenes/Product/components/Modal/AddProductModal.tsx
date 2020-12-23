@@ -55,8 +55,8 @@ const AddProductModal = ({ categoryId  }: IProps) => {
   };
 
   const sendData = async (data: ICompanySendPRoduct) => {
-    const res = await axios.patch(`store/my_company_products/`, data.PRDatials);
-    console.log("response", res.data.id);
+    const res = await axios.post(`store/my_company_products/`, data.PRDatials);
+    // console.log("response", res.data.id);
     const imgres = await axios.post(
       `store/my_company/product_image/${res.data.id}/`,
       data.PRimage

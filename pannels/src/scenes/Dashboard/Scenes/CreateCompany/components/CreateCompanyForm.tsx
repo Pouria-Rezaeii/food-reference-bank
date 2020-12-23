@@ -15,7 +15,7 @@ import {
   calculateUserOptions,
   calculateProvinceOptions,
 } from "../../../../../services/utils/calculateOptions";
-import { adminCreatevalidationSchema } from "../constants";
+import { validationSchema } from "../constants";
 import { IAdminCreateCompanyFormikState } from "../models";
 import { axiosInstance as axios } from "../../../../../services/axios/axios";
 
@@ -37,7 +37,7 @@ const CreateCompanyForm = ({ initialValue }: IProps) => {
       <Formik<IAdminCreateCompanyFormikState, {}>
         initialValues={initialValue}
         enableReinitialize
-        // validationSchema={adminCreatevalidationSchema}
+        validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           let {
             user,
