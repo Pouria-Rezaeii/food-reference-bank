@@ -29,7 +29,7 @@ const ListItem = (props) => {
         <span className={styles.arrow}>&rsaquo;</span>
       </div>
       <ul className={styles.innerList}>
-        {companies?.filter((com) => com.category_title === props.title).map((element, index) => (
+        {companies?.filter((com) => com.category_title === props.title && com.status === 'a').map((element, index) => (
           <li key={index} >
             <span>
               <Link href={`/company/[companyName]`} as={`/company/${element.name}`}>
