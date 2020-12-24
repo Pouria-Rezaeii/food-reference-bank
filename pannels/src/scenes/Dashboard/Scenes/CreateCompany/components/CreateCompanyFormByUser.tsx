@@ -23,10 +23,14 @@ const CreateCompanyFormByUser = () => {
     const cache=useQueryCache()
     const CreateCompanyByUSer = (sendForm: FormData) => {
         console.log("create");
-        axios.post("/data_bank/my_company/", sendForm).then((res) => {
-          toast.info("شرکت جدید شما با موفقیت ثبت شد ");
-            cache.invalidateQueries("role")
-        });
+        try{
+          axios.post("/data_bank/my_company/", sendForm).then((res) => {
+            toast.info("شرکت جدید شما با موفقیت ثبت شد ");
+          });
+        }catch{
+          toast.error("ثبت شرکت موفقیت آمیز نبود.");
+        }
+        cache.invalidateQueries("role")
         
     };
     return (

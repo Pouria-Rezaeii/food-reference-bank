@@ -77,7 +77,9 @@ const AddProductModal = ({ categoryId  }: IProps) => {
         ? toast.info("محصول جدید با موفقیت اضافه شد.")
         : toast.info("در خواست افزودن محصول مورد نظر برای ادمین ارسال شد.");
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
-    } catch {}
+    } catch {
+      toast.error("افزودن محصول جدید با مشکل مواجه شد.")
+    }
   };
 
   return (

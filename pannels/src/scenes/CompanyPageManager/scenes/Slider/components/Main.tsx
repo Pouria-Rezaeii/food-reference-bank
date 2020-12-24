@@ -10,6 +10,9 @@ import SliderLoaders from "../../../../../components/SliderLoaders";
 import SliderCard from "../../../../../components/SliderCard";
 import { useMutation, useQueryCache, useQuery } from "react-query";
 import { axiosInstance } from "../../../../../services/axios/axios";
+import { toast } from "react-toastify";
+import { useUserState } from '../../../../../services/contexts/UserContext/UserContext'
+
 interface ISliderData {
   company: number;
   company_name: string;
@@ -20,7 +23,7 @@ interface ISliderData {
 }
 const Main = () => {
   const queryCache = useQueryCache();
-
+  const userState=useUserState();
   const getSlidersData = async () => {
     const res = await axiosInstance.get(`${baseMyCompanySlideUrl}/?status=a`);
     return res.data;
@@ -42,6 +45,7 @@ const Main = () => {
   const [mutate2] = useMutation(deleteSlider, {
     onSuccess: () => {
       queryCache.invalidateQueries("Companysliders");
+      toast.error("اسلایدر مورد نظر با موفقیت حذف شد.")
     },
   });
 
@@ -62,7 +66,14 @@ const Main = () => {
   const sendSlider = async (image: File) => {
     const fd = new FormData();
     fd.append("image", image);
-    await axiosInstance.post(`${baseMyCompanySlideUrl}/`, fd);
+    try{
+      await axiosInstance.post(`${baseMyCompanySlideUrl}/`, fd);
+      userState.rule === "admin" || userState.rule === "adminCompany"
+        ? toast.info("اسلایدر شما با موفقیت اضافه شد.")
+        : toast.info("درخواست افزودن اسلایدر جدید برای ادمین ارسال شد.");
+    }catch{
+      toast.error("افزودن اسلایدر موفقیت آمیز نبود.")
+    }
   };
 
   const [mutate1] = useMutation(sendSlider, {

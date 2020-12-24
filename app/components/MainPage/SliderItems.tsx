@@ -18,13 +18,12 @@ const SliderItems:React.FC<IProps> = ({image,name ,price }) => {
             <div className="product_action_box">
               <ul className="list_none pr_action_btn">
                 <li className="add-to-cart">
-                  <a href="#">
+                  <a>
                     <i className="icon-basket-loaded"></i> افزودن به سبد خرید
                   </a>
                 </li>
                 <li>
                   <a
-                    href="//bestwebcreator.com/shopwise/demo/shop-compare.html"
                     className="popup-ajax"
                   >
                     <i className="icon-shuffle"></i>
@@ -32,14 +31,13 @@ const SliderItems:React.FC<IProps> = ({image,name ,price }) => {
                 </li>
                 <li>
                   <a
-                    href="//bestwebcreator.com/shopwise/demo/shop-quick-view.html"
                     className="popup-ajax"
                   >
                     <i className="icon-magnifier-add"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a>
                     <i className="icon-heart"></i>
                   </a>
                 </li>

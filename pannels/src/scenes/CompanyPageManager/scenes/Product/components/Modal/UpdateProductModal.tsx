@@ -80,7 +80,9 @@ const HandleUpdatePRDetails = (PRDatials: IPRDatials) => {
         ? toast.warning(" اطلاعات محصول مورد نظر با موفقیت ویرایش شد")
         : toast.warning("در خواست ویرایش محصول مورد نظر برای ادمین ارسال شد.");
         modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
-    } catch {}
+    } catch {
+      toast.error("ویرایش محصول با مشکل مواجه شد.دوباره سعی نمایید.")
+    }
   };
 
   return (

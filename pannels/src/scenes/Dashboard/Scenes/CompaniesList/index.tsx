@@ -151,7 +151,7 @@ const Index = () => {
           <div className="card card-body">
             <h4 className="card-title">لیست شرکت‌ها</h4>
             <h5 className="card-subtitle">
-              در اینجا میتوانید لیست شرکت‌ها را مشاهده کنید
+              در اینجا میتوانید لیست شرکت‌ها را مشاهده نمایید
             </h5>
             <TableContainer<TCompanyTableData> {...tableInstance}>
               <ReactTable<TCompanyTableData> {...tableInstance} />

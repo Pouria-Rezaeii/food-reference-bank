@@ -25,6 +25,7 @@ const DeleteProduct: React.FC<Props> = ({id}) => {
           await mutate(id)
           toast.error("محصول مورد نظر با موفقیت حذف شد.")
       }catch(err){
+        toast.error("حذف محصول با مشکل مواجه شد.دوباره سعی نمایید")
       }
         handleCloseModal()
   };

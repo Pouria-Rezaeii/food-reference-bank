@@ -52,10 +52,14 @@ const EditCompanyForm = ({ initialValue, id }: IProps) => {
     await axios
       .patch(`/data_bank/my_company/${sendData.id}/`, sendData.sendForm)
       .then(() => {
-        userState.rule === "admin" || userState.rule === "adminCompany"
-          ? toast.warning("شرکت شما با موفقیت ویرایش شد")
-          : toast.warning("در خواست ویرایش شرکت برای ادمین ارسال شد.");
-      });
+        try{
+          userState.rule === "admin" || userState.rule === "adminCompany"
+            ? toast.warning("شرکت شما با موفقیت ویرایش شد")
+            : toast.warning("در خواست ویرایش شرکت برای ادمین ارسال شد.");
+        }catch{
+          toast.error("ویرایش شرکت موفقیت آمیز نبود.")
+        }
+      }); 
   };
 
   const [mutate] = useMutation(updateCopmanyDataFetcher, {

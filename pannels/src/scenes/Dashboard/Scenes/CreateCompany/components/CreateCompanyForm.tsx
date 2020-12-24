@@ -27,7 +27,14 @@ interface IProps {
 }
 
 const CreateCompanyData = (sendForm: FormData) => {
-  axios.post('/data_bank/admin/companies/', sendForm).then(res=>{toast.info('شرکت جدید با موفقیت ثبت شد ')})
+  axios.post('/data_bank/admin/companies/', sendForm).then(res=>{
+try{
+  toast.info('شرکت جدید با موفقیت ثبت شد ')
+}catch{
+  toast.error('ثبت شرکت جدید موفقیت آمیز نبود.')
+}
+
+  })
 };
 
 const CreateCompanyForm = ({ initialValue }: IProps) => {

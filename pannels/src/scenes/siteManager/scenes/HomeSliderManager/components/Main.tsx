@@ -44,13 +44,17 @@ export const Main = () => {
   // - - - - - - - - - deleting an image and invalidating cached data
 
   const deleteData = async (id: number) => {
-    await axios.delete(`${baseAdminUrl}/category_slider/${id}`);
+    try{
+      await axios.delete(`${baseAdminUrl}/category_slider/${id}`);
+      toast.error("اسلایدر مورد نظر با موفقیت حذف شد.");
+    }catch{
+      toast.error("حذف اسلایدر با مشکل روبرو شد. دوباره سعی کنید.")
+    }
   };
 
   const [mutation] = useMutation(deleteData, {
     onSuccess: () => {
       queryCache.invalidateQueries("homeSliderImages");
-      toast.error("اسلایدر مورد نظر با موفقیت حذف شد.");
     },
   });
 
