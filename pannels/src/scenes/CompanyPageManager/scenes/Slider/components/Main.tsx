@@ -10,6 +10,7 @@ import SliderLoaders from "../../../../../components/SliderLoaders";
 import SliderCard from "../../../../../components/SliderCard";
 import { useMutation, useQueryCache, useQuery } from "react-query";
 import { axiosInstance } from "../../../../../services/axios/axios";
+import Spinner from '../../../../../components/Spinner';
 interface ISliderData {
   company: number;
   company_name: string;
@@ -19,6 +20,7 @@ interface ISliderData {
   status: "a" | "c" | "r";
 }
 const Main = () => {
+  const [showSpinner, setShowSpinner] = useState<boolean>(false)
   const queryCache = useQueryCache();
 
   const getSlidersData = async () => {
