@@ -20,6 +20,8 @@ import { axiosInstance as axios } from "../../../../../services/axios/axios";
 // import {useUserState} from '../../../../../services/contexts/UserContext/UserContext'
 import Spinner from '../../../../../components/Spinner';
 
+export const __isProd__ = process.env.NODE_ENV === 'production'
+
 const CreateCompanyFormByUser = () => {
   const cache = useQueryCache()
   const [showSpinner, setShowSpinner] = useState<boolean>(false)
@@ -30,6 +32,11 @@ const CreateCompanyFormByUser = () => {
       await axios.post("/data_bank/my_company/", sendForm)
       toast.info("درخواست ثبت شرکت جدید شما برای مدیریت ارسال شد. ");
       setShowSpinner(false)
+      setTimeout(() => {
+        window.location.href = __isProd__
+          ? "http://171.22.24.129"
+          : "http://localhost:3001";
+      }, 5000)
     } catch {
       toast.error("درخواست ثبت شرکت موفقیت آمیز نبود.");
       setShowSpinner(false)
@@ -45,6 +52,7 @@ const CreateCompanyFormByUser = () => {
           <div className="card card-body">
             <h4 className="card-title">ثبت شرکت</h4>
             <h5 className="card-subtitle">برای ثبت شرکت فرم زیر را پر کنید.</h5>
+            <p style={{ color: 'red' }}>* حجم فایل انتخابی نباید بیش از یک مگابایت و نام آن نیز نباید بیش از ۱۰۰ کاراکتر باشد.</p>
 
             <Formik<IUserCreateCompanyFormikState, {}>
               initialValues={{

@@ -9,7 +9,7 @@ const Index = () => {
           <p className="text-muted m-t-0">
             اسلایدر های شرکت خود را انتخاب نمایید.
           </p>
-          <p style={{color:'red'}}>* حجم فایل انتخابی نباید بیش از یک مگابایت باشد.</p>
+          <p style={{color:'red'}}>* حجم فایل انتخابی نباید بیش از یک مگابایت و نام آن نیز نباید بیش از ۱۰۰ کاراکتر باشد.</p>
           <div className="row el-element-overlay">
             <Main />
           </div>
