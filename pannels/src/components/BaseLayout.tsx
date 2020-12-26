@@ -9,14 +9,16 @@ const fetcher = async () => {
   const role = await axiosInstance.get("/data_bank/role/");
   return role;
 };
-
+const fetch = async () => {
+  const profile = await axiosInstance.get("/auth/user");
+  return profile.data;
+}
+export const __isProd__ = process.env.NODE_ENV === 'production'
 const BaseLayout: React.FC = ({ children }) => {
   const userDispatch = useUserDispatch();
   const { data } = useQuery("role", fetcher, {
     onSuccess: (data) => {
-      // if(data.data.is_company && data.data.is_admin){
-      // }
-      console.log(data.data,"role");
+      console.log(data.data, "role");
       userDispatch({
         type: EUserActionTypes.LOGIN,
         payload: {
@@ -26,16 +28,25 @@ const BaseLayout: React.FC = ({ children }) => {
             data.data.is_admin && !data.data.is_company
               ? "admin"
               : data.data.is_admin && data.data.is_company
-              ? "adminCompany"
-              : !data.data.is_admin && data.data.is_company
-              ? "company"
-              : !data.data.is_admin && !data.data.is_company
-              ? "user"
-              : "",
+                ? "adminCompany"
+                : !data.data.is_admin && data.data.is_company
+                  ? "company"
+                  : !data.data.is_admin && !data.data.is_company
+                    ? "user"
+                    : "",
         },
       });
-    },
+    }
   });
+  const { data: profile } = useQuery("DefineRole", fetch, {
+    retry: 0,
+    onError: () => {
+      window.location.href = __isProd__
+        ? "http://171.22.24.129"
+        : "http://localhost:3001";
+    }
+  }
+  )
   return (
     <>
       <Header />
@@ -46,5 +57,4 @@ const BaseLayout: React.FC = ({ children }) => {
     </>
   );
 };
-
 export default BaseLayout;

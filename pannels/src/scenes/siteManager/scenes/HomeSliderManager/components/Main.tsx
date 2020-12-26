@@ -58,13 +58,17 @@ export const Main = () => {
   // - - - - - - - - - deleting an image and invalidating cached data
 
   const deleteData = async (id: number) => {
-    await axios.delete(`${baseAdminUrl}/category_slider/${id}`);
+    try {
+      await axios.delete(`${baseAdminUrl}/category_slider/${id}`);
+      toast.error("اسلایدر مورد نظر با موفقیت حذف شد.");
+    } catch {
+      toast.error("حذف اسلایدر با مشکل روبرو شد. دوباره سعی کنید.")
+    }
   };
 
   const [mutation] = useMutation(deleteData, {
     onSuccess: () => {
       queryCache.invalidateQueries("homeSliderImages");
-      toast.error("اسلایدر مورد نظر با موفقیت حذف شد.");
     },
   });
 
@@ -80,18 +84,20 @@ export const Main = () => {
   return (
     <>
       {!data && <SliderLoaders />}
-      {data && !showSpinner ? <>
-        {data.map((item: ICategorySlider) => (
-          <div className="col-lg-3 col-md-6" key={item.id}>
-            <SliderCard
-              id={item.id}
-              image={item.image}
-              onDelete={() => handleDeleteItem(item.id)}
-            />
-          </div>
-        ))}
-        <AddImage url="/" onSubmit={(file) => handleSendSubmit(file)} />
-      </> : <div style={{ height: "100vh", width: '100vw', display: 'flex', paddingTop: '200px', justifyContent: 'center' }}><Spinner size='lg' /></div>}
+      {data && !showSpinner ?
+        <>
+          {data.map((item: ICategorySlider) => (
+            <div className="col-lg-3 col-md-6" key={item.id}>
+              <SliderCard
+                id={item.id}
+                image={item.image}
+                onDelete={() => handleDeleteItem(item.id)}
+              />
+            </div>
+          ))}
+          <AddImage url="/" onSubmit={(file) => handleSendSubmit(file)} />
+        </> : !data && showSpinner  ?<div style={{ height: "100vh", width: '100%', display: 'flex', paddingTop: '200px', justifyContent: 'center' }}>
+          <Spinner size='lg' /></div>:""}
     </>
   );
 };

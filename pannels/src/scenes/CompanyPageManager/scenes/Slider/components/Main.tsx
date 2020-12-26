@@ -11,6 +11,9 @@ import SliderCard from "../../../../../components/SliderCard";
 import { useMutation, useQueryCache, useQuery } from "react-query";
 import { axiosInstance } from "../../../../../services/axios/axios";
 import Spinner from '../../../../../components/Spinner';
+import { toast } from "react-toastify";
+import { useUserState } from '../../../../../services/contexts/UserContext/UserContext'
+
 interface ISliderData {
   company: number;
   company_name: string;
@@ -22,7 +25,7 @@ interface ISliderData {
 const Main = () => {
   const [showSpinner, setShowSpinner] = useState<boolean>(false)
   const queryCache = useQueryCache();
-
+  const userState = useUserState();
   const getSlidersData = async () => {
     const res = await axiosInstance.get(`${baseMyCompanySlideUrl}/?status=a`);
     return res.data;
@@ -44,13 +47,14 @@ const Main = () => {
   const [mutate2] = useMutation(deleteSlider, {
     onSuccess: () => {
       queryCache.invalidateQueries("Companysliders");
+      toast.error("اسلایدر مورد نظر با موفقیت حذف شد.")
     },
   });
 
   const handleDelete = async (id: number) => {
     try {
       mutate2(id);
-    } catch (err) {}
+    } catch (err) { }
   };
   const handleIgnoreSureDelete = () => {
     setSureDelete(false);
@@ -64,7 +68,17 @@ const Main = () => {
   const sendSlider = async (image: File) => {
     const fd = new FormData();
     fd.append("image", image);
-    await axiosInstance.post(`${baseMyCompanySlideUrl}/`, fd);
+    setShowSpinner(true)
+    try {
+      await axiosInstance.post(`${baseMyCompanySlideUrl}/`, fd);
+      userState.rule === "admin" || userState.rule === "adminCompany"
+        ? toast.info("اسلایدر شما با موفقیت اضافه شد.")
+        : toast.info("درخواست افزودن اسلایدر جدید برای مدیریت ارسال شد.");
+      setShowSpinner(false)
+    } catch {
+      setShowSpinner(false)
+      toast.error("افزودن اسلایدر موفقیت آمیز نبود.")
+    }
   };
 
   const [mutate1] = useMutation(sendSlider, {
@@ -76,13 +90,13 @@ const Main = () => {
   const sendSliderData = (image: File) => {
     try {
       mutate1(image);
-    } catch {}
-    return new Promise((res) => {});
+    } catch { }
+    return new Promise((res) => { });
   };
   return (
     <>
       {!data && <SliderLoaders />}
-      {data && (
+      {data && !showSpinner ?
         <>
           {data.map((item) => (
             <div className="col-lg-3 col-md-6">
@@ -96,8 +110,7 @@ const Main = () => {
             </div>
           ))}
           <AddImage url="/" onSubmit={sendSliderData} />
-        </>
-      )}
+        </> : !data && showSpinner ? <div style={{ height: "100vh", width: '100%', display: 'flex', paddingTop: '200px', justifyContent: 'center' }}><Spinner size='lg' /></div> : ""}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import CustomInputComponent from "../../../../../components/CustomeInputComponent";
 import CustomFileInputComponent from "../../../../../components/CustomFileInputComponent";
 import CustomeSelectCategory from "../../../../../components/CustomeSelectCategory";
@@ -17,6 +17,8 @@ import { useMutation } from "react-query";
 import { useQueryCache } from "react-query";
 import { toast } from "react-toastify";
 import { useUserState } from "../../../../../services/contexts/UserContext/UserContext";
+import Spinner from '../../../../../components/Spinner';
+
 interface IProps {
   initialValue: IAdminEditCompanyFormikState;
   id: number;
@@ -46,16 +48,21 @@ const getCityData = async () => {
 };
 
 const EditCompanyForm = ({ initialValue, id }: IProps) => {
+  const [showSpinner, setShowSpinner] = useState<boolean>(false)
   const queryCache = useQueryCache();
   const userState = useUserState();
   const updateCopmanyDataFetcher = async (sendData: SendDataForm) => {
-    await axios
-      .patch(`/data_bank/my_company/${sendData.id}/`, sendData.sendForm)
-      .then(() => {
-        userState.rule === "admin" || userState.rule === "adminCompany"
-          ? toast.warning("شرکت شما با موفقیت ویرایش شد")
-          : toast.warning("در خواست ویرایش شرکت برای ادمین ارسال شد.");
-      });
+    setShowSpinner(true)
+    try {
+      await axios.patch(`/data_bank/my_company/${sendData.id}/`, sendData.sendForm)
+      userState.rule === "admin" || userState.rule === "adminCompany"
+        ? toast.success("شرکت شما با موفقیت ویرایش شد")
+        : toast.success("در خواست ویرایش شرکت برای مدیریت ارسال شد.");
+      setShowSpinner(false)
+    } catch {
+      toast.error("ویرایش شرکت موفقیت آمیز نبود.")
+      setShowSpinner(false)
+    }
   };
 
   const [mutate] = useMutation(updateCopmanyDataFetcher, {
@@ -68,159 +75,162 @@ const EditCompanyForm = ({ initialValue, id }: IProps) => {
     const sendData = { sendForm: sendForm, id: id };
     try {
       mutate(sendData);
-    } catch {}
+    } catch { }
   };
   return (
-    <div>
-      <Formik<IAdminEditCompanyFormikState, {}>
-        initialValues={initialValue}
-        enableReinitialize
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          let {
-            name,
-            manager_name,
-            phone_number,
-            website,
-            address,
-            location,
-            logo,
-            category_title,
-            description,
-            city,
-            postal_code,
-          } = values;
+    showSpinner ? <div style={{ height: "100vh", width: '100%', display: 'flex', paddingTop: '200px', justifyContent: 'center' }}><Spinner size='lg' /></div>
+      :
+      <div>
+        <Formik<IAdminEditCompanyFormikState, {}>
+          initialValues={initialValue}
+          enableReinitialize
+          validationSchema={validationSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            let {
+              name,
+              manager_name,
+              phone_number,
+              website,
+              address,
+              location,
+              logo,
+              category_title,
+              description,
+              city,
+              postal_code,
+            } = values;
 
-          let sendForm = new FormData();
-          sendForm.append("name", name);
-          sendForm.append("manager_name", manager_name);
-          sendForm.append("phone_number", phone_number);
-          if (initialValue.logo !== logo) {
-            sendForm.append("logo", logo);
-          }
-          sendForm.append("website", website);
-          sendForm.append("address", address);
-          sendForm.append("location", location);
-          sendForm.append("category", category_title);
-          sendForm.append("description", description);
-          sendForm.append("city", city);
-          sendForm.append("postal_code", postal_code.toString());
+            let sendForm = new FormData();
+            sendForm.append("name", name);
+            sendForm.append("manager_name", manager_name);
+            sendForm.append("phone_number", phone_number);
+            if (initialValue.logo !== logo) {
+              sendForm.append("logo", logo);
+            }
+            sendForm.append("website", website);
+            sendForm.append("address", address);
+            sendForm.append("location", location);
+            sendForm.append("category", category_title);
+            sendForm.append("description", description);
+            sendForm.append("city", city);
+            sendForm.append("postal_code", postal_code.toString());
 
-          updateCompanyData(sendForm, id);
-          setSubmitting(false);
-        }}
-      >
-        {({ isSubmitting, values }) => (
-          <Form className="form-horizontal mt-5">
-            <div className="row">
-              <div className="col-md-4">
-                <Field
-                  label="نام کاربری"
-                  type="text"
-                  name="username"
-                  disabled={true}
-                  component={CustomInputComponent}
-                />
-                {/* <Field
-                  label="استان"
-                  calculateOptions={calculateProvinceOptions}
-                  type="text"
-                  name="province"
-                  component={CustomSelectProvince}
-                /> */}
-                <Field
-                  label="کد پستی"
-                  type="text"
-                  name="postal_code"
-                  component={CustomInputComponent}
-                />
-                <Field
-                  label="فیلد کاری"
-                  calculateOptions={calculateCategoryOptions}
-                  type="text"
-                  name="category_title"
-                  component={CustomeSelectCategory}
-                />
-                <Field
-                  label="لوگو"
-                  type="file"
-                  name="logo"
-                  component={CustomFileInputComponent}
-                />
+            updateCompanyData(sendForm, id);
+            setSubmitting(false);
+          }}
+        >
+          {({ isSubmitting, values }) => (
+            <Form className="form-horizontal mt-5">
+              <div className="row">
+                <div className="col-md-4">
+                  <Field
+                    label="نام کاربری"
+                    type="text"
+                    name="username"
+                    disabled={true}
+                    component={CustomInputComponent}
+                  />
+                  {/* <Field
+                label="استان"
+                calculateOptions={calculateProvinceOptions}
+                type="text"
+                name="province"
+                component={CustomSelectProvince}
+              /> */}
+                  <Field
+                    label="کد پستی"
+                    type="text"
+                    name="postal_code"
+                    component={CustomInputComponent}
+                  />
+                  <Field
+                    label="فیلد کاری"
+                    calculateOptions={calculateCategoryOptions}
+                    type="text"
+                    name="category_title"
+                    component={CustomeSelectCategory}
+                  />
+                  <Field
+                    label="لوگو"
+                    type="file"
+                    name="logo"
+                    component={CustomFileInputComponent}
+                  />
+                </div>
+                <div className="col-md-4">
+                  <Field
+                    label="نام شرکت"
+                    type="text"
+                    name="name"
+                    component={CustomInputComponent}
+                  />
+                  <Field
+                    label="شهر"
+                    calculateOptions={calculateCityOptions}
+                    type="text"
+                    name="city"
+                    component={CustomSelectCity}
+                  />
+                  <Field
+                    label="نام مدیر عامل"
+                    type="text"
+                    name="manager_name"
+                    component={CustomInputComponent}
+                  />
+                </div>
+                <div className="col-md-4">
+                  <Field
+                    label="شماره تلفن شرکت"
+                    type="text"
+                    name="phone_number"
+                    component={CustomInputComponent}
+                  />
+                  <Field
+                    label="آدرس ایمیل"
+                    type="text"
+                    name="email"
+                    component={CustomInputComponent}
+                  />
+                  <Field
+                    label="آدرس سایت"
+                    type="text"
+                    name="website"
+                    component={CustomInputComponent}
+                  />
+                </div>
               </div>
-              <div className="col-md-4">
-                <Field
-                  label="نام شرکت"
-                  type="text"
-                  name="name"
-                  component={CustomInputComponent}
-                />
-                <Field
-                  label="شهر"
-                  calculateOptions={calculateCityOptions}
-                  type="text"
-                  name="city"
-                  component={CustomSelectCity}
-                />
-                <Field
-                  label="نام مدیر عامل"
-                  type="text"
-                  name="manager_name"
-                  component={CustomInputComponent}
-                />
-              </div>
-              <div className="col-md-4">
-                <Field
-                  label="شماره تلفن شرکت"
-                  type="text"
-                  name="phone_number"
-                  component={CustomInputComponent}
-                />
-                <Field
-                  label="آدرس ایمیل"
-                  type="text"
-                  name="email"
-                  component={CustomInputComponent}
-                />
-                <Field
-                  label="آدرس سایت"
-                  type="text"
-                  name="website"
-                  component={CustomInputComponent}
-                />
-              </div>
-            </div>
 
-            <div className="row">
-              <div className="col-md-6">
-                <Field
-                  name="address"
-                  component={CustomeTextAreaComponent}
-                  rows={4}
-                  label="آدرس"
-                  type="text"
-                />
-                <Field name="location" component={CompanyMap} />
+              <div className="row">
+                <div className="col-md-6">
+                  <Field
+                    name="address"
+                    component={CustomeTextAreaComponent}
+                    rows={4}
+                    label="آدرس"
+                    type="text"
+                  />
+                  <Field name="location" component={CompanyMap} />
+                </div>
+                <div className="col-md-6">
+                  <Field
+                    label="شرح فعالیت"
+                    type="text"
+                    name="description"
+                    component={CustomeTextAreaComponent}
+                    rows={20}
+                    className="mt-md-0 mt-3"
+                  />
+                </div>
               </div>
-              <div className="col-md-6">
-                <Field
-                  label="شرح فعالیت"
-                  type="text"
-                  name="description"
-                  component={CustomeTextAreaComponent}
-                  rows={20}
-                  className="mt-md-0 mt-3"
-                />
-              </div>
-            </div>
 
-            <button type="submit" className="btn btn-success">
-              <i className="fa fa-check" /> ویرایش شرکت
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+              <button type="submit" className="btn btn-success">
+                <i className="fa fa-check" /> ویرایش شرکت
+          </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
+
   );
 };
 

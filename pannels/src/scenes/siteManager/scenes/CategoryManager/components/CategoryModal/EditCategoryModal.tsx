@@ -66,9 +66,9 @@ const EditCategoryModal: React.FC<IProps & TCategoryTableData> = ({
     setLoading(true);
     try {
       await mutate({ id, title: categoryName });
-      toast.warning("دسته بندی مورد نظر با موفقیت ویرایش شد.");
+      toast.success("دسته بندی مورد نظر با موفقیت ویرایش شد.");
     } catch {
-      toast.error("دسته بندی مورد نظر ویرایش نشد.");
+      toast.error("ویرایش دسته بندی با مشکل روبرو شد.");
     } finally {
       setLoading(false);
     }

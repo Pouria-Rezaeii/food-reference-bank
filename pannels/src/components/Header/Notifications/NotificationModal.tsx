@@ -116,7 +116,7 @@ const NotificationModal: React.FC<IProps> = ({ notify, status, hasImage, url, ca
               </div>
             </div>
             <div className="modal-footer">
-              <Button onClick={handleCloseModal} type="danger" text="بستن" />
+              <Button onClick={handleCloseModal} type="secondary" text="بستن" />
             </div>
           </div>
         </div>

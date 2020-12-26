@@ -25,6 +25,7 @@ const DeleteCategoryModal: React.FC<Props> = ({id}) => {
           await mutate(id)
           toast.error("دسته بندی مورد نظر با موفقیت حذف شد.")
       }catch(err){
+        toast.error("حذف دسته بندی با مشکل مواجه شد.دوباره سعی نمایید.")
       }
         handleCloseModal()
   };

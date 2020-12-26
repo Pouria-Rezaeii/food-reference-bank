@@ -26,7 +26,7 @@ const NotifNavItem = () => {
         <i className="ti-email"></i>
         <div className="notify">
           {" "}
-          <span className="heartbit"></span> <span className="point"></span>{" "}
+          {/* <span className="heartbit"></span> <span className="point"></span>{" "} */}
         </div>
       </div>
       <Notifications isShow={notifShow} />

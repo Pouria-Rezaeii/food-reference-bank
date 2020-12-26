@@ -32,7 +32,7 @@ const ProductTable: React.FC<IProps> = ({ products,CategoryProducts }) => {
         </div>
         <div className="table-responsive">
           <table className="table table-hover no-wrap">
-            <thead style={{ backgroundColor: 'oldlace' }}>
+            <thead style={{ backgroundColor: '#f6f6f6' }}>
               <tr>
                 <th>ردیف</th>
                 <th>دسته بندی محصول</th>

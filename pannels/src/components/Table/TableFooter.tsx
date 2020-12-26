@@ -45,6 +45,7 @@ export const TableFooter = <T extends object>({
                         pageIndex === index && "active"
                       }`}
                       onClick={() => gotoPage(index)}
+                      style = {{cursor:'pointer'}}
                     >
                       <span className="page-link">{index + 1}</span>
                     </li>

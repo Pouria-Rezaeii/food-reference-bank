@@ -9,7 +9,7 @@ const Index = () => {
         <div className="col-12">
           <h4 className="d-inline">محصولات شرکت</h4>
           <p className="text-muted m-t-0">
-            میتوانید محصولات شرکت خود را به دلخواه تغییر دهید
+            می توانید محصولات شرکت خود را به دلخواه تغییر دهید
           </p>
           <div className="row el-element-overlay">
             <Main />

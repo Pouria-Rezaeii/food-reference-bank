@@ -34,6 +34,11 @@ const rules: IRules = {
       "company:products"
     ]
   },
+  "":{
+    static:[
+      
+    ]
+  }
 };
 
 export default rules;

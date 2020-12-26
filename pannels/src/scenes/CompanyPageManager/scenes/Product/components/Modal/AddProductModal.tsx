@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "react-query";
 import { useQueryCache } from "react-query";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
 import { Field, Form, Formik } from "formik";
 import { axiosInstance as axios } from "../../../../../../services/axios/axios";
 import CloseModalIcon from "../../../../../../components/CloseModalIcon";
@@ -10,7 +10,7 @@ import { useModalDispatch } from "../../../../../../services/contexts/ModalConte
 import CustomInputComponent from "../../../../../../components/CustomeInputComponent";
 import CustomeTextAreaComponent from "../../../../../../components/CustomeTextAreaComponent";
 import CustomFileInputComponent from "../../../../../../components/CustomFileInputComponent";
-import {productCreatevalidationSchema} from "../constant";
+import { productCreatevalidationSchema } from "../constant";
 import Button from "../../../../../../components/Button";
 import { useUserState } from '../../../../../../services/contexts/UserContext/UserContext'
 // bookmarked by pouria & parisa
@@ -47,35 +47,40 @@ interface IInitialValues {
   image: "";
 }
 
-const AddProductModal = ({ categoryId  }: IProps) => {
+const AddProductModal = ({ categoryId }: IProps) => {
   const modalDispatch = useModalDispatch();
   const queryCache = useQueryCache();
-  const userState=useUserState();
+  const userState = useUserState();
   const handleCloseModal = () => {
     modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
   };
 
   const sendData = async (data: ICompanySendPRoduct) => {
-    const res = await axios.post(`store/my_company_products/`, data.PRDatials);
-    // console.log("response", res.data.id);
-    const imgres = await axios.post(
-      `store/my_company/product_image/${res.data.id}/`,
-      data.PRimage
-    );
+    try {
+      const res = await axios.post(`store/my_company_products/`, data.PRDatials);
+      // console.log("response", res.data.id);
+      const imgres = await axios.post(`store/my_company/product_image/${res.data.id}/`,
+        data.PRimage
+      );
+      userState.rule === "admin" || userState.rule === "adminCompany"
+        ? toast.info("محصول جدید با موفقیت اضافه شد.")
+        : toast.info("در خواست افزودن محصول مورد نظر برای مدیریت ارسال شد.");
+    } catch (e) {
+      toast.error("افزودن محصول جدید با مشکل مواجه شد.")
+    }
+
   };
   const [mutate] = useMutation(sendData, {
     onSuccess: () => {
       queryCache.invalidateQueries("products");
     },
   });
-  
+
   const sumbitNewProductHandle = (PRDatials: IPRDatials, PRimage: FormData) => {
     const data: ICompanySendPRoduct = { PRDatials, PRimage };
     try {
       mutate(data);
-      userState.rule === "admin" || userState.rule === "adminCompany"
-        ? toast.info("محصول جدید با موفقیت اضافه شد.")
-        : toast.info("در خواست افزودن محصول مورد نظر برای ادمین ارسال شد.");
+
       modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
     } catch {}
   };

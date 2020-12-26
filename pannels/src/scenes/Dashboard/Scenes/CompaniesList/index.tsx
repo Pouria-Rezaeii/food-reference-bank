@@ -82,15 +82,15 @@ const Index = () => {
           return (
             <div
               style={{
-                width: "50px",
-                height: "30px",
+                width: "35px",
+                height: "22px",
                 borderRadius: "100px",
                 backgroundColor: buttonClass,
                 display: "flex",
                 alignItems: "center",
                 justifyContent:
                   original.status === "s" ? "flex-end" : "flex-start",
-                padding: "2px",
+                padding: "1px",
                 boxShadow: "1px 1px 8px #888888",
                 cursor:"pointer"
               }}
@@ -98,8 +98,8 @@ const Index = () => {
             >
               <div
                 style={{
-                  width: "26px",
-                  height: "26px",
+                  width: "20px",
+                  height: "20px",
                   backgroundColor: "#fff",
                   borderRadius: "50%",
                   transition: "all 5s",
@@ -151,7 +151,7 @@ const Index = () => {
           <div className="card card-body">
             <h4 className="card-title">لیست شرکت‌ها</h4>
             <h5 className="card-subtitle">
-              در اینجا میتوانید لیست شرکت‌ها را مشاهده کنید
+              در اینجا می توانید لیست شرکت‌ها را مشاهده نمایید
             </h5>
             <TableContainer<TCompanyTableData> {...tableInstance}>
               <ReactTable<TCompanyTableData> {...tableInstance} />

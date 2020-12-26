@@ -76,14 +76,13 @@ const product = ({ companyName, products, data, productCategory }) => {
                       <div className="product_action_box">
                         <ul className="list_none pr_action_btn">
                           <li className="add-to-cart">
-                            <a href="">
+                            <a>
                               <i className="icon-basket-loaded"></i> افزودن به
                               سبد خرید
                             </a>
                           </li>
                           <li>
                             <a
-                              href=""
                               className="popup-ajax"
                             >
                               <i className="icon-shuffle"></i>
@@ -91,14 +90,13 @@ const product = ({ companyName, products, data, productCategory }) => {
                           </li>
                           <li>
                             <a
-                              href=""
                               className="popup-ajax"
                             >
                               <i className="icon-magnifier-add"></i>
                             </a>
                           </li>
                           <li>
-                            <a href="">
+                            <a>
                               <i className="icon-heart"></i>
                             </a>
                           </li>

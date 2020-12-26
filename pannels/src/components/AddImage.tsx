@@ -30,6 +30,7 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
   const handleRemove = (index: number) => {
     const newFiles = files.filter((item, i) => index !== i);
     setFiles(newFiles);
+    console.log(newFiles);
   };
   const handleSend = async (file: File) => {
     try {
@@ -37,8 +38,8 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
       await onSubmit(file);
       userState.rule === "admin" || userState.rule === "adminCompany"
         ? toast.info("اسلایدر با موفقیت اضافه شد.")
-        : toast.info("در خواست افزودن اسلایدر مورد نظر برای ادمین ارسال شد.");
-    } catch (e) {}
+        : toast.info("در خواست افزودن اسلایدر مورد نظر برای مدیریت ارسال شد.");
+    } catch (e) { }
   };
   const thumbs = (files as Array<IFileWithPreview>).map((file, index) => (
     <React.Fragment key={file.size}>
@@ -65,11 +66,11 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
     [files]
   );
   return (
-    <div className="col-lg-6">
+    <div className="col-12 col-md-6 col-lg-3" style={{ cursor: 'pointer' }}>
       <section className="container">
         <div className="row">
-          {!!thumbs.length && <div className="col-md-6">{thumbs}</div>}{" "}
-          <div className="col-md-6" style={{ marginRight: "3px" }}>
+          {!!thumbs.length && <div className="col-12">{thumbs}</div>}{" "}
+          {!thumbs.length && <div className="col-12" style={{ marginRight: "3px" }}>
             <div {...getRootProps({ className: "dropzone" })}>
               <input {...getInputProps()} />
               <p>
@@ -78,7 +79,7 @@ const AddImage: React.FC<IProps> = ({ onSubmit, url }) => {
               </p>
               <span className="fa fa-plus"></span>
             </div>
-          </div>
+          </div>}
         </div>
       </section>
     </div>

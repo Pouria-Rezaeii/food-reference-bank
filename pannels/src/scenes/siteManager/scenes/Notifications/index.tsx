@@ -97,7 +97,7 @@ const Index: React.FC = () => {
                   `${baseAdminUrl}/notify/${notify.status}/`,
                   ['companyNotifications', 'companyData',"companyData"]
                 )}>
-                  <td className={`text-center`} style = {{backgroundColor:'#86aba1'}}>{index + 1}</td>
+                  <td className={`text-center`} style = {{backgroundColor:' #e0e2e4'}}>{index + 1}</td>
                   <td >ایجاد یا ویرایش شرکت</td>
                   <td>{notify.company.name}</td>
                   <td className="txt-oflo">{notify.company.manager_name} </td>
@@ -109,7 +109,7 @@ const Index: React.FC = () => {
               {companySliderNotifs && handleExtractNotifs(
                 companySliderNotifs,
                 'ویرایش عکس اسلایدر',
-                '#adce74',
+                '#c0ded9',
                 true,
                 `${baseAdminUrl}/company_slider/`,
                 ['companySliderImage', 'Companysliders', 'companySliderNotifications',"Companysliders"] // one of these is not required
@@ -119,7 +119,7 @@ const Index: React.FC = () => {
               {productNotifs && handleExtractNotifs(
                 productNotifs,
                 'ایجاد یا ویرایش محصول',
-                '#ffe5b9',
+                '#e0e2e4',
                 false,
                 `${baseAdminStoreUrl}/product_notify/`,
                 ['productNotifications',"products","categoryProducts"]
@@ -127,7 +127,7 @@ const Index: React.FC = () => {
               {productImageNotifs && handleExtractNotifs(
                 productImageNotifs,
                 'ایجاد یا تغییر عکس محصول',
-                '#c9cbff',
+                '#c0ded9',
                 true,
                 `${baseAdminStoreUrl}/product_images/`,
                 ['productImageNotifications',"products","categoryProducts"]

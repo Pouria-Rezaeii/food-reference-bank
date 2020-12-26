@@ -14,6 +14,8 @@ const Index = () => {
           <p className="text-muted m-t-0">
             اسلایدر های مورد نظر خود را برای نمایش در صفحه اصلی انتخاب نمایید.
           </p>
+          <p style={{color:'red'}}>* حجم فایل انتخابی نباید بیش از یک مگابایت باشد.</p>
+
           <div className="row el-element-overlay">
             <Main />
           </div>

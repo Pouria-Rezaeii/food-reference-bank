@@ -22,6 +22,7 @@ const Pagination: React.FC<IProps> = ({
         className={`paginate_button page-item previous ${
           currentPage === 1 && "disabled"
         }`}
+        style = {{cursor:'pointer'}}
       >
         <a
           href="#"

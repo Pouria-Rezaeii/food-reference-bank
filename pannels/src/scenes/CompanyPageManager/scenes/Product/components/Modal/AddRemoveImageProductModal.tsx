@@ -77,7 +77,9 @@ const AddRemoveImageProductModal = ({ ProductId }: IProps) => {
     try {
       mutate1(image);
         toast.info("عکس جدید برای محصول مورد نظر با موفقیت اضافه شد.")
-    } catch {}
+    } catch {
+      toast.error("افزودن عکس جدید برای محصول مورد نظر با مشکل مواجه شد.")
+    }
     return new Promise((res) => res);
   };
 

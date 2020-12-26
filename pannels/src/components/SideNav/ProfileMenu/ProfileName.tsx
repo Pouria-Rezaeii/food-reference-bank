@@ -8,7 +8,8 @@ const ProfileName: React.FC<IProps> = ({ name, handleToggleProfileMenu }) => {
   return (
     <div
       onClick={handleToggleProfileMenu}
-      className="dropdown-toggle u-dropdown link hide-menu"
+      className="dropdown-toggle u-dropdown link hide-menu pointer"
+      style={{cursor:'pointer'}}
     >
       {name}
     </div>

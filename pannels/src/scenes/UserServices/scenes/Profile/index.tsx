@@ -75,7 +75,7 @@ export const Index = () => {
       <div className="card card-body">
         <h4 className="card-title">پروفایل</h4>
         <h5 className="card-subtitle">
-          ازین قسمت میتوانید پروفایل خود را مشاهده و درصورت نیاز تغییر دهید
+          ازین قسمت می توانید پروفایل خود را مشاهده و درصورت نیاز تغییر دهید
         </h5>
         {!data && <Spinner />}
         {data && (

@@ -77,10 +77,12 @@ const HandleUpdatePRDetails = (PRDatials: IPRDatials) => {
     try {
         mutate(PRDatials);
         userState.rule === "admin" || userState.rule === "adminCompany"
-        ? toast.warning(" اطلاعات محصول مورد نظر با موفقیت ویرایش شد")
-        : toast.warning("در خواست ویرایش محصول مورد نظر برای ادمین ارسال شد.");
+        ? toast.success(" اطلاعات محصول مورد نظر با موفقیت ویرایش شد")
+        : toast.success("در خواست ویرایش محصول مورد نظر برای مدیریت ارسال شد.");
         modalDispatch({ type: EModalActionTypes.HIDE_MODAL });
-    } catch {}
+    } catch {
+      toast.error("ویرایش محصول با مشکل مواجه شد.دوباره سعی نمایید.")
+    }
   };
 
   return (

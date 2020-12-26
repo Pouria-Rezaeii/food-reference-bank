@@ -27,7 +27,7 @@ const statusName=status==="a" ? "غیر فعال": "معلق"
       try{
           if(status==="a"){
               await mutate({id:id!,status: "s"})
-              toast.warning("وضعیت شرکت غیرفعال شد");
+              toast.success("وضعیت شرکت غیرفعال شد");
           }
           if(status==="s"){
               await mutate({id:id!,status: "a"})
